@@ -11,8 +11,8 @@ engine = create_engine(connection_string)
 
 try:
     #dataframe for teams
-    men_df = usports_team_stats('women')
-    women_df = usports_team_stats('men')
+    men_df = usports_team_stats('men')
+    women_df = usports_team_stats('women')
 
     #datafram for players
     men_players_df = usports_player_stats('men')
