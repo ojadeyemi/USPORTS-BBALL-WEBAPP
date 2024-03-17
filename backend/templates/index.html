@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Team List</title>
+    <!-- Reference the CSS file -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <h1 >Team List</h1>
+    <div id="team-list" class="team-container">
+        {% for team in teams %}
+        <div class="team">
+            <img src="{{ url_for('static', filename='team_logos/' + team.team_name +'.png') }}" alt="Team Logo">
+            <div class="team-info">
+                <div class="team-name">{{ team.team_name }}</div>
+                <div class="conference">Conference: {{ team.conference }}</div>
+                <div class="last-10">Last 10 Games: {{ team.last_ten_games }}</div>
+                <div class="conference-efficiency">Offensive Efficiency: {{ team.offensive_efficiency }}</div>
+                <div class="defensive-efficiency">Defensive Efficiency: {{ team.defensive_efficiency }}</div>
+                <div class="net-efficiency">Net Efficiency: {{ team.net_efficiency }}</div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
