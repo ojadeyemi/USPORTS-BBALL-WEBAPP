@@ -4,30 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>U Sports Basketball Statistics</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/base.css') }}">
+    <link href="{{ url_for('static', filename='css/output.css') }}" rel="stylesheet">
 </head>
 <body>
     <!-- Header -->
-    <header>
-        <div class="header-left">
-            <h1>U Sports Basketball Statistics</h1>
-        </div>
+    <header class="bg-gray-900 text-white py-4 px-6 flex justify-between items-center">
+        <h1 class="text-2xl">U Sports Basketball Statistics</h1>
         <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/about">About</a></li>
+            <ul class="flex">
+                <li class="mr-4"><a href="/" class="hover:text-gray-300">Home</a></li>
+                <li><a href="/about" class="hover:text-gray-300">About</a></li>
             </ul>
         </nav>
     </header>
 
     <!-- Main content -->
-    <main>
-        {% block content %}{% endblock %}
+    <main class="py-8 px-6">
+        <body class="bg-gray-900 text-white">
+            {% block content %}
+            {% endblock %}
+        </body>
+  
     </main>
 
     <!-- Footer -->
-    <footer>
-        <p>&copy; 2024 OJ Adeyemi | <a href="https://www.linkedin.com/in/oj-adeyemi/">LinkedIn</a></p>
+    <footer class="bg-gray-900 text-white py-4 px-6 text-center">
+        <p>&copy; 2024 OJ Adeyemi | 
+            <a href="https://www.linkedin.com/in/oj-adeyemi/" class="hover:text-gray-300">
+                LinkedIn
+            </a>
+        </p>
     </footer>
 </body>
 </html>

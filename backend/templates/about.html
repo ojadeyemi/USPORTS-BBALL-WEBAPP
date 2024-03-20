@@ -1,30 +1,32 @@
 {% extends "base.html" %}
 
 {% block content %}
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/home.css') }}">
     <section class="about-section">
-        <h2>About Me</h2>
+        <h2 class="text-3xl mt-0">About Me</h2>
         <p>Welcome to U Sports Basketball Statistics, a personal project by OJ, a computer science student. This website serves as my platform to share analytics and insights into the Canadian university basketball league, commonly known as U Sports. I'm passionate about basketball and data analysis, and this project allows me to combine both interests.</p>
         
-        <h3>Goal</h3>
+        <h3 class="text-xl">Goal</h3>
         <p>My mission is to provide basketball enthusiasts, coaches, players, and fans with valuable data-driven insights and analytics to enhance their understanding and enjoyment of U Sports basketball. Through this project, I aim to promote the sport and contribute to the growth of basketball in Canadian universities.</p>
         
-        
-        <h3>How to Use</h3>
+        <h3 class="text-xl">How to Use</h3>
         <p>Explore my website to discover valuable insights into U Sports basketball. 
             Navigate through team profiles, leaderboard stats, and standings to gain a comprehensive understanding of the league's dynamics. Whether you're a casual fan or a seasoned coach, my platform offers something for everyone.</p>
         
-        <h3>Contact Me</h3>
+        <h3 class="text-xl">Contact Me</h3>
         <p>If you have any questions, feedback, or inquiries, feel free to contact me. I value your input and am committed to continuously improving my platform to better serve the U Sports basketball community.</p>
         
         <p>Thank you for visiting U Sports Basketball Statistics. Enjoy exploring the world of Canadian university basketball!</p>
 
         <div class="league-links">
-            <h2>Visit League Sites</h2>
-            <p>Please select a league:</p>
-            <ul>
-                <li><a class="click" href="/men">Men's League</a></li>
-                <li><a class="click"href="/women">Women's League</a></li>
+            <h2 class="text-2xl">Visit League Sites</h2>
+            <p class="mb-4">Please select a league:</p>
+            <ul class="flex justify-center mb-16">
+                <li class="mr-6">
+                    <a href="/mbb" class="click inline-block px-6 py-3 text-lg border border-white rounded-full transition duration-500 ease-in-out hover:bg-white hover:text-gray-900">Men's League</a>
+                </li>
+                <li>
+                    <a href="/wbb" class="click inline-block px-6 py-3 text-lg border border-white rounded-full transition duration-500 ease-in-out hover:bg-white hover:text-gray-900">Women's League</a>
+                </li>
             </ul>
         </div>
     </section>

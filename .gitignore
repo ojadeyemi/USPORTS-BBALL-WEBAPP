@@ -1,3 +1,5 @@
 virtualenv/
 
 backend/__pycache__/
+
+backend/static/node_modules/

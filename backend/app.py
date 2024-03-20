@@ -14,12 +14,12 @@ def index():
 def about():
     return render_template("about.html")
 
-@app.route("/men")
-@app.route("/women")
+@app.route("/mbb")
+@app.route("/wbb")
 def league():
-    if request.path == "/men":
+    if request.path == "/mbb":
         Team = MenTeam
-    elif request.path == "/women":
+    elif request.path == "/wbb":
          Team = WomenTeam
     # Query the required columns from the teams table
     teams = Team.query.with_entities(
