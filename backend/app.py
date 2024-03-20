@@ -19,8 +19,10 @@ def about():
 def league():
     if request.path == "/mbb":
         Team = MenTeam
+        league_name = "Men's"
     elif request.path == "/wbb":
          Team = WomenTeam
+         league_name = "Women's"
     # Query the required columns from the teams table
     teams = Team.query.with_entities(
         Team.team_name,
@@ -33,7 +35,7 @@ def league():
         Team.games_played
     ).order_by(Team.total_wins.desc()).all()
     # Render the index.html template with the retrieved data
-    return render_template("league.html", teams=teams)
+    return render_template("league.html", teams=teams, league=league_name)
 
 
 if __name__ == "__main__":

@@ -1,24 +1,38 @@
-{% extends "base.html" %}
-
-{% block content %}
+{% extends "base.html" %} {% block content %}
 <div class="text-center">
-    <h2 class="text-center text-3xl my-8">Welcome to U Sports Basketball Statistics</h2>
-    <h3 class="text-center text-2xl my-6">Please select a league:</h3>
-    <p class="text-center text-lg mb-16">Explore the leagues below to get started.</p>
-    
-    <!-- Style for the league links -->
-    <ul class="flex justify-center mb-16">
-        <li class="mr-6">
-            <a href="/mbb" class="click inline-block px-6 py-3 text-lg border border-white rounded-full transition duration-500 ease-in-out hover:bg-white hover:text-gray-900">Men's League</a>
-        </li>
-        <li>
-            <a href="/wbb" class="click inline-block px-6 py-3 text-lg border border-white rounded-full transition duration-500 ease-in-out hover:bg-white hover:text-gray-900">Women's League</a>
-        </li>
-    </ul>
+  <h2 class="text-center text-3xl my-8">
+    Welcome to U Sports Basketball Statistics
+  </h2>
+  <h3 class="text-center text-2xl my-6">Please select a league:</h3>
+  <p class="text-center text-lg mb-16">
+    Explore the leagues below to get started.
+  </p>
 
-    <!-- Provided text -->
-    <p class="text-center text-lg leading-relaxed mb-8">Welcome to my USports basketball page! As a computer science student who loves sports, 
-        I've built this platform to offer you current standings and insightful analysis on USports basketball teams.
+  <!-- Style for the league links -->
+  <ul class="flex justify-center mb-16">
+    <li class="mr-6">
+      <a
+        href="/mbb"
+        class="click inline-block px-6 py-3 text-lg border border-white rounded-full transition duration-500 ease-in-out hover:bg-white hover:text-gray-900"
+        >Men's League</a
+      >
+    </li>
+    <li>
+      <a
+        href="/wbb"
+        class="click inline-block px-6 py-3 text-lg border border-white rounded-full transition duration-500 ease-in-out hover:bg-white hover:text-gray-900"
+        >Women's League</a
+      >
+    </li>
+  </ul>
+
+  <!-- Provided text -->
+  <div class="text-center text-lg leading-relaxed mb-8">
+    <p>
+      Welcome to my USports basketball page! As a computer science student who
+      loves sports, I've built this platform to offer you current standings and
+      insightful analysis on USports basketball teams.
     </p>
+  </div>
 </div>
 {% endblock %}

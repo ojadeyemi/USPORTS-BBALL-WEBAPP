@@ -636,6 +636,14 @@ video {
   margin-right: 0.5rem;
 }
 
+.mb-6 {
+  margin-bottom: 1.5rem;
+}
+
+.mt-8 {
+  margin-top: 2rem;
+}
+
 .block {
   display: block;
 }
@@ -670,6 +678,10 @@ video {
 
 .border-collapse {
   border-collapse: collapse;
+}
+
+.flex-col {
+  flex-direction: column;
 }
 
 .items-center {
