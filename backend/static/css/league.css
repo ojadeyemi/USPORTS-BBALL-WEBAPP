@@ -38,8 +38,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between; /* Align logo and team info */
-    margin-bottom: 10px;
-    padding: 10px;
+    margin-bottom: 1px;
+    padding: 1px;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -47,8 +47,8 @@
 
 /* Style for team image */
 .team img {
-    max-width: 60px;
-    max-height: 60px;
+    max-width: 40px;
+    max-height: 40px;
 }
 
 /* Style for team info */
@@ -69,22 +69,6 @@
     text-align: center;
 }
 
-/* Style for conference-specific teams */
-.team.OUA {
-    border-color: #007bff; /* Blue border for OUA Conference teams */
-}
-
-.team.AUS {
-    border-color: #28a745; /* Green border for AUS Conference teams */
-}
-
-.team.CW {
-    border-color:  #dc3545; /* Red border for CW Conference teams */
-}
-
-.team.RSEQ {
-    border-color: #ffc107; /* Yellow border for RSEQ Conference teams */
-}
 
 /* Body styles for dark mode */
 body {

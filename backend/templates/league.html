@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Team List</title>
+    <!-- Reference the CSS file -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/league.css') }}">
+</head>
+<body>
+    <h1>U Sports {% block league %}{% endblock %} Basketball Standings</h1>
+    <div id="filters">
+        <label for="conference-filter">Filter by Conference:</label>
+        <select id="conference-filter">
+            <option value="all">All Conferences</option>
+            <option value="OUA">OUA</option>
+            <option value="AUS">AUS </option>
+            <option value="CW">CW</option>
+            <option value="RSEQ">RSEQ</option>
+        </select>
+    </div>
+	<div id="team-list" class="team-container">
+		<div class="team-header">
+			<table>
+				<tr>
+					<th style="width: 4%"></th>
+					<th style="width: 20%">Team</th>
+					<th style="width: 10%">W</th>
+					<th style="width: 10%">L</th>
+					<th style="width: 10%">Pct</th>
+					<th style="width: 10%">GP</th>
+					<th style="width: 10%">Last 10</th>
+					<th style="width: 10%">Streak</th>
+				</tr>
+			</table>
+		</div>
+		{% for team in teams %}
+		<div class="team {{ team.conference }}">
+			<img src="{{ url_for('static', filename='team_logos/' + team.team_name +'.png') }}" alt="Team Logo">
+			<div class="team-info">
+				<table>
+					<tr>
+						<td style="width: 22%; text-align: center;">{{ team.team_name }}</td>
+						<td style="width: 10%; text-align: center;">{{ team.total_wins }}</td>
+						<td style="width: 10%; text-align: center;">{{ team.total_losses }}</td>
+						<td style="width: 10%; text-align: center;">{{ team.win_percentage }}</td>
+						<td style="width: 10%; text-align: center;">{{ team.games_played }}</td>
+						<td style="width: 10%; text-align: center;">{{ team.last_ten_games }}</td>
+						<td style="width: 10%; text-align: center;">{{ team.streak }}</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		{% endfor %}
+    
+    
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+{% endblock %}
