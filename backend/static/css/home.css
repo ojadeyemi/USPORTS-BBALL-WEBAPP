@@ -29,7 +29,7 @@ li {
     margin-right: 10px;
 }
 
-a {
+.click {
     text-decoration: none;
     color: #fff;
     font-size: 16px;
@@ -39,7 +39,7 @@ a {
     transition: background-color 0.3s ease, color 0.5s ease;
 }
 
-a:hover {
+.click:hover {
     background-color: #f0f0f0;
     color: #666;
     transition-duration: 0.5s; /* Smooth transition duration */
