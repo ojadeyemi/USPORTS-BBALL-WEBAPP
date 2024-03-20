@@ -1,32 +1,81 @@
+/* Style for team container */
 .team-container {
-    display: flex;
-    flex-wrap: wrap;
+    width: 100%;
 }
 
+/* Style for team header */
+.team-header {
+    margin-bottom: 10px;
+}
+
+/* Style for team header table */
+.team-header table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Style for team header table th */
+.team-header th {
+    padding: 8px;
+    text-align: center;
+    font-weight: bold;
+    border-bottom: 2px solid #ccc;
+}
+
+/* Style for team */
 .team {
-    flex: 0 0 calc(33.33% - 20px); /* Three columns with some spacing */
-    margin: 10px;
-    border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Align logo and team info */
+    margin-bottom: 10px;
     padding: 10px;
-    box-sizing: border-box;
-    overflow: hidden;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* Style for team image */
 .team img {
-    width: 50px; /* Adjust the size as needed */
-    height: auto; /* Maintain aspect ratio */
-    margin-right: 10px;
+    max-width: 60px;
+    max-height: 60px;
 }
 
+/* Style for team info */
 .team-info {
     flex-grow: 1;
 }
 
-.team-name {
-    font-weight: bold;
-    font-size: 18px;
+/* Style for team info table */
+.team-info table {
+    width: 100%;
+    border-collapse: collapse;
 }
 
-h1 {
+/* Style for team info table td */
+.team-info td {
+    padding: 8px;
+    border-bottom: 1px solid #ccc;
     text-align: center;
-  }
+}
+
+/* Style for alternating background color for teams */
+.team:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Style for conference-specific teams */
+.team.oua {
+    border-color: #007bff; /* Blue border for OUA Conference teams */
+}
+
+.team.aus {
+    border-color: #28a745; /* Green border for AUS Conference teams */
+}
+
+.team.cw {
+    border-color: #ffc107; /* Yellow border for CW Conference teams */
+}
+
+.team.rseq {
+    border-color: #dc3545; /* Red border for RSEQ Conference teams */
+}

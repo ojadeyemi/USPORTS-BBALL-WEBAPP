@@ -12,9 +12,11 @@ class Team(db.Model):
     team_name = db.Column(db.String(255))
     conference = db.Column(db.String(255))
     last_ten_games = db.Column(db.String(50))
-    offensive_efficiency = db.Column(db.Integer)
-    defensive_efficiency = db.Column(db.Integer)
-    net_efficiency = db.Column(db.Integer)
+    games_played = db.Column(db.Integer)
+    total_wins = db.Column(db.Integer)
+    total_losses = db.Column(db.Integer)
+    win_percentage = db.Column(db.Float(3))
+    streak = db.Column(db.String(50))
 
 
 @app.route("/")
@@ -22,12 +24,14 @@ def index():
     # Query the required columns from the teams table
     teams = Team.query.with_entities(
         Team.team_name,
-        Team.conference,
         Team.last_ten_games,
-        Team.offensive_efficiency,
-        Team.defensive_efficiency,
-        Team.net_efficiency
-    ).all()
+        Team.conference,
+        Team.total_losses,
+        Team.total_wins,
+        Team.win_percentage,
+        Team.streak,
+        Team.games_played
+    ).order_by(Team.total_wins.desc()).all()
     # Render the index.html template with the retrieved data
     return render_template("index.html", teams=teams)
 
