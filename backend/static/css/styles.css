@@ -6,6 +6,8 @@
 /* Style for team header */
 .team-header {
     margin-bottom: 10px;
+	border-radius: 10px; /* Rounded corners */
+    padding: 10px; /* Padding around the header */
 }
 
 /* Style for team header table */
@@ -16,10 +18,19 @@
 
 /* Style for team header table th */
 .team-header th {
-    padding: 8px;
+    padding: 8px; /* Adjust padding as needed */
     text-align: center;
     font-weight: bold;
     border-bottom: 2px solid #ccc;
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Box shadow for depth */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+}
+
+/* Hover effect for team header th */
+.team-header th:hover {
+    background-color: #bbb; /* Darker background color on hover */
+    color: #fff; /* Light text color on hover */
 }
 
 /* Style for team */
@@ -58,24 +69,67 @@
     text-align: center;
 }
 
-/* Style for alternating background color for teams */
-.team:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
 /* Style for conference-specific teams */
-.team.oua {
+.team.OUA {
     border-color: #007bff; /* Blue border for OUA Conference teams */
 }
 
-.team.aus {
+.team.AUS {
     border-color: #28a745; /* Green border for AUS Conference teams */
 }
 
-.team.cw {
-    border-color: #ffc107; /* Yellow border for CW Conference teams */
+.team.CW {
+    border-color:  #dc3545; /* Red border for CW Conference teams */
 }
 
-.team.rseq {
-    border-color: #dc3545; /* Red border for RSEQ Conference teams */
+.team.RSEQ {
+    border-color: #ffc107; /* Yellow border for RSEQ Conference teams */
 }
+
+/* Body styles for dark mode */
+body {
+    background-color: #1e1e1e; /* Dark background color */
+    color: #fff; /* Light text color */
+}
+
+/* Styles for heading */
+h1 {
+    text-align: center;
+    font-size: 32px;
+    color: #fff; /* Light text color */
+    margin-bottom: 20px;
+}
+
+/* Styles for filters container */
+#filters {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* Styles for filter label */
+label {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ccc; /* Lighter text color */
+    margin-right: 10px;
+}
+
+/* Select box styles */
+select {
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #333; /* Darker background color */
+    color: #fff; /* Light text color */
+}
+
+/* Styles for select box options */
+option {
+    font-size: 16px;
+    color: #fff; /* Light text color */
+    background-color: #333; /* Darker background color */
+}
+
+/* Additional styles for dark mode */
+/* Add more styles as needed */
