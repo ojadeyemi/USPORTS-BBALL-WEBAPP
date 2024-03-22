@@ -7,6 +7,7 @@ db = SQLAlchemy()
 class MenTeam(db.Model):
     __tablename__ = "men_team_test"
     team_id = db.Column(db.Integer, primary_key=True)
+    players = db.relationship("MenPlayers", back_populates="school_team")
     team_name = db.Column(db.String(255))
     conference = db.Column(db.String(10))
     last_ten_games = db.Column(db.String(50))
@@ -15,10 +16,12 @@ class MenTeam(db.Model):
     total_losses = db.Column(db.Integer)
     win_percentage = db.Column(db.Float(precision=1))
     streak = db.Column(db.String(50))
+    
 
 class WomenTeam(db.Model):
     __tablename__ = "women_team_test"
     team_id = db.Column(db.Integer, primary_key=True)
+    players = db.relationship("WomenPlayers", back_populates="school_team")
     team_name = db.Column(db.String(255))
     conference = db.Column(db.String(10))
     last_ten_games = db.Column(db.String(50))
@@ -32,6 +35,7 @@ class MenPlayers(db.Model):
     __tablename__ = "men_players_test"
     player_id = db.Column(db.Integer, primary_key=True)
     team_id = db.Column(db.Integer, db.ForeignKey('men_team_test.team_id'))
+    school_team = db.relationship("MenTeam", back_populates="players")
     first_name = db.Column(db.String(255))
     lastname_initials = db.Column(db.String(2))
     school = db.Column(db.String(255))
@@ -58,12 +62,14 @@ class MenPlayers(db.Model):
     free_throws_made = db.Column(db.Integer)
     free_throws_attempted = db.Column(db.Integer)
     free_throws_percentage = db.Column(db.Float)
+    
 
 
 class WomenPlayers(db.Model):
     __tablename__ = "women_players_test"
     player_id = db.Column(db.Integer, primary_key=True)
     team_id = db.Column(db.Integer, db.ForeignKey('women_team_test.team_id'))
+    school_team = db.relationship("WomenTeam", back_populates="players")
     first_name = db.Column(db.String(255))
     lastname_initials = db.Column(db.String(2))
     school = db.Column(db.String(255))
