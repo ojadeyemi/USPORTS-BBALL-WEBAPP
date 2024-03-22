@@ -11,14 +11,14 @@
     <button id="leaderboardBtn" class="text-white font-semibold">
       Leaderboard
     </button>
-    <button id="teamanalyticsBtn" class="text-white font-semibold">
+    <button id="teamAnalyticsBtn" class="text-white font-semibold">
       Team Analytics
     </button>
-    <button id="playeranalyticsBtn" class="text-white font-semibold">
+    <button id="playerAnalyticsBtn" class="text-white font-semibold">
       Player Analytics
     </button>
   </nav>
-  <div id="standings-section" style="display: block">
+  <div id="standings-section" style="display: none">
     <div id="filters" class="text-center mt-8 mb-8">
       <label for="conference-filter" class="text-white font-bold mr-2"
         >Filter by Conference:</label
@@ -92,21 +92,167 @@
       {% endfor %}
     </div>
   </div>
-  <div id="playerleaderboard-section" style="display: none">
-    <p class="text-clip text-2xl hover:first-letter:top-0">
-      This will have leaderboard stuff
-    </p>
+  <div id="playerleaderboard-section" style="display: block">
+    <div class="team-header bg-gray-800 rounded-lg shadow-md mb-8">
+      <table class="w-full">
+        <tr>
+          <th style="width: 4%" class="py-2"></th>
+          <th style="width: 20%" class="py-2">FIX FOR LOOP FOR THIS PAGE</th>
+          <th style="width: 10%" class="py-2">W</th>
+        </tr>
+      </table>
+    </div>
+    <div class="text-center">
+      <h2 class="text-xl font-bold mb-4">Points per game</h2>
+    </div>
+    {% for player in (players|sort(attribute='points_per_game',
+    reverse=true))[:5] %}
+    <div class="bg-slate-950 rounded-lg shadow-md flex justify-between mb-2">
+      <img
+        src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}"
+        alt="Team Logo"
+        class="max-w-10 max-h-10"
+      />
+      <p class="mb-1">{{ player.lastname_initials }}</p>
+      <p class="mb-1">{{ player.first_name }}</p>
+      <p class="mb-1">{{ player.points_per_game }}</p>
+    </div>
+    {% endfor %}
+
+    <div class="text-center">
+      <h2 class="text-xl font-bold mb-4">Rebounds per game</h2>
+    </div>
+    {% for player in (players|sort(attribute='rebounds_per_game',
+    reverse=true))[:5] %}
+    <div class="bg-slate-950 rounded-lg shadow-md flex justify-between mb-2">
+      <img
+        src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}"
+        alt="Team Logo"
+        class="max-w-10 max-h-10"
+      />
+      <p class="mb-1">{{ player.lastname_initials }}</p>
+      <p class="mb-1">{{ player.first_name }}</p>
+      <p class="mb-1">{{ player.rebounds_per_game }}</p>
+    </div>
+    {% endfor %}
+
+    <div class="text-center">
+      <h2 class="text-xl font-bold mb-4">Assists per game</h2>
+    </div>
+    {% for player in(players|sort(attribute='assists_per_game',
+    reverse=true))[:5] %}
+    <div class="bg-slate-950 rounded-lg shadow-md flex justify-between mb-2">
+      <img
+        src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}"
+        alt="Team Logo"
+        class="max-w-10 max-h-10"
+      />
+      <p class="mb-1">{{ player.lastname_initials }}</p>
+      <p class="mb-1">{{ player.first_name }}</p>
+      <p class="mb-1">{{ player.assists_per_game }}</p>
+    </div>
+    {% endfor %}
+
+    <div class="text-center">
+      <h2 class="text-xl font-bold mb-4">Field Goal Percentage</h2>
+    </div>
+    {% for player in (players|sort(attribute='field_goal_percentage',
+    reverse=true))[:5] %} {% if player.field_goal_attempted > 50 %}
+    <div class="bg-slate-950 rounded-lg shadow-md flex justify-between mb-2">
+      <img
+        src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}"
+        alt="Team Logo"
+        class="max-w-10 max-h-10"
+      />
+      <p class="mb-1">{{ player.lastname_initials }}</p>
+      <p class="mb-1">FIX LATER READ DOCS</p>
+      <p class="mb-1">{{ player.first_name }}</p>
+      <p class="mb-1">{{ player.field_goal_percentage }}</p>
+    </div>
+    {% endif %} {% endfor %}
+
+    <div class="text-center">
+      <h2 class="text-xl font-bold mb-4">Three pointers made per game</h2>
+    </div>
+    {% for player in (players|sort(attribute='three_pointers_made_per_game',
+    reverse=true))[:5] %}
+    <div class="bg-slate-950 rounded-lg shadow-md flex justify-between mb-2">
+      <img
+        src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}"
+        alt="Team Logo"
+        class="max-w-10 max-h-10"
+      />
+      <p class="mb-1">{{ player.lastname_initials }}</p>
+      <p class="mb-1">{{ player.first_name }}</p>
+      <p class="mb-1">{{ player.three_pointers_made_per_game }}</p>
+    </div>
+    {% endfor %}
+
+    <div class="text-center">
+      <h2 class="text-xl font-bold mb-4">
+        three_pointers_percentage FIX LATER
+      </h2>
+    </div>
+    {% for player in (players|sort(attribute='field_goal_percentage',
+    reverse=true))[:5] %}
+    <div class="bg-slate-950 rounded-lg shadow-md flex justify-between mb-2">
+      <img
+        src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}"
+        alt="Team Logo"
+        class="max-w-10 max-h-10"
+      />
+      <p class="mb-1">{{ player.lastname_initials }}</p>
+      <p class="mb-1">{{ player.first_name }}</p>
+      <p class="mb-1">{{ player.three_pointers_percentage }}</p>
+    </div>
+    {% endfor %}
+    <div class="text-center">
+      <h2 class="text-xl font-bold mb-4">blocks_per_game</h2>
+    </div>
+    {% for player in (players|sort(attribute='blocks_per_game',
+    reverse=true))[:5] %}
+    <div class="bg-slate-950 rounded-lg shadow-md flex justify-between mb-2">
+      <img
+        src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}"
+        alt="Team Logo"
+        class="max-w-10 max-h-10"
+      />
+      <p class="mb-1">{{ player.lastname_initials }}</p>
+      <p class="mb-1">{{ player.first_name }}</p>
+      <p class="mb-1">{{ player.blocks_per_game }}</p>
+    </div>
+    {% endfor %}
+
+    <div class="text-center">
+      <h2 class="text-xl font-bold mb-4">steals_per_game</h2>
+    </div>
+    {% for player in (players|sort(attribute='steals_per_game',
+    reverse=true))[:5] %}
+    <div class="bg-slate-950 rounded-lg shadow-md flex justify-between mb-2">
+      <img
+        src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}"
+        alt="Team Logo"
+        class="max-w-10 max-h-10"
+      />
+      <p class="mb-1">{{ player.lastname_initials }}</p>
+      <p class="mb-1">{{ player.first_name }}</p>
+      <p class="mb-1">{{ player.steals_per_game }}</p>
+    </div>
+    {% endfor %}
   </div>
 
   <div id="teamanalytics-section" style="display: none">
     <p class="text-clip text-2xl hover:first-letter:top-0">
-      This will have lTeam ANalytics stuff
+      This will have Team Analytics stuff
+    </p>
+    <p class="text-clip text-2xl hover:first-letter:top-0">
+      Thinsg like offene % leaders and defense leaders and other advance stats
     </p>
   </div>
 
-    <div id="playeranalytics-section" style="display: none">
+  <div id="playeranalytics-section" style="display: none">
     <p class="text-clip text-2xl hover:first-letter:top-0">
-      This will have lTeam ANalytics stuff
+      This will have PLAYER ANALYTICS
     </p>
   </div>
   <script src="{{ url_for('static', filename='js/script.js') }}"></script>

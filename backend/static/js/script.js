@@ -2,7 +2,6 @@ document
   .getElementById("playerAnalyticsBtn")
   .addEventListener("click", showPlayerAnalytics);
 
-// Event listeners for navigation buttons or links
 document
   .getElementById("standingsBtn")
   .addEventListener("click", showStandings);
@@ -16,7 +15,7 @@ document
   .addEventListener("click", showLeaderboard);
 
 document
-  .getElementById("teamanalyticsBtn")
+  .getElementById("teamAnalyticsBtn")
   .addEventListener("click", showTeamAnalytics);
 
 // Function to show standings section
