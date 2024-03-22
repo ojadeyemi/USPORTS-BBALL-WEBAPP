@@ -1,56 +1,106 @@
-{% extends "base.html" %}
-
-{% block content %}
+{% extends "base.html" %} {% block content %}
 <body>
-	<h1 class="text-center text-3xl text-white mb-8">U Sports {{ league }} Basketball Standings</h1>
+  <h1 class="text-center text-2xl text-white py-2">
+    {{ league }} Basketball League
+  </h1>
+  <!-- Navigation -->
+  <nav class="flex justify-between bg-gray-800 px-3 py-2">
+    <button id="standingsBtn" class="text-white font-semibold">
+      Standings
+    </button>
+    <button id="leaderboardBtn" class="text-white font-semibold">
+      Leaderboard
+    </button>
+    <button id="teamanalyticsBtn" class="text-white font-semibold">
+      Team Analytics
+    </button>
+    <button id="playeranalyticsBtn" class="text-white font-semibold">
+      Player Analytics
+    </button>
+  </nav>
+  <div id="standings-section" style="display: block">
+    <div id="filters" class="text-center mt-8 mb-8">
+      <label for="conference-filter" class="text-white font-bold mr-2"
+        >Filter by Conference:</label
+      >
+      <select
+        id="conference-filter"
+        class="py-2 px-4 rounded bg-gray-800 text-white hover:bg-gray-700 focus:bg-gray-700"
+      >
+        <option value="all" class="text-white">All Conferences</option>
+        <option value="OUA" class="text-white">OUA</option>
+        <option value="AUS" class="text-white">AUS</option>
+        <option value="CW" class="text-white">CW</option>
+        <option value="RSEQ" class="text-white">RSEQ</option>
+      </select>
+    </div>
 
-	<div id="filters" class="text-center mb-8">
-		<label for="conference-filter" class="text-white font-bold mr-2">Filter by Conference:</label>
-		<select id="conference-filter" class="py-2 px-4 rounded bg-gray-800 text-white">
-			<option value="all" class="text-white">All Conferences</option>
-			<option value="OUA" class="text-white">OUA</option>
-			<option value="AUS" class="text-white">AUS</option>
-			<option value="CW" class="text-white">CW</option>
-			<option value="RSEQ" class="text-white">RSEQ</option>
-		</select>
-	</div>
-	
-	<div id="team-list" class="team-container">
-		<div class="team-header bg-gray-800 rounded-lg shadow-md mb-8">
-			<table class="w-full">
-				<tr>
-					<th style="width: 4%" class="py-2"> </th>
-					<th style="width: 20%" class="py-2">Team</th>
-					<th style="width: 10%" class="py-2">W</th>
-					<th style="width: 10%" class="py-2">L</th>
-					<th style="width: 10%" class="py-2">Pct</th>
-					<th style="width: 10%" class="py-2">GP</th>
-					<th style="width: 10%" class="py-2">Last 10</th>
-					<th style="width: 10%" class="py-2">Streak</th>
-				</tr>
-			</table>
-		</div>
-	
-		{% for team in teams %}
-		<div class="team {{ team.conference }} bg-slate-950 rounded-lg shadow-md flex items-center justify-between mb-2">
-			<img src="{{ url_for('static', filename='team_logos/' + team.team_name +'.png') }}" alt="Team Logo" class="max-w-16 max-h-16">
-	
-			<div class="team-info flex-grow">
-				<table class="w-full">
-					<tr>
-						<td style="width: 22%; text-align: center;" class="py-2">{{ team.team_name }}</td>
-						<td style="width: 10%; text-align: center;" class="py-2">{{ team.total_wins }}</td>
-						<td style="width: 10%; text-align: center;" class="py-2">{{ team.total_losses }}</td>
-						<td style="width: 10%; text-align: center;" class="py-2">{{ team.win_percentage }}</td>
-						<td style="width: 10%; text-align: center;" class="py-2">{{ team.games_played }}</td>
-						<td style="width: 10%; text-align: center;" class="py-2">{{ team.last_ten_games }}</td>
-						<td style="width: 10%; text-align: center;" class="py-2">{{ team.streak }}</td>
-					</tr>
-				</table>
-			</div>
-		</div>
-		{% endfor %}
-	</div>
-	<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <div id="team-list" class="team-container">
+      <div class="team-header bg-gray-800 rounded-lg shadow-md mb-8">
+        <table class="w-full">
+          <tr>
+            <th style="width: 4%" class="py-2"></th>
+            <th style="width: 20%" class="py-2">Team</th>
+            <th style="width: 10%" class="py-2">W</th>
+            <th style="width: 10%" class="py-2">L</th>
+            <th style="width: 10%" class="py-2">Pct</th>
+            <th style="width: 10%" class="py-2">GP</th>
+            <th style="width: 10%" class="py-2">Last 10</th>
+            <th style="width: 10%" class="py-2">Streak</th>
+          </tr>
+        </table>
+      </div>
+
+      {% for team in teams %}
+      <div
+        class="team {{ team.conference }} bg-slate-950 rounded-lg shadow-md flex items-center justify-between mb-2"
+      >
+        <img
+          src="{{ url_for('static', filename='team_logos/' + team.team_name +'.png') }}"
+          alt="Team Logo"
+          class="max-w-16 max-h-16"
+        />
+
+        <div class="team-info flex-grow">
+          <table class="w-full">
+            <tr>
+              <td style="width: 22%; text-align: center" class="py-2">
+                {{ team.team_name }}
+              </td>
+              <td style="width: 10%; text-align: center" class="py-2">
+                {{ team.total_wins }}
+              </td>
+              <td style="width: 10%; text-align: center" class="py-2">
+                {{ team.total_losses }}
+              </td>
+              <td style="width: 10%; text-align: center" class="py-2">
+                {{ team.win_percentage }}
+              </td>
+              <td style="width: 10%; text-align: center" class="py-2">
+                {{ team.games_played }}
+              </td>
+              <td style="width: 10%; text-align: center" class="py-2">
+                {{ team.last_ten_games }}
+              </td>
+              <td style="width: 10%; text-align: center" class="py-2">
+                {{ team.streak }}
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  <div id="playerleaderboard-section" style="display: none">
+	<p class="text-clip text-2xl hover:first-letter:top-0">This will have leaderboard stuff </p>
+
+  </div>
+
+    <div id="teamanalytics-section" style="display: none">
+	<p class="text-clip text-2xl hover:first-letter:top-0">This will have lTeam ANalytics stuff </p>
+
+  </div>
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 {% endblock %}
