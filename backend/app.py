@@ -68,7 +68,6 @@ def league():
     Team, Player.team_id == Team.team_id
 ).all()
     
-    print(players[0])
     # Render the index.html template with the retrieved data
     return render_template("league.html", teams=teams, players=players, league=league_name)
 
