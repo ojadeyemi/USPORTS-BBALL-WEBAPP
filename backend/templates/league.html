@@ -5,26 +5,31 @@
     {{ league }} Basketball League
   </h1>
   <!-- Navigation -->
-  <div>
-    <nav class="grid grid-flow-col justify-stretch bg-gray-800 px-3 py-2 mb-5 ">
-      <button id="standingsBtn"
-        class="text-white font-semibold hover:bg-gray-900 hover:text-violet-300 active:bg-violet-700 focus:outline-none  focus:ring focus:ring-slate-900 px-4 py-2 transition duration-300">
+  <div class="flex justify-center sm:flex-col sm:items-center md:flex-col md:items-center">
+    <div
+      class="inline-flex justify-stretch rounded-md shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-1 dark:focus:shadow-dark-1 dark:active:shadow-dark-1"
+      role="group">
+      <button id="standingsBtn" type="button"
+        class="inline-block bg-gray-800 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white transition duration-300 hover:bg-gray-900 hover:text-violet-300 active:bg-violet-700 focus:outline-none focus:ring focus:ring-slate-900 motion-reduce:transition-none"
+        data-twe-ripple-init data-twe-ripple-color="light">
         Standings
       </button>
-      <button id="leaderboardBtn"
-        class="text-white font-semibold hover:bg-gray-900 hover:text-violet-300 active:bg-violet-700  focus:outline-none focus:ring focus:ring-slate-900 px-4 py-2 transition duration-300">
-
+      <button id="leaderboardBtn" type="button"
+        class="inline-block bg-gray-800 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white transition duration-300 hover:bg-gray-900 hover:text-violet-300 active:bg-violet-700 focus:outline-none focus:ring focus:ring-slate-900 motion-reduce:transition-none"
+        data-twe-ripple-init data-twe-ripple-color="light">
         Player Leaderboard
       </button>
-      <button id="teamAnalyticsBtn"
-        class="text-white font-semibold hover:bg-gray-900 hover:text-violet-300 active:bg-violet-700  focus:outline-none focus:ring focus:ring-slate-900 px-4 py-2 transition duration-300">
+      <button id="teamAnalyticsBtn" type="button"
+        class="inline-block bg-gray-800 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white transition duration-300 hover:bg-gray-900 hover:text-violet-300 active:bg-violet-700 focus:outline-none focus:ring focus:ring-slate-900 motion-reduce:transition-none"
+        data-twe-ripple-init data-twe-ripple-color="light">
         Team Analytics
       </button>
-      <button id="playerAnalyticsBtn"
-        class="text-white font-semibold hover:bg-gray-900 hover:text-violet-300 active:bg-violet-700 focus:outline-none focus:ring focus:ring-slate-900 px-4 py-2 transition duration-300">
+      <button id="playerAnalyticsBtn" type="button"
+        class="inline-block bg-gray-800 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white transition duration-300 hover:bg-gray-900 hover:text-violet-300 active:bg-violet-700 focus:outline-none focus:ring focus:ring-slate-900 motion-reduce:transition-none"
+        data-twe-ripple-init data-twe-ripple-color="light">
         Player Analytics
       </button>
-    </nav>
+    </div>
   </div>
   <div id="standings-section" style="display: block">
     <div id="filters" class="text-left mt-8 mb-8">
@@ -292,22 +297,37 @@
   </div>
 
   <div id="teamanalytics-section" style="display: none">
-    <div class="flex justify-center items-center h-screen">
-      <p
-        class="text-4xl font-bold text-center text-white glow shadow-lg relative top-[-10px] hover:text-violet-300 px-4 py-2 transition duration-1000">
-        <br>TEAM ANALYTICS SECTION</br> COMING SOON!
-      </p>
+    <div class="max-h-screen flex flex-col justify-center items-center">
+      <img src="https://www.svgrepo.com/show/426192/cogs-settings.svg" alt="Logo" class="mb-8 h-40">
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-center text-gray-700 dark:text-white mb-4">This page
+        is
+        under maintenance</h1>
+      <p class="text-center text-gray-500 dark:text-gray-300 text-lg md:text-xl lg:text-2xl mb-8">We're working hard
+        to
+        improve the user experience. Stay tuned!</p>
+      <div class="flex space-x-4">
+        <a href="/#bottom"
+          class="bg-gray-800 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded dark:bg-gray-700 dark:hover:bg-gray-600">Contact
+          Me</a>
+        <a href="#" onclick="window.location.reload(true);"
+          class="border-2 border-gray-800 text-black font-bold py-3 px-6 rounded dark:text-white dark:border-white">Standings</a>
+      </div>
     </div>
   </div>
 
   <div id="playeranalytics-section" style="display: none">
     <div class="max-h-screen flex flex-col justify-center items-center">
       <img src="https://www.svgrepo.com/show/426192/cogs-settings.svg" alt="Logo" class="mb-8 h-40">
-      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-center text-gray-700 dark:text-white mb-4">This page is under maintenance</h1>
-      <p class="text-center text-gray-500 dark:text-gray-300 text-lg md:text-xl lg:text-2xl mb-8">We're working hard to improve the user experience. Stay tuned!</p>
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-center text-gray-700 dark:text-white mb-4">This page is
+        under maintenance</h1>
+      <p class="text-center text-gray-500 dark:text-gray-300 text-lg md:text-xl lg:text-2xl mb-8">We're working hard to
+        improve the user experience. Stay tuned!</p>
       <div class="flex space-x-4">
-        <a href="/#bottom" class="bg-gray-800 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded dark:bg-gray-700 dark:hover:bg-gray-600">Contact Me</a>
-        <a href="#" onclick="window.location.reload(true);" class="border-2 border-gray-800 text-black font-bold py-3 px-6 rounded dark:text-white dark:border-white">Standings</a>
+        <a href="/#bottom"
+          class="bg-gray-800 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded dark:bg-gray-700 dark:hover:bg-gray-600">Contact
+          Me</a>
+        <a href="#" onclick="window.location.reload(true);"
+          class="border-2 border-gray-800 text-black font-bold py-3 px-6 rounded dark:text-white dark:border-white">Standings</a>
       </div>
     </div>
   </div>
