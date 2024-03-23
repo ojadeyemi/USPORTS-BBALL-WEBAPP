@@ -1,44 +1,34 @@
 {% extends "base.html" %} {% block content %}
+
 <body>
-  <h1 class="text-center text-2xl text-white py-2">
+  <h1 class="text-center font-bold text-4xl text-white py-5">
     {{ league }} Basketball League
   </h1>
   <!-- Navigation -->
-  <nav class="flex justify-between bg-gray-800 px-3 py-2 mb-4">
-    <button
-      id="standingsBtn"
-      class="text-white font-semibold hover:bg-gray-900 hover:text-gray-300 px-4 py-2 transition duration-300"
-    >
+  <nav class="grid grid-flow-col justify-stretch bg-gray-800 px-3 py-2 mb-5">
+    <button id="standingsBtn"
+      class="text-white font-semibold hover:bg-gray-900 hover:text-violet-300 active:bg-violet-700 focus:outline-none  focus:ring focus:ring-slate-900 px-4 py-2 transition duration-300">
       Standings
     </button>
-    <button
-      id="leaderboardBtn"
-      class="text-white font-semibold hover:bg-gray-900 hover:text-gray-300 px-4 py-2 transition duration-300"
-    >
-      Leaderboard
+    <button id="leaderboardBtn"
+      class="text-white font-semibold hover:bg-gray-900 hover:text-violet-300 active:bg-violet-700  focus:outline-none focus:ring focus:ring-slate-900 px-4 py-2 transition duration-300">
+
+      Player Leaderboard
     </button>
-    <button
-      id="teamAnalyticsBtn"
-      class="text-white font-semibold hover:bg-gray-900 hover:text-red-500 px-4 py-2 transition duration-300"
-    >
+    <button id="teamAnalyticsBtn"
+      class="text-white font-semibold hover:bg-gray-900 hover:text-violet-300 active:bg-violet-700  focus:outline-none focus:ring focus:ring-slate-900 px-4 py-2 transition duration-300">
       Team Analytics
     </button>
-    <button
-      id="playerAnalyticsBtn"
-      class="text-white font-semibold hover:bg-gray-900 hover:text-violet-300 px-4 py-2 transition duration-300"
-    >
+    <button id="playerAnalyticsBtn"
+      class="text-white font-semibold hover:bg-gray-900 hover:text-violet-300 active:bg-violet-700 focus:outline-none focus:ring focus:ring-slate-900 px-4 py-2 transition duration-300">
       Player Analytics
     </button>
   </nav>
   <div id="standings-section" style="display: none">
-    <div id="filters" class="text-center mt-8 mb-8">
-      <label for="conference-filter" class="text-white font-bold mr-2"
-        >Filter by Conference:</label
-      >
-      <select
-        id="conference-filter"
-        class="py-2 px-4 rounded bg-gray-800 text-white hover:bg-gray-700 focus:bg-gray-700"
-      >
+    <div id="filters" class="text-left mt-8 mb-8">
+      <label for="conference-filter" class="text-white font-bold mr-2">Filter by Conference:</label>
+      <select id="conference-filter"
+        class="py-2 px-4 rounded bg-gray-800 text-white hover:bg-gray-700 focus:bg-gray-700">
         <option value="all" class="text-white">All Conferences</option>
         <option value="OUA" class="text-white">OUA</option>
         <option value="AUS" class="text-white">AUS</option>
@@ -64,14 +54,9 @@
       </div>
 
       {% for team in teams %}
-      <div
-        class="team {{ team.conference }} bg-slate-950 rounded-lg shadow-md flex items-center justify-between mb-2"
-      >
-        <img
-          src="{{ url_for('static', filename='team_logos/' + team.team_name +'.png') }}"
-          alt="Team Logo"
-          class="max-w-16 max-h-16"
-        />
+      <div class="team {{ team.conference }} bg-slate-950 rounded-lg shadow-md flex items-center justify-between mb-2">
+        <img src="{{ url_for('static', filename='team_logos/' + team.team_name +'.png') }}" alt="Team Logo"
+          class="max-w-16 max-h-16" />
 
         <div class="team-info flex-grow">
           <table class="w-full">
@@ -104,172 +89,221 @@
       {% endfor %}
     </div>
   </div>
+
   <div id="playerleaderboard-section" style="display: block">
-    <!-- numval filters out only top n items( n = 5 )-->
-    {% set numval = 5 %}
-    <div class="team-header bg-gray-800 rounded-lg shadow-md mb-8">
+    {% set numval = 10 %}
+
+    <div class="text-center sm:pl-4 md:pl-6">
+      <h2 class="text-2xl font-bold mb-5 mt-12">Points per game</h2>
+    </div>
+    <!-- shgow top 10 only make vertical margins or paddings smaller -->
+    <div style="margin: 0 auto; width: 90%;" class="bg-slate-950 rounded-lg shadow-md mb-5 ">
       <table class="w-full">
-        <tr>
-          <th style="width: 4%" class="py-2"></th>
-          <th style="width: 20%" class="py-2">FIX FOR LOOP FOR THIS PAGE</th>
-          <th style="width: 10%" class="py-2">W</th>
+        {% set count = namespace(value=numval) %} {% for player in
+        (players|sort(attribute='points_per_game', reverse=true)) %} {% if
+        player.games_played > (0.6 * player.team_games_played) %}{%if count.value >= 1%}
+
+        <tr class="pb-4  even:bg-slate-900">
+          <td class="py-1 w-1/12 pl-3">{{ numval - count.value + 1}}</td>
+          <td class="py-1 font-bold">{{ player.lastname_initials }} &nbsp {{ player.first_name }}</td>
+          <td class="py-1 w-1/12"><img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}"
+              alt="Team Logo" class="max-w-10 max-h-10" /> </td>
+          <td class="py-1">{{ player.school }}</td>
+          <td class="py-1 font-bold">{{ player.points_per_game }}</td>
+
         </tr>
+        {% set count.value = count.value - 1 %} {% endif %} {% endif %} {% endfor %}
       </table>
     </div>
-    <div class="text-center">
-      <h2 class="text-xl font-bold mb-4">Points per game</h2>
-    </div>
-    {% for player in (players|sort(attribute='points_per_game',
-    reverse=true))[:5] %}
-    <div class="bg-slate-950 shadow-md flex justify-between mb-2">
-      <img
-        src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}"
-        alt="Team Logo"
-        class="max-w-10 max-h-10"
-      />
-      <p class="mb-1">{{ player.lastname_initials }}</p>
-      <p class="mb-1">{{ player.first_name }}</p>
-      <p class="mb-1">{{ player.points_per_game }}</p>
-      <p class="mb-1">{{ player.team_id }}</p>
-    </div>
-    {% endfor %}
 
-    <div class="text-center">
-      <h2 class="text-xl font-bold mb-4">Rebounds per game</h2>
+    <div class="text-center pl-10 sm:pl-4 md:pl-6">
+      <h2 class="text-2xl font-bold mb-5 mt-12">Rebounds per game</h2>
     </div>
-    {% for player in (players|sort(attribute='rebounds_per_game',
-    reverse=true))[:5] %}
-    <div class="bg-slate-950 rounded-lg shadow-md flex justify-between mb-2">
-      <img
-        src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}"
-        alt="Team Logo"
-        class="max-w-10 max-h-10"
-      />
-      <p class="mb-1">{{ player.lastname_initials }}</p>
-      <p class="mb-1">{{ player.first_name }}</p>
-      <p class="mb-1">{{ player.rebounds_per_game }}</p>
-    </div>
-    {% endfor %}
-    <!--Reminder to sort if conditions or each stats according to usport website-->
-    <div class="text-center">
-      <h2 class="text-xl font-bold mb-4">Assists per game</h2>
-    </div>
-    {% for player in(players|sort(attribute='assists_per_game',
-    reverse=true))[:5] %}
-    <div class="bg-slate-950 rounded-lg shadow-md flex justify-between mb-2">
-      <img
-        src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}"
-        alt="Team Logo"
-        class="max-w-10 max-h-10"
-      />
-      <p class="mb-1">{{ player.lastname_initials }}</p>
-      <p class="mb-1">{{ player.first_name }}</p>
-      <p class="mb-1">{{ player.assists_per_game }}</p>
-    </div>
-    {% endfor %}
 
-    <div class="text-center">
-      <h2 class="text-xl font-bold mb-4">Field Goal Percentage</h2>
-    </div>
-    {% set count = namespace(value=numval) %} {% for player in
-    (players|sort(attribute='field_goal_percentage', reverse=true)) %} {% if
-    player.field_goal_attempted > 100 %}{%if count.value >= 1%}
-    <div class="bg-slate-950 rounded-lg shadow-md flex justify-between mb-2">
-      <img
-        src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}"
-        alt="Team Logo"
-        class="max-w-10 max-h-10"
-      />
-      <p class="mb-1">{{ player.lastname_initials }}</p>
-      <p class="mb-1">{{ player.first_name }}</p>
-      <p class="mb-1">{{ player.field_goal_percentage }}</p>
-    </div>
-    {% set count.value = count.value - 1 %} {% endif %} {% endif %} {% endfor %}
+    <div style="margin: 0 auto; width: 90%;" class="bg-slate-950 rounded-lg shadow-md mb-5 ">
+      <table class="w-full">
+        {% set count = namespace(value=numval) %} {% for player in
+        (players|sort(attribute='rebounds_per_game', reverse=true)) %} {% if
+        player.games_played > (0.6 * player.team_games_played) %}{%if count.value >= 1%}
 
-    <div class="text-center">
-      <h2 class="text-xl font-bold mb-4">Three pointers made per game</h2>
-    </div>
-    {% set count = namespace(value=numval) %} {% for player in
-    (players|sort(attribute='three_pointers_made_per_game', reverse=true)) %} {%
-    if player.field_goal_attempted > 100 %}{%if count.value >= 1%}
-    <div class="bg-slate-950 rounded-lg shadow-md flex justify-between mb-2">
-      <img
-        src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}"
-        alt="Team Logo"
-        class="max-w-10 max-h-10"
-      />
-      <p class="mb-1">{{ player.lastname_initials }}</p>
-      <p class="mb-1">{{ player.first_name }}</p>
-      <p class="mb-1">{{ player.three_pointers_made_per_game }}</p>
-    </div>
-    {% set count.value = count.value - 1 %} {% endif %} {% endif %} {% endfor %}
+        <tr class="pb-4  even:bg-slate-900">
+          <td class="py-1 w-1/12 pl-3">{{ numval - count.value + 1}}</td>
+          <td class="py-1 font-bold">{{ player.lastname_initials }} &nbsp {{ player.first_name }}</td>
+          <td class="py-1 w-1/12"><img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}"
+              alt="Team Logo" class="max-w-10 max-h-10" /> </td>
+          <td class="py-1">{{ player.school }}</td>
+          <td class="py-1 font-bold">{{ player.rebounds_per_game }}</td>
 
-    <div class="text-center">
-      <h2 class="text-xl font-bold mb-4">
-        three_pointers_percentage FIX LATER
+        </tr>
+        {% set count.value = count.value - 1 %} {% endif %} {% endif %} {% endfor %}
+      </table>
+    </div>
+
+
+    <div class="text-center pl-10 sm:pl-4 md:pl-6">
+      <h2 class="text-2xl font-bold mb-5 mt-12">Assists per game</h2>
+    </div>
+
+    <div style="margin: 0 auto; width: 90%;" class="bg-slate-950 rounded-lg shadow-md mb-5 ">
+      <table class="w-full">
+        {% set count = namespace(value=numval) %} {% for player in
+        (players|sort(attribute='assists_per_game', reverse=true)) %} {% if
+        player.games_played > (0.6 * player.team_games_played) %}{%if count.value >= 1%}
+
+        <tr class="pb-4  even:bg-slate-900">
+          <td class="py-1 w-1/12 pl-3">{{ numval - count.value + 1}}</td>
+          <td class="py-1 font-bold">{{ player.lastname_initials }} &nbsp {{ player.first_name }}</td>
+          <td class="py-1 w-1/12"><img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}"
+              alt="Team Logo" class="max-w-10 max-h-10" /> </td>
+          <td class="py-1">{{ player.school }}</td>
+          <td class="py-1 font-bold">{{ player.assists_per_game }}</td>
+
+        </tr>
+        {% set count.value = count.value - 1 %} {% endif %} {% endif %} {% endfor %}
+      </table>
+    </div>
+
+    <div class="text-center pl-10 sm:pl-4 md:pl-6">
+      <h2 class="text-2xl font-bold mb-5 mt-12">Field Goal Percentage</h2>
+    </div>
+
+    <div style="margin: 0 auto; width: 90%;" class="bg-slate-950 rounded-lg shadow-md mb-5 ">
+      <table class="w-full">
+        {% set count = namespace(value=numval) %} {% for player in
+        (players|sort(attribute='field_goal_percentage', reverse=true)) %}
+        {% if (player.games_played > (0.6 * player.team_games_played)) and (player.field_goal_made_per_game > 3) %}{%if
+        count.value >= 1%}
+
+        <tr class="pb-4  even:bg-slate-900">
+          <td class="py-1 w-1/12 pl-3">{{ numval - count.value + 1}}</td>
+          <td class="py-1 font-bold">{{ player.lastname_initials }} &nbsp {{ player.first_name }}</td>
+          <td class="py-1 w-1/12"><img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}"
+              alt="Team Logo" class="max-w-10 max-h-10" /> </td>
+          <td class="py-1">{{ player.school }}</td>
+          <td class="py-1 font-bold">{{ player.field_goal_percentage}}</td>
+
+        </tr>
+        {% set count.value = count.value - 1 %} {% endif %} {% endif %} {% endfor %}
+      </table>
+    </div>
+
+
+    <div class="text-center pl-10 sm:pl-4 md:pl-6">
+      <h2 class="text-2xl font-bold mb-5 mt-12">Three pointers made per game</h2>
+    </div>
+
+    <div style="margin: 0 auto; width: 90%;" class="bg-slate-950 rounded-lg shadow-md mb-5 ">
+      <table class="w-full">
+        {% set count = namespace(value=numval) %} {% for player in
+        (players|sort(attribute='three_pointers_made_per_game', reverse=true)) %} {% if
+        player.games_played > (0.6 * player.team_games_played) %}{%if count.value >= 1%}
+
+        <tr class="pb-4  even:bg-slate-900">
+          <td class="py-1 w-1/12 pl-3">{{ numval - count.value + 1}}</td>
+          <td class="py-1 font-bold">{{ player.lastname_initials }} &nbsp {{ player.first_name }}</td>
+          <td class="py-1 w-1/12"><img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}"
+              alt="Team Logo" class="max-w-10 max-h-10" /> </td>
+          <td class="py-1">{{ player.school }}</td>
+          <td class="py-1 font-bold">{{ player.three_pointers_made_per_game }}</td>
+
+        </tr>
+        {% set count.value = count.value - 1 %} {% endif %} {% endif %} {% endfor %}
+      </table>
+    </div>
+
+    <div class="text-center pl-10 sm:pl-4 md:pl-6">
+      <h2 class="text-2xl font-bold mb-5 mt-12">
+        Three Point Percentage
       </h2>
     </div>
-    {% set count = namespace(value=numval) %} {% for player in
-    (players|sort(attribute='three_pointers_percentage', reverse=true)) %} {% if
-    (player.three_pointers_made_per_game > 1) %}{%if count.value >= 1%}
-    <div class="bg-slate-950 rounded-lg shadow-md flex justify-between mb-2">
-      <img
-        src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}"
-        alt="Team Logo"
-        class="max-w-10 max-h-10"
-      />
-      <p class="mb-1">{{ player.lastname_initials }}</p>
-      <p class="mb-1">{{ player.first_name }}</p>
-      <p class="mb-1">{{ player.three_pointers_percentage }}</p>
-    </div>
-    {% set count.value = count.value - 1 %} {% endif %} {% endif %} {% endfor %}
 
-    <div class="text-center">
-      <h2 class="text-xl font-bold mb-4">
-        blocks_per_game sort out if condition statemetns
+    <div style="margin: 0 auto; width: 90%;" class="bg-slate-950 rounded-lg shadow-md mb-5 ">
+      <table class="w-full">
+        {% set count = namespace(value=numval) %} {% for player in
+        (players|sort(attribute='three_pointers_percentage', reverse=true)) %}
+        {% if (player.games_played > (0.6 * player.team_games_played)) and (player.three_pointers_made_per_game > 1)
+        %}{%if
+        count.value >= 1%}
+
+        <tr class="pb-4  even:bg-slate-900">
+          <td class="py-1 w-1/12 pl-3">{{ numval - count.value + 1}}</td>
+          <td class="py-1 font-bold">{{ player.lastname_initials }} &nbsp {{ player.first_name }}</td>
+          <td class="py-1 w-1/12"><img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}"
+              alt="Team Logo" class="max-w-10 max-h-10" /> </td>
+          <td class="py-1">{{ player.school }}</td>
+          <td class="py-1 font-bold">{{ player.three_pointers_percentage }}</td>
+
+        </tr>
+        {% set count.value = count.value - 1 %} {% endif %} {% endif %} {% endfor %}
+      </table>
+    </div>
+
+    <div class="text-center pl-10 sm:pl-4 md:pl-6">
+      <h2 class="text-2xl font-bold mb-5 mt-12">
+        Blocks per Game
       </h2>
     </div>
-    {% for player in (players|sort(attribute='blocks_per_game',
-    reverse=true))[:5] %}
-    <div class="bg-slate-950 rounded-lg shadow-md flex justify-between mb-2">
-      <img
-        src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}"
-        alt="Team Logo"
-        class="max-w-10 max-h-10"
-      />
-      <p class="mb-1">{{ player.lastname_initials }}</p>
-      <p class="mb-1">{{ player.first_name }}</p>
-      <p class="mb-1">{{ player.blocks_per_game }}</p>
-    </div>
-    {% endfor %}
 
-    <div class="text-center">
-      <h2 class="text-xl font-bold mb-4">steals_per_game</h2>
+    <div style="margin: 0 auto; width: 90%;" class="bg-slate-950 rounded-lg shadow-md mb-5 ">
+      <table class="w-full">
+
+        {% set count = namespace(value=numval) %} {% for player in
+        (players|sort(attribute='blocks_per_game', reverse=true)) %} {% if
+        player.games_played > (0.6 * player.team_games_played) %}{%if count.value >= 1%}
+
+        <tr class="pb-4  even:bg-slate-900">
+          <td class="py-1 w-1/12 pl-3">{{ numval - count.value + 1}}</td>
+          <td class="py-1 font-bold">{{ player.lastname_initials }} &nbsp {{ player.first_name }}</td>
+          <td class="py-1 w-1/12"><img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}"
+              alt="Team Logo" class="max-w-10 max-h-10" /> </td>
+          <td class="py-1">{{ player.school }}</td>
+          <td class="py-1 font-bold">{{ player.blocks_per_game }}</td>
+
+        </tr>
+        {% set count.value = count.value - 1 %} {% endif %} {% endif %} {% endfor %}
+      </table>
     </div>
-    {% for player in (players|sort(attribute='steals_per_game',
-    reverse=true))[:5] %}
-    <div class="bg-slate-950 rounded-lg shadow-md flex justify-between mb-2">
-      <img
-        src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}"
-        alt="Team Logo"
-        class="max-w-10 max-h-10"
-      />
-      <p class="mb-1">{{ player.lastname_initials }}</p>
-      <p class="mb-1">{{ player.first_name }}</p>
-      <p class="mb-1">{{ player.steals_per_game }}</p>
+
+    <div class="text-center pl-10 sm:pl-4 md:pl-6">
+      <h2 class="text-2xl font-bold mb-5 mt-12">Steals Per Game</h2>
     </div>
-    {% endfor %}
+
+    <div style="margin: 0 auto; width: 90%;" class="bg-slate-950 rounded-lg shadow-md mb-5 ">
+      <table class="w-full">
+
+        {% set count = namespace(value=numval) %} {% for player in
+        (players|sort(attribute='steals_per_game', reverse=true)) %} {% if
+        player.games_played > (0.6 * player.team_games_played) %}{%if count.value >= 1%}
+
+        <tr class="pb-4  even:bg-slate-900">
+          <td class="py-1 w-1/12 pl-3">{{ numval - count.value + 1}}</td>
+          <td class="py-1 font-bold">{{ player.lastname_initials }} &nbsp {{ player.first_name }}</td>
+          <td class="py-1 w-1/12"><img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}"
+              alt="Team Logo" class="max-w-10 max-h-10" /> </td>
+          <td class="py-1">{{ player.school }}</td>
+          <td class="py-1 font-bold">{{ player.steals_per_game }}</td>
+
+        </tr>
+        {% set count.value = count.value - 1 %} {% endif %} {% endif %} {% endfor %}
+      </table>
+    </div>
   </div>
 
   <div id="teamanalytics-section" style="display: none">
     <div class="flex justify-center items-center h-screen">
-      <p class="text-4xl font-bold text-center text-white glow shadow-lg relative top-[-10px] hover:text-violet-300 px-4 py-2 transition duration-1000"><br>TEAM ANALYTICS SECTION</br> COMING SOON!</p>
+      <p
+        class="text-4xl font-bold text-center text-white glow shadow-lg relative top-[-10px] hover:text-violet-300 px-4 py-2 transition duration-1000">
+        <br>TEAM ANALYTICS SECTION</br> COMING SOON!
+      </p>
     </div>
   </div>
 
   <div id="playeranalytics-section" style="display: none">
     <div class="flex justify-center items-center h-screen">
-      <p class="text-4xl font-bold text-center shadow-lg relative top-[-10px] hover:text-violet-300 px-4 py-2 transition duration-1000"><br class="text-glow" >PLAYER ANALYTICS SECTION</br> COMING SOON!</p>
+      <p
+        class="text-4xl font-bold text-center shadow-lg relative top-[-10px] hover:text-violet-300 px-4 py-2 transition duration-1000">
+        <br class="text-glow">PLAYER ANALYTICS SECTION</br> COMING SOON!
+      </p>
     </div>
   </div>
   <script src="{{ url_for('static', filename='js/script.js') }}"></script>

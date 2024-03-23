@@ -1,10 +1,11 @@
 from flask import Flask, render_template, request
 from sqlalchemy import func
-from sqlalchemy.orm import joinedload
 from models import *
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:Basketball@localhost/usports_bball_test'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_ECHO'] = True
 db.init_app(app)
 
 
@@ -44,7 +45,7 @@ def league():
         Team.games_played
     ).order_by(Team.total_wins.desc()).all()
 
-    players = Player.query.options(joinedload(Player.school_team)).with_entities(
+    players = Player.query.with_entities(
         Player.lastname_initials,
         Player.first_name,
         Player.school,
@@ -54,15 +55,20 @@ def league():
         Player.field_goal_percentage,
         Player.three_pointers_percentage,
         Player.team_id,
+        Team.games_played.label("team_games_played"),
+        Team.conference.label("team_conference"),
         func.round(Player.total_points / Player.games_played, 1).label('points_per_game'),
         func.round(Player.total_rebounds / Player.games_played, 1).label('rebounds_per_game'),
         func.round(Player.assists / Player.games_played, 1).label('assists_per_game'),
         func.round(Player.three_pointers_made / Player.games_played, 1).label('three_pointers_made_per_game'),
          func.round(Player.blocks / Player.games_played, 1).label('blocks_per_game'),
-        func.round(Player.steals / Player.games_played, 1).label('steals_per_game')
-    ).join(Team, Player.team_id == Team.team_id).all()
+        func.round(Player.steals / Player.games_played, 1).label('steals_per_game'),
+        func.round(Player.field_goal_made / Player.games_played, 1).label('field_goal_made_per_game')
+    ).outerjoin(
+    Team, Player.team_id == Team.team_id
+).all()
     
-
+    print(players[0])
     # Render the index.html template with the retrieved data
     return render_template("league.html", teams=teams, players=players, league=league_name)
 
