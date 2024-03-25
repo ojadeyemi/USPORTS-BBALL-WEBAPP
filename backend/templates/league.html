@@ -7,7 +7,7 @@
   <!-- Navigation -->
   <div class="flex justify-center sm:flex-col sm:items-center md:flex-col md:items-center">
     <div
-      class="inline-flex justify-stretch rounded-md shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-1 dark:focus:shadow-dark-1 dark:active:shadow-dark-1"
+      class="justify-stretch shadow-primary-3 pb-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-1 dark:focus:shadow-dark-1 dark:active:shadow-dark-1"
       role="group">
       <button id="standingsBtn" type="button"
         class="inline-block bg-gray-800 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white transition duration-300 hover:bg-gray-900 hover:text-violet-300 active:bg-violet-700 focus:outline-none focus:ring focus:ring-slate-900 motion-reduce:transition-none"
@@ -31,6 +31,7 @@
       </button>
     </div>
   </div>
+   <!-- Standings Section -->
   <div id="standings-section" style="display: block">
     <div id="filters" class="text-left mt-8 mb-8">
       <label for="conference-filter" class="text-white font-bold mr-2">Filter by Conference:</label>
@@ -96,15 +97,16 @@
       {% endfor %}
     </div>
   </div>
-
+  
+   <!-- Player Leaderboard Section -->
   <div id="playerleaderboard-section" style="display: none">
     {% set numval = 10 %}
 
     <div class="text-center sm:pl-4 md:pl-6">
       <h2 class="text-2xl font-bold mb-5 mt-12">Points per game</h2>
     </div>
-    <!-- shgow top 10 only make vertical margins or paddings smaller -->
-    <div style="margin: 0 auto; width: 90%;" class="bg-slate-950 rounded-lg shadow-md mb-5 ">
+
+    <div style="margin: 0 auto; " class="bg-slate-950 rounded-lg shadow-md mb-5  w-full sm:w-5/6">
       <table class="w-full">
         {% set count = namespace(value=numval) %} {% for player in
         (players|sort(attribute='points_per_game', reverse=true)) %} {% if
@@ -123,11 +125,11 @@
       </table>
     </div>
 
-    <div class="text-center pl-10 sm:pl-4 md:pl-6">
+    <div class="text-center sm:pl-4 md:pl-6">
       <h2 class="text-2xl font-bold mb-5 mt-12">Rebounds per game</h2>
     </div>
 
-    <div style="margin: 0 auto; width: 90%;" class="bg-slate-950 rounded-lg shadow-md mb-5 ">
+     <div style="margin: 0 auto; " class="bg-slate-950 rounded-lg shadow-md mb-5  w-full sm:w-5/6">
       <table class="w-full">
         {% set count = namespace(value=numval) %} {% for player in
         (players|sort(attribute='rebounds_per_game', reverse=true)) %} {% if
@@ -147,11 +149,11 @@
     </div>
 
 
-    <div class="text-center pl-10 sm:pl-4 md:pl-6">
+    <div class="text-center sm:pl-4 md:pl-6">
       <h2 class="text-2xl font-bold mb-5 mt-12">Assists per game</h2>
     </div>
 
-    <div style="margin: 0 auto; width: 90%;" class="bg-slate-950 rounded-lg shadow-md mb-5 ">
+     <div style="margin: 0 auto; " class="bg-slate-950 rounded-lg shadow-md mb-5  w-full sm:w-5/6">
       <table class="w-full">
         {% set count = namespace(value=numval) %} {% for player in
         (players|sort(attribute='assists_per_game', reverse=true)) %} {% if
@@ -170,11 +172,11 @@
       </table>
     </div>
 
-    <div class="text-center pl-10 sm:pl-4 md:pl-6">
+    <div class="text-center sm:pl-4 md:pl-6">
       <h2 class="text-2xl font-bold mb-5 mt-12">Field Goal Percentage</h2>
     </div>
 
-    <div style="margin: 0 auto; width: 90%;" class="bg-slate-950 rounded-lg shadow-md mb-5 ">
+     <div style="margin: 0 auto; " class="bg-slate-950 rounded-lg shadow-md mb-5  w-full sm:w-5/6">
       <table class="w-full">
         {% set count = namespace(value=numval) %} {% for player in
         (players|sort(attribute='field_goal_percentage', reverse=true)) %}
@@ -195,11 +197,11 @@
     </div>
 
 
-    <div class="text-center pl-10 sm:pl-4 md:pl-6">
+    <div class="text-center sm:pl-4 md:pl-6">
       <h2 class="text-2xl font-bold mb-5 mt-12">Three pointers made per game</h2>
     </div>
 
-    <div style="margin: 0 auto; width: 90%;" class="bg-slate-950 rounded-lg shadow-md mb-5 ">
+     <div style="margin: 0 auto; " class="bg-slate-950 rounded-lg shadow-md mb-5  w-full sm:w-5/6">
       <table class="w-full">
         {% set count = namespace(value=numval) %} {% for player in
         (players|sort(attribute='three_pointers_made_per_game', reverse=true)) %} {% if
@@ -218,13 +220,13 @@
       </table>
     </div>
 
-    <div class="text-center pl-10 sm:pl-4 md:pl-6">
+    <div class="text-center sm:pl-4 md:pl-6">
       <h2 class="text-2xl font-bold mb-5 mt-12">
         Three Point Percentage
       </h2>
     </div>
 
-    <div style="margin: 0 auto; width: 90%;" class="bg-slate-950 rounded-lg shadow-md mb-5 ">
+     <div style="margin: 0 auto; " class="bg-slate-950 rounded-lg shadow-md mb-5  w-full sm:w-5/6">
       <table class="w-full">
         {% set count = namespace(value=numval) %} {% for player in
         (players|sort(attribute='three_pointers_percentage', reverse=true)) %}
@@ -245,13 +247,13 @@
       </table>
     </div>
 
-    <div class="text-center pl-10 sm:pl-4 md:pl-6">
+    <div class="text-center sm:pl-4 md:pl-6">
       <h2 class="text-2xl font-bold mb-5 mt-12">
         Blocks per Game
       </h2>
     </div>
 
-    <div style="margin: 0 auto; width: 90%;" class="bg-slate-950 rounded-lg shadow-md mb-5 ">
+     <div style="margin: 0 auto; " class="bg-slate-950 rounded-lg shadow-md mb-5  w-full sm:w-5/6">
       <table class="w-full">
 
         {% set count = namespace(value=numval) %} {% for player in
@@ -271,11 +273,11 @@
       </table>
     </div>
 
-    <div class="text-center pl-10 sm:pl-4 md:pl-6">
+    <div class="text-center sm:pl-4 md:pl-6">
       <h2 class="text-2xl font-bold mb-5 mt-12">Steals Per Game</h2>
     </div>
 
-    <div style="margin: 0 auto; width: 90%;" class="bg-slate-950 rounded-lg shadow-md mb-5 ">
+     <div style="margin: 0 auto; " class="bg-slate-950 rounded-lg shadow-md mb-5  w-full sm:w-5/6">
       <table class="w-full">
 
         {% set count = namespace(value=numval) %} {% for player in
@@ -296,6 +298,7 @@
     </div>
   </div>
 
+     <!-- Team Analytics Section -->
   <div id="teamanalytics-section" style="display: none">
 
     <div class="relative text-center pl-10 sm:pl-4 md:pl-6">
@@ -305,7 +308,7 @@
       </div>
   </div>
 
-    <div style="margin: 0 auto; width: 90%;" class="bg-slate-950 rounded-lg shadow-md mb-5 ">
+     <div style="margin: 0 auto; " class="bg-slate-950 rounded-lg shadow-md mb-5  w-full sm:w-5/6">
       <table class="w-full">
 
         {% set count = namespace(value=numval) %} {% for team in
@@ -331,7 +334,7 @@
       </div>
   </div>
 
-    <div style="margin: 0 auto; width: 90%;" class="bg-slate-950 rounded-lg shadow-md mb-5 ">
+     <div style="margin: 0 auto; " class="bg-slate-950 rounded-lg shadow-md mb-5  w-full sm:w-5/6">
       <table class="w-full">
 
         {% set count = namespace(value=numval) %} {% for team in
@@ -352,6 +355,7 @@
 
   </div>
 
+     <!-- Player Analytics Section -->
   <div id="playeranalytics-section" style="display: none">
     <div class="max-h-screen flex flex-col justify-center items-center">
       <img src="https://www.svgrepo.com/show/426192/cogs-settings.svg" alt="Logo" class="mb-8 h-40">
