@@ -5,7 +5,6 @@ from models import *
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:Basketball@localhost/usports_bball_test'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_ECHO'] = True
 db.init_app(app)
 
 
@@ -42,7 +41,9 @@ def league():
         Team.total_wins,
         Team.win_percentage,
         Team.streak,
-        Team.games_played
+        Team.games_played,
+        func.round(Team.offensive_efficiency * 100,1).label('offensive_efficiency'),
+        func.round(Team.defensive_efficiency * 100,1).label('defensive_efficiency'),
     ).order_by(Team.total_wins.desc()).all()
 
     players = Player.query.with_entities(

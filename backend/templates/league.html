@@ -187,7 +187,7 @@
           <td class="py-1 w-1/12"><img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}"
               alt="Team Logo" class="max-w-10 max-h-10" /> </td>
           <td class="py-1">{{ player.school }}</td>
-          <td class="py-1 font-bold">{{ player.field_goal_percentage}}</td>
+          <td class="py-1 font-bold">{{ player.field_goal_percentage}}%</td>
 
         </tr>
         {% set count.value = count.value - 1 %} {% endif %} {% endif %} {% endfor %}
@@ -238,7 +238,7 @@
           <td class="py-1 w-1/12"><img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}"
               alt="Team Logo" class="max-w-10 max-h-10" /> </td>
           <td class="py-1">{{ player.school }}</td>
-          <td class="py-1 font-bold">{{ player.three_pointers_percentage }}</td>
+          <td class="py-1 font-bold">{{ player.three_pointers_percentage }}%</td>
 
         </tr>
         {% set count.value = count.value - 1 %} {% endif %} {% endif %} {% endfor %}
@@ -297,22 +297,59 @@
   </div>
 
   <div id="teamanalytics-section" style="display: none">
-    <div class="max-h-screen flex flex-col justify-center items-center">
-      <img src="https://www.svgrepo.com/show/426192/cogs-settings.svg" alt="Logo" class="mb-8 h-40">
-      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-center text-gray-700 dark:text-white mb-4">This page
-        is
-        under maintenance</h1>
-      <p class="text-center text-gray-500 dark:text-gray-300 text-lg md:text-xl lg:text-2xl mb-8">We're working hard
-        to
-        improve the user experience. Stay tuned!</p>
-      <div class="flex space-x-4">
-        <a href="/#bottom"
-          class="bg-gray-800 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded dark:bg-gray-700 dark:hover:bg-gray-600">Contact
-          Me</a>
-        <a href="#" onclick="window.location.reload(true);"
-          class="border-2 border-gray-800 text-black font-bold py-3 px-6 rounded dark:text-white dark:border-white">Standings</a>
+
+    <div class="relative text-center pl-10 sm:pl-4 md:pl-6">
+      <h2 class="text-2xl font-bold mb-5 mt-12">Best Offense</h2>
+      <div class="opacity-0 hover:opacity-100 duration-400 absolute inset-0 z-10 flex justify-center items-center text-xs text-white -mb-12 ">
+          This metric uses Offensive efficiency: the number of points a team scores per 100 possessions.
       </div>
+  </div>
+
+    <div style="margin: 0 auto; width: 90%;" class="bg-slate-950 rounded-lg shadow-md mb-5 ">
+      <table class="w-full">
+
+        {% set count = namespace(value=numval) %} {% for team in
+        (teams|sort(attribute='offensive_efficiency', reverse=true)) %}{%if count.value >= 1%}
+
+        <tr class="pb-4  even:bg-slate-900">
+          <td class="py-1 w-1/12 pl-3">{{ numval - count.value + 1}}</td>
+          <td class="py-1 w-1/12"><img src="{{ url_for('static', filename='team_logos/' + team.team_name +'.png') }}"
+              alt="Team Logo" class="max-w-10 max-h-10" /> </td>
+          <td class="py-1 w-1/4 font-bold">{{ team.team_name}}</td>
+          <td class="py-1 w-1/6 ">{{ team.conference }}</td>
+          <td class="py-1 font-bold text-right pr-10">{{ team.offensive_efficiency }}</td>
+
+        </tr>
+        {% set count.value = count.value - 1 %} {% endif %} {% endfor %}
+      </table>
     </div>
+
+    <div class="relative text-center pl-10 sm:pl-4 md:pl-6">
+      <h2 class="text-2xl font-bold mb-5 mt-12">Best Defense</h2>
+      <div class="opacity-0 hover:opacity-100 duration-400 absolute inset-0 z-10 flex justify-center items-center text-xs text-white -mb-12">
+          This metric uses Defensive efficiency: the number of points an opposing team scores per 100 possessions.
+      </div>
+  </div>
+
+    <div style="margin: 0 auto; width: 90%;" class="bg-slate-950 rounded-lg shadow-md mb-5 ">
+      <table class="w-full">
+
+        {% set count = namespace(value=numval) %} {% for team in
+        (teams|sort(attribute='defensive_efficiency')) %}{%if count.value >= 1%}
+
+        <tr class="pb-4  even:bg-slate-900">
+          <td class="py-1 w-1/12 pl-3">{{ numval - count.value + 1}}</td>
+          <td class="py-1 w-1/12"><img src="{{ url_for('static', filename='team_logos/' + team.team_name +'.png') }}"
+              alt="Team Logo" class="max-w-10 max-h-10" /> </td>
+          <td class="py-1 w-1/4 font-bold">{{ team.team_name}}</td>
+          <td class="py-1 w-1/6 ">{{ team.conference }}</td>
+          <td class="py-1 font-bold text-right pr-10">{{ team.defensive_efficiency }}</td>
+
+        </tr>
+        {% set count.value = count.value - 1 %} {% endif %} {% endfor %}
+      </table>
+    </div>
+
   </div>
 
   <div id="playeranalytics-section" style="display: none">
