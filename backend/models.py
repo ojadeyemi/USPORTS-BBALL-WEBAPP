@@ -32,6 +32,8 @@ class WomenTeam(db.Model):
     total_losses = db.Column(db.Integer)
     win_percentage = db.Column(db.Float(precision=1))
     streak = db.Column(db.String(50))
+    offensive_efficiency = db.Column(db.Float(precision=2))
+    defensive_efficiency = db.Column(db.Float(precision=2))
 
 class MenPlayers(db.Model):
     __tablename__ = "men_players_test"

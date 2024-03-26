@@ -1,16 +1,25 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 from sqlalchemy import func
 from models import *
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:Basketball@localhost/usports_bball_test'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 db.init_app(app)
+mydict = {} #figure out how to use this dict and store in database
 
-
-@app.route("/")
+@app.route("/", methods=["POST", "GET"])
 def index():
-    return render_template("home.html")
+    if request.method == 'POST':
+        name = request.form['name']
+        message = request.form['message']
+        mydict[name] = message
+        print(mydict)
+        return redirect("/")
+    else:
+        return render_template("home.html")
+
+
 
 @app.route('/about')
 def about():
@@ -74,4 +83,4 @@ def league():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5000, host='0.0.0.0')
+    app.run(debug=True, port=5000)

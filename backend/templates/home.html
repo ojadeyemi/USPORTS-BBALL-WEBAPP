@@ -11,18 +11,14 @@
   <!-- Style for the league links -->
   <ul class="flex justify-center mb-16">
     <li class="mr-6">
-      <a
-        href="/mbb"
-        class="click inline-block px-6 py-3 text-lg border border-white rounded-full transition duration-500 ease-in-out hover:bg-white hover:text-gray-900"
-        >Men's League</a
-      >
+      <a href="/mbb"
+        class="click inline-block px-6 py-3 text-lg border border-white rounded-full transition duration-500 ease-in-out hover:bg-white hover:text-gray-900">Men's
+        League</a>
     </li>
     <li>
-      <a
-        href="/wbb"
-        class="click inline-block px-6 py-3 text-lg border border-white rounded-full transition duration-500 ease-in-out hover:bg-white hover:text-gray-900"
-        >Women's League</a
-      >
+      <a href="/wbb"
+        class="click inline-block px-6 py-3 text-lg border border-white rounded-full transition duration-500 ease-in-out hover:bg-white hover:text-gray-900">Women's
+        League</a>
     </li>
   </ul>
 
@@ -40,16 +36,21 @@
     <h2 class="title-font mb-1 text-lg font-medium text-white">Feedback</h2>
     <p class="mb-5 leading-relaxed text-white">Appreciate any issues or feedback
     </p>
-    <div class="mb-4">
-        <label for="email" class="text-sm leading-7 text-white">Email</label>
-        <input type="email" id="email" name="email" class="w-full rounded border border-gray-300 bg-slate-400 py-1 px-3 text-base leading-8 text-gray-700 outline-none transition-colors duration-200 ease-in-out focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200" />
-    </div>
-    <div class="mb-4">
+    <form method="POST" action="#">
+      <div class="mb-4">
+        <label for="name" class="text-sm leading-7 text-white">Name</label>
+        <input type="text" id="name" name="name" required
+          class="w-full rounded border border-gray-300 bg-slate-400 py-1 px-3 text-base leading-8 text-gray-700 outline-none transition-colors duration-200 ease-in-out focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200" />
+      </div>
+      <div class="mb-4">
         <label for="message" class="text-sm leading-7 text-white">Message</label>
-        <textarea id="message" name="message" class="h-32 w-full resize-none rounded border border-gray-300 bg-slate-400 py-1 px-3 text-base leading-6 text-gray-700 outline-none transition-colors duration-200 ease-in-out focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"></textarea>
-    </div>
-    <button class="rounded border-0 bg-violet-700 py-2 px-6 text-lg text-white hover:bg-violet-300 focus:outline-none">Send</button>
+        <textarea id="message" name="message" required
+          class="h-32 w-full resize-none rounded border border-gray-300 bg-slate-400 py-1 px-3 text-base leading-6 text-gray-700 outline-none transition-colors duration-200 ease-in-out focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"></textarea>
+      </div>
+      <button
+        class="rounded border-0 bg-violet-700 py-2 px-6 text-lg text-white hover:bg-violet-300 focus:outline-none">Send</button>
+    </form>
     <p class="mt-3 text-xs text-white">Feel free to connect with me on my social media platforms.</p>
-</div>
+  </div>
 </div>
 {% endblock %}
