@@ -1,22 +1,36 @@
 document
   .getElementById("playerAnalyticsBtn")
   .addEventListener("click", showPlayerAnalytics);
+document
+  .getElementById("playerAnalyticsBtn2")
+  .addEventListener("click", showPlayerAnalytics);
 
 document
   .getElementById("standingsBtn")
   .addEventListener("click", showStandings);
-
 document
-  .getElementById("conference-filter")
-  .addEventListener("change", filterStandingsByConf);
+  .getElementById("standingsBtn2")
+  .addEventListener("click", showStandings);
 
 document
   .getElementById("leaderboardBtn")
+  .addEventListener("click", showLeaderboard);
+document
+  .getElementById("leaderboardBtn2")
   .addEventListener("click", showLeaderboard);
 
 document
   .getElementById("teamAnalyticsBtn")
   .addEventListener("click", showTeamAnalytics);
+document
+  .getElementById("teamAnalyticsBtn2")
+  .addEventListener("click", showTeamAnalytics);
+
+
+document
+  .getElementById("conference-filter")
+  .addEventListener("change", filterStandingsByConf);
+
 
 // Function to show standings section
 function showStandings() {
