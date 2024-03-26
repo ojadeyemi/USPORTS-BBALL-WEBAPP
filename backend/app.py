@@ -88,7 +88,6 @@ def team_page(league_path,team_path):
         league_name = "Men's"
         team = MenTeam.query.filter_by(team_name=team_path).first()
         players = MenPlayers.query.filter_by(team_id=team.team_id).all()
-        print(team,"\n",players)
         return render_template("team.html", team=team, players=players, league=league_name, league_path=league_path)
     
     elif league_path == "wbb":
