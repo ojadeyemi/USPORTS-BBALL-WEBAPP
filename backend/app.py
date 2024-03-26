@@ -25,14 +25,13 @@ def index():
 def about():
     return render_template("about.html")
 
-@app.route("/mbb")
-@app.route("/wbb")
-def league():
-    if request.path == "/mbb":
+@app.route("/<league_path>")
+def league(league_path):
+    if league_path == "mbb":
         Team = MenTeam
         Player = MenPlayers
         league_name = "Men's"
-    elif request.path == "/wbb":
+    elif league_path == "wbb":
          Team = WomenTeam
          Player = WomenPlayers
          league_name = "Women's"
@@ -80,9 +79,30 @@ def league():
     Team, Player.team_id == Team.team_id
 ).all()
     
-    # Render the index.html template with the retrieved data
-    return render_template("league.html", teams=teams, players=players, league=league_name)
+    # Render the league.html template with the retrieved data
+    return render_template("league.html", teams=teams, players=players, league=league_name, league_path=league_path)
+
+@app.route("/<league_path>/<team_path>")
+def team_page(league_path,team_path):
+    if league_path == "mbb":
+        league_name = "Men's"
+        team = MenTeam.query.filter_by(team_name=team_path).first()
+        players = MenPlayers.query.filter_by(team_id=team.team_id).all()
+        print(team,"\n",players)
+        return render_template("team.html", team=team, players=players, league=league_name, league_path=league_path)
+    
+    elif league_path == "wbb":
+        league_name = "Women's"
+        team = WomenTeam.query.filter_by(team_name=team_path).first()
+        players = WomenPlayers.query.filter_by(team_id=team.team_id).all()
+        return render_template("team.html", team=team, players=players, league=league_name, league_path=league_path)
+    else:
+         # Handle invalid paths or other cases
+        return render_template("error.html", message="Invalid team")
+    
+
 
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
+    print(mydict)
