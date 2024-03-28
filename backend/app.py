@@ -1,9 +1,9 @@
 from flask import Flask, render_template, request, redirect
-from sqlalchemy import func
+from sqlalchemy import func, cast, Numeric
 from models import *
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:Basketball@localhost/usports_bball_test'
+app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://usportsballwebapp:Basketball.@localhost/usports_bball_test"
 
 db.init_app(app)
 mydict = {} #figure out how to use this dict and store in database
@@ -14,7 +14,6 @@ def index():
         name = request.form['name']
         message = request.form['message']
         mydict[name] = message
-        print(mydict)
         return redirect("/")
     else:
         return render_template("home.html")
@@ -38,7 +37,7 @@ def league(league_path):
     else:
          # Handle invalid paths or other cases
         return render_template("error.html", message="Invalid league")
-    
+      
     # Query the required columns from the teams table
     teams = Team.query.with_entities(
         Team.team_id,
@@ -47,13 +46,13 @@ def league(league_path):
         Team.conference,
         Team.total_losses,
         Team.total_wins,
-        Team.win_percentage,
+        cast(Team.win_percentage, Numeric(10, 3)).label('win_percentage'),
         Team.streak,
         Team.games_played,
-        func.round(Team.offensive_efficiency * 100,1).label('offensive_efficiency'),
-        func.round(Team.defensive_efficiency * 100,1).label('defensive_efficiency'),
-    ).order_by(Team.total_wins.desc()).all()
-
+        cast(Team.offensive_efficiency, Numeric(10, 3)).label('offensive_efficiency'),
+        cast(Team.defensive_efficiency, Numeric(10, 3)).label('defensive_efficiency')
+    ).order_by(Team.win_percentage.desc()).all()
+    
     players = Player.query.with_entities(
         Player.lastname_initials,
         Player.first_name,
@@ -98,8 +97,6 @@ def team_page(league_path,team_path):
     else:
          # Handle invalid paths or other cases
         return render_template("error.html", message="Invalid team")
-    
-
 
 
 if __name__ == "__main__":
