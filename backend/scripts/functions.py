@@ -346,7 +346,7 @@ def __usports_player_offense_data(offense_url):
         cols = row.find_all('td')  # Find all <td> tags with class 'text'
         if len(cols) > 0:
             player_lastname_initials = cols[1].get_text(strip=True).split()[0]  # Assuming lastname initials are the first letter of the second <td> content
-            firstname = cols[1].get_text(strip=True).split()[1]  # Assuming firstname is the rest of the content after lastname initials
+            firstname = ' '.join(cols[1].get_text(strip=True).split()[1:])  # Assuming firstname is the rest of the content after lastname initials
             school = cols[2].get_text(strip=True)
             minutes_played = cols[5].get_text(strip=True)
             field_goals_made, field_goals_attempted = cols[6].get_text(strip=True).split('-')
@@ -415,7 +415,8 @@ def __usports_player_defense_data(defense_url):
         cols = row.find_all('td')  # Find all <td> tags with class 'text'
         if len(cols) > 0:
             player_lastname_initials = cols[1].get_text(strip=True).split()[0]  # Assuming lastname initials are the first letter of the second <td> content
-            firstname = cols[1].get_text(strip=True).split()[1]  # Assuming firstname is the rest of the content after lastname initials
+            firstname = ' '.join(cols[1].get_text(strip=True).split()[1:])  # Assuming firstname is the rest of the content after lastname initials
+            print(cols[1].get_text(strip=True) , firstname)
             school = cols[2].get_text(strip=True)
             games_played = cols[3].get_text(strip=True)
             games_started = cols[4].get_text(strip=True)
@@ -508,6 +509,4 @@ def usports_team_stats(arg:str):
     
 
 if __name__ == '__main__':
-   df = usports_player_stats('women')
-   testdf = df[(df['turnovers'] == 0)]
-   print(testdf[['first_name','assists','turnovers','assist_per_turnover']])
+   df = usports_player_stats('men')

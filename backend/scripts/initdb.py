@@ -8,7 +8,7 @@ connection_string = 'mysql+pymysql://root:Basketball@localhost/usports_bball_tes
 
 # Create a SQLAlchemy engine
 engine = create_engine(connection_string)
-
+engine.connect()
 try:
     #dataframe for teams
     men_df = usports_team_stats('men')
