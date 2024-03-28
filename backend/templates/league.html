@@ -83,7 +83,7 @@
   </div>
 
   <!-- Player Leaderboard Section -->
-  <div id="playerleaderboard-section" style="display: none">
+  <div id="playerleaderboard-section" style="display: none" >
     {% set numval = 10 %}
 
     <div class="text-center sm:pl-4 md:pl-6">
@@ -98,7 +98,7 @@
 
         <tr class="pb-4  even:bg-slate-900">
           <td class="py-1 w-1/12 pl-3">{{ numval - count.value + 1}}</td>
-          <td class="py-1 font-bold text-center">{{ player.lastname_initials }} &nbsp {{ player.first_name }}</td>
+          <td class="py-1 font-bold text-left">{{ player.lastname_initials }} &nbsp {{ player.first_name }}</td>
           <td class="py-1 w-1/12"><img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}"
               alt="Team Logo" class="max-w-8 max-h-8" /> </td>
           <td class="py-1 text-sm">{{ player.school }}</td>
@@ -121,7 +121,7 @@
 
         <tr class="pb-4  even:bg-slate-900">
           <td class="py-1 w-1/12 pl-3">{{ numval - count.value + 1}}</td>
-          <td class="py-1 font-bold text-center">{{ player.lastname_initials }} &nbsp {{ player.first_name }}</td>
+          <td class="py-1 font-bold text-left">{{ player.lastname_initials }} &nbsp {{ player.first_name }}</td>
           <td class="py-1 w-1/12"><img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}"
               alt="Team Logo" class="max-w-8 max-h-8" /> </td>
           <td class="py-1 text-sm">{{ player.school }}</td>
@@ -145,7 +145,7 @@
 
         <tr class="pb-4  even:bg-slate-900">
           <td class="py-1 w-1/12 pl-3">{{ numval - count.value + 1}}</td>
-          <td class="py-1 font-bold text-center">{{ player.lastname_initials }} &nbsp {{ player.first_name }}</td>
+          <td class="py-1 font-bold text-left">{{ player.lastname_initials }} &nbsp {{ player.first_name }}</td>
           <td class="py-1 w-1/12"><img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}"
               alt="Team Logo" class="max-w-8 max-h-8" /> </td>
           <td class="py-1 text-sm">{{ player.school }}</td>
@@ -169,7 +169,7 @@
 
         <tr class="pb-4  even:bg-slate-900">
           <td class="py-1 w-1/12 pl-3">{{ numval - count.value + 1}}</td>
-          <td class="py-1 font-bold text-center">{{ player.lastname_initials }} &nbsp {{ player.first_name }}</td>
+          <td class="py-1 font-bold text-left">{{ player.lastname_initials }} &nbsp {{ player.first_name }}</td>
           <td class="py-1 w-1/12"><img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}"
               alt="Team Logo" class="max-w-8 max-h-8" /> </td>
           <td class="py-1 text-sm">{{ player.school }}</td>
@@ -193,7 +193,7 @@
 
         <tr class="pb-4  even:bg-slate-900">
           <td class="py-1 w-1/12 pl-3">{{ numval - count.value + 1}}</td>
-          <td class="py-1 font-bold text-center">{{ player.lastname_initials }} &nbsp {{ player.first_name }}</td>
+          <td class="py-1 font-bold text-left">{{ player.lastname_initials }} &nbsp {{ player.first_name }}</td>
           <td class="py-1 w-1/12"><img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}"
               alt="Team Logo" class="max-w-8 max-h-8" /> </td>
           <td class="py-1 text-sm">{{ player.school }}</td>
@@ -220,7 +220,7 @@
 
         <tr class="pb-4  even:bg-slate-900">
           <td class="py-1 w-1/12 pl-3">{{ numval - count.value + 1}}</td>
-          <td class="py-1 font-bold text-center">{{ player.lastname_initials }} &nbsp {{ player.first_name }}</td>
+          <td class="py-1 font-bold text-left">{{ player.lastname_initials }} &nbsp {{ player.first_name }}</td>
           <td class="py-1 w-1/12"><img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}"
               alt="Team Logo" class="max-w-8 max-h-8" /> </td>
           <td class="py-1 text-sm">{{ player.school }}</td>
@@ -246,7 +246,7 @@
 
         <tr class="pb-4  even:bg-slate-900">
           <td class="py-1 w-1/12 pl-3">{{ numval - count.value + 1}}</td>
-          <td class="py-1 font-bold text-center">{{ player.lastname_initials }} &nbsp {{ player.first_name }}</td>
+          <td class="py-1 font-bold text-left">{{ player.lastname_initials }} &nbsp {{ player.first_name }}</td>
           <td class="py-1 w-1/12"><img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}"
               alt="Team Logo" class="max-w-8 max-h-8" /> </td>
           <td class="py-1 text-sm">{{ player.school }}</td>
@@ -270,7 +270,7 @@
 
         <tr class="pb-4  even:bg-slate-900">
           <td class="py-1 w-1/12 pl-3">{{ numval - count.value + 1}}</td>
-          <td class="py-1 font-bold text-center">{{ player.lastname_initials }} &nbsp {{ player.first_name }}</td>
+          <td class="py-1 font-bold text-left">{{ player.lastname_initials }} &nbsp {{ player.first_name }}</td>
           <td class="py-1 w-1/12"><img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}"
               alt="Team Logo" class="max-w-8 max-h-8" /> </td>
           <td class="py-1 text-sm">{{ player.school }}</td>
@@ -294,7 +294,7 @@
 
         <tr class="pb-4  even:bg-slate-900">
           <td class="py-1 w-1/12 pl-3">{{ numval - count.value + 1}}</td>
-          <td class="py-1 font-bold text-center">{{ player.lastname_initials }} &nbsp {{ player.first_name }}</td>
+          <td class="py-1 font-bold text-left">{{ player.lastname_initials }} &nbsp {{ player.first_name }}</td>
           <td class="py-1 w-1/12"><img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}"
               alt="Team Logo" class="max-w-8 max-h-8" /> </td>
           <td class="py-1 text-sm">{{ player.school }}</td>
@@ -319,7 +319,7 @@
 
         <tr class="pb-4  even:bg-slate-900">
           <td class="py-1 w-1/12 pl-3">{{ numval - count.value + 1}}</td>
-          <td class="py-1 font-bold text-center">{{ player.lastname_initials }} &nbsp {{ player.first_name }}</td>
+          <td class="py-1 font-bold text-left">{{ player.lastname_initials }} &nbsp {{ player.first_name }}</td>
           <td class="py-1 w-1/12"><img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}"
               alt="Team Logo" class="max-w-8 max-h-8" /> </td>
           <td class="py-1 text-sm">{{ player.school }}</td>
