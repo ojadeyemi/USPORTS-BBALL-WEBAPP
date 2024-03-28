@@ -5,31 +5,15 @@
     {{ league }} Basketball League
   </h1>
   <!-- Navigation -->
-  <div class="flex justify-center sm:flex-1 sm:items-center md:flex-1 md:items-center ">
-    <div
-      class="justify-stretch shadow-primary-3 pb-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-1 dark:focus:shadow-dark-1 dark:active:shadow-dark-1"
+  <div class="flex justify-center ">
+    <nav
+      class="flex flex-wrap justify-center items-center shadow-primary-3 px-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-1 dark:focus:shadow-dark-1 dark:active:shadow-dark-1"
       role="group">
-      <button id="standingsBtn" type="button"
-        class="inline-block bg-gray-800 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white transition duration-300 hover:bg-gray-900 hover:text-violet-300 active:bg-violet-700 focus:outline-none focus:ring focus:ring-slate-900 motion-reduce:transition-none"
-        data-twe-ripple-init data-twe-ripple-color="light">
-        Standings
-      </button>
-      <button id="leaderboardBtn" type="button"
-        class="inline-block bg-gray-800 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white transition duration-300 hover:bg-gray-900 hover:text-violet-300 active:bg-violet-700 focus:outline-none focus:ring focus:ring-slate-900 motion-reduce:transition-none"
-        data-twe-ripple-init data-twe-ripple-color="light">
-        Player Leaderboard
-      </button>
-      <button id="teamAnalyticsBtn" type="button"
-        class="inline-block bg-gray-800 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white transition duration-300 hover:bg-gray-900 hover:text-violet-300 active:bg-violet-700 focus:outline-none focus:ring focus:ring-slate-900 motion-reduce:transition-none"
-        data-twe-ripple-init data-twe-ripple-color="light">
-        Team Analytics
-      </button>
-      <button id="playerAnalyticsBtn" type="button"
-        class="inline-block bg-gray-800 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white transition duration-300 hover:bg-gray-900 hover:text-violet-300 active:bg-violet-700 focus:outline-none focus:ring focus:ring-slate-900 motion-reduce:transition-none"
-        data-twe-ripple-init data-twe-ripple-color="light">
-        Player Analytics
-      </button>
-    </div>
+      <button id="standingsBtn" type="button" class="nav-btn">Standings</button>
+      <button id="leaderboardBtn" type="button" class="nav-btn">Player Leaderboard</button>
+      <button id="teamAnalyticsBtn" type="button" class="nav-btn">Team Analytics</button>
+      <button id="playerAnalyticsBtn" type="button" class="nav-btn">Player Analytics</button>
+    </nav>
   </div>
   <!-- Standings Section -->
   <div id="standings-section" style="display: block">
@@ -62,35 +46,37 @@
       </div>
 
       {% for team in teams %}
-      <div class="team {{ team.conference }} bg-slate-950 rounded-lg shadow-md flex items-center justify-between flex-grow text-left mb-2">
-          <table class="w-full">
-            <tr>
-              <td class="pl-3 ">{{ loop.index }}</td>
-              <td><img src="{{ url_for('static', filename='team_logos/' + team.team_name +'.png') }}" alt="Team Logo"
+      <div
+        class="team {{ team.conference }} bg-slate-950 rounded-lg shadow-md flex items-center justify-between flex-grow text-left mb-2">
+        <table class="w-full">
+          <tr>
+            <td class="pl-3 ">{{ loop.index }}</td>
+            <td><img src="{{ url_for('static', filename='team_logos/' + team.team_name +'.png') }}" alt="Team Logo"
                 class="max-w-13 max-h-12" /></td>
-              <td style="width: 20%" class="py-2 text-lg font-bold">
-                <a href="{{ url_for('team_page', league_path=league_path, team_path=team.team_name) }}" class="no-underline hover:underline ">{{ team.team_name }}</a>
-              </td>
-              <td style="width: 10%" class="py-2">
-                {{ team.total_wins }}
-              </td>
-              <td style="width: 10%" class="py-2">
-                {{ team.total_losses }}
-              </td>
-              <td style="width: 10%" class="py-2">
-                {{ team.win_percentage }}
-              </td>
-              <td style="width: 10%" class="py-2">
-                {{ team.games_played }}
-              </td>
-              <td style="width: 10%" class="py-2">
-                {{ team.last_ten_games }}
-              </td>
-              <td style="width: 10%" class="py-2">
-                {{ team.streak }}
-              </td>
-            </tr>
-          </table>
+            <td style="width: 20%" class="py-2 text-lg font-bold">
+              <a href="{{ url_for('team_page', league_path=league_path, team_path=team.team_name) }}"
+                class="no-underline hover:underline ">{{ team.team_name }}</a>
+            </td>
+            <td style="width: 10%" class="py-2">
+              {{ team.total_wins }}
+            </td>
+            <td style="width: 10%" class="py-2">
+              {{ team.total_losses }}
+            </td>
+            <td style="width: 10%" class="py-2">
+              {{ team.win_percentage }}
+            </td>
+            <td style="width: 10%" class="py-2">
+              {{ team.games_played }}
+            </td>
+            <td style="width: 10%" class="py-2">
+              {{ team.last_ten_games }}
+            </td>
+            <td style="width: 10%" class="py-2">
+              {{ team.streak }}
+            </td>
+          </tr>
+        </table>
       </div>
       {% endfor %}
     </div>
@@ -137,7 +123,7 @@
           <td class="py-1 w-1/12 pl-3">{{ numval - count.value + 1}}</td>
           <td class="py-1 font-bold text-center">{{ player.lastname_initials }} &nbsp {{ player.first_name }}</td>
           <td class="py-1 w-1/12"><img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}"
-               alt="Team Logo" class="max-w-8 max-h-8" /> </td>
+              alt="Team Logo" class="max-w-8 max-h-8" /> </td>
           <td class="py-1 text-sm">{{ player.school }}</td>
           <td class="py-1 font-bold text-center">{{ player.rebounds_per_game }}&nbsp;&nbsp; </td>
 
@@ -161,7 +147,7 @@
           <td class="py-1 w-1/12 pl-3">{{ numval - count.value + 1}}</td>
           <td class="py-1 font-bold text-center">{{ player.lastname_initials }} &nbsp {{ player.first_name }}</td>
           <td class="py-1 w-1/12"><img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}"
-               alt="Team Logo" class="max-w-8 max-h-8" /> </td>
+              alt="Team Logo" class="max-w-8 max-h-8" /> </td>
           <td class="py-1 text-sm">{{ player.school }}</td>
           <td class="py-1 font-bold text-center">{{ player.assists_per_game }} &nbsp;&nbsp;</td>
 
@@ -185,7 +171,7 @@
           <td class="py-1 w-1/12 pl-3">{{ numval - count.value + 1}}</td>
           <td class="py-1 font-bold text-center">{{ player.lastname_initials }} &nbsp {{ player.first_name }}</td>
           <td class="py-1 w-1/12"><img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}"
-               alt="Team Logo" class="max-w-8 max-h-8" /> </td>
+              alt="Team Logo" class="max-w-8 max-h-8" /> </td>
           <td class="py-1 text-sm">{{ player.school }}</td>
           <td class="py-1 font-bold text-center">{{ player.field_goal_percentage}}%</td>
 
@@ -209,7 +195,7 @@
           <td class="py-1 w-1/12 pl-3">{{ numval - count.value + 1}}</td>
           <td class="py-1 font-bold text-center">{{ player.lastname_initials }} &nbsp {{ player.first_name }}</td>
           <td class="py-1 w-1/12"><img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}"
-               alt="Team Logo" class="max-w-8 max-h-8" /> </td>
+              alt="Team Logo" class="max-w-8 max-h-8" /> </td>
           <td class="py-1 text-sm">{{ player.school }}</td>
           <td class="py-1 font-bold text-center">{{ player.three_pointers_made_per_game }} &nbsp;&nbsp;</td>
 
@@ -236,7 +222,7 @@
           <td class="py-1 w-1/12 pl-3">{{ numval - count.value + 1}}</td>
           <td class="py-1 font-bold text-center">{{ player.lastname_initials }} &nbsp {{ player.first_name }}</td>
           <td class="py-1 w-1/12"><img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}"
-               alt="Team Logo" class="max-w-8 max-h-8" /> </td>
+              alt="Team Logo" class="max-w-8 max-h-8" /> </td>
           <td class="py-1 text-sm">{{ player.school }}</td>
           <td class="py-1 font-bold text-center">{{ player.three_pointers_percentage }}%</td>
 
@@ -262,7 +248,7 @@
           <td class="py-1 w-1/12 pl-3">{{ numval - count.value + 1}}</td>
           <td class="py-1 font-bold text-center">{{ player.lastname_initials }} &nbsp {{ player.first_name }}</td>
           <td class="py-1 w-1/12"><img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}"
-               alt="Team Logo" class="max-w-8 max-h-8" /> </td>
+              alt="Team Logo" class="max-w-8 max-h-8" /> </td>
           <td class="py-1 text-sm">{{ player.school }}</td>
           <td class="py-1 font-bold text-center">{{ player.blocks_per_game }} &nbsp;&nbsp;</td>
 
@@ -286,7 +272,7 @@
           <td class="py-1 w-1/12 pl-3">{{ numval - count.value + 1}}</td>
           <td class="py-1 font-bold text-center">{{ player.lastname_initials }} &nbsp {{ player.first_name }}</td>
           <td class="py-1 w-1/12"><img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}"
-               alt="Team Logo" class="max-w-8 max-h-8" /> </td>
+              alt="Team Logo" class="max-w-8 max-h-8" /> </td>
           <td class="py-1 text-sm">{{ player.school }}</td>
           <td class="py-1 font-bold text-center">{{ player.steals_per_game }} &nbsp;&nbsp;</td>
 
@@ -310,7 +296,7 @@
           <td class="py-1 w-1/12 pl-3">{{ numval - count.value + 1}}</td>
           <td class="py-1 font-bold text-center">{{ player.lastname_initials }} &nbsp {{ player.first_name }}</td>
           <td class="py-1 w-1/12"><img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}"
-               alt="Team Logo" class="max-w-8 max-h-8" /> </td>
+              alt="Team Logo" class="max-w-8 max-h-8" /> </td>
           <td class="py-1 text-sm">{{ player.school }}</td>
           <td class="py-1 font-bold text-center">{{ player.free_throws_made_per_game }} &nbsp;&nbsp;</td>
 
@@ -335,7 +321,7 @@
           <td class="py-1 w-1/12 pl-3">{{ numval - count.value + 1}}</td>
           <td class="py-1 font-bold text-center">{{ player.lastname_initials }} &nbsp {{ player.first_name }}</td>
           <td class="py-1 w-1/12"><img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}"
-               alt="Team Logo" class="max-w-8 max-h-8" /> </td>
+              alt="Team Logo" class="max-w-8 max-h-8" /> </td>
           <td class="py-1 text-sm">{{ player.school }}</td>
           <td class="py-1 font-bold text-center">{{ player.free_throws_percentage }}%</td>
 
@@ -366,7 +352,7 @@
         <tr class="pb-4  even:bg-slate-900">
           <td class="py-1 w-1/12 pl-3">{{ numval - count.value + 1}}</td>
           <td class="py-1 w-1/12"><img src="{{ url_for('static', filename='team_logos/' + team.team_name +'.png') }}"
-               alt="Team Logo" class="max-w-8 max-h-8" /> </td>
+              alt="Team Logo" class="max-w-8 max-h-8" /> </td>
           <td class="py-1 w-1/4 font-bold">{{ team.team_name}}</td>
           <td class="py-1 w-1/6 ">{{ team.conference }}</td>
           <td class="py-1 font-bold text-right pr-10">{{ team.offensive_efficiency }}</td>
@@ -393,7 +379,7 @@
         <tr class="pb-4  even:bg-slate-900">
           <td class="py-1 w-1/12 pl-3">{{ numval - count.value + 1}}</td>
           <td class="py-1 w-1/12"><img src="{{ url_for('static', filename='team_logos/' + team.team_name +'.png') }}"
-               alt="Team Logo" class="max-w-8 max-h-8" /> </td>
+              alt="Team Logo" class="max-w-8 max-h-8" /> </td>
           <td class="py-1 w-1/4 font-bold">{{ team.team_name}}</td>
           <td class="py-1 w-1/6 ">{{ team.conference }}</td>
           <td class="py-1 font-bold text-right pr-10">{{ team.defensive_efficiency }}</td>
@@ -407,7 +393,7 @@
 
   <!-- Player Analytics Section -->
   <div id="playeranalytics-section" style="display: none">
-    <div class="max-h-screen flex flex-col justify-center items-center">
+    <div class="max-h-screen my-10 flex flex-col justify-center items-center">
       <img src="https://www.svgrepo.com/show/426192/cogs-settings.svg" alt="Logo" class="mb-8 h-40">
       <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-center text-gray-700 dark:text-white mb-4">This page is
         under maintenance</h1>
@@ -422,33 +408,16 @@
       </div>
     </div>
   </div>
-
-   <!-- Navigation -->
-   <div class="flex pt-10 justify-center sm:flex-1 sm:items-center md:flex-1 md:items-center ">
-    <div
-      class="justify-stretch shadow-primary-3 pb-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-1 dark:focus:shadow-dark-1 dark:active:shadow-dark-1"
+  <!-- Navigation -->
+  <div class="flex justify-center ">
+    <nav
+      class="flex flex-wrap justify-center items-center shadow-primary-3 px-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-1 dark:focus:shadow-dark-1 dark:active:shadow-dark-1"
       role="group">
-      <button id="standingsBtn2" type="button"
-        class="inline-block bg-gray-800 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white transition duration-300 hover:bg-gray-900 hover:text-violet-300 active:bg-violet-700 focus:outline-none focus:ring focus:ring-slate-900 motion-reduce:transition-none"
-        data-twe-ripple-init data-twe-ripple-color="light">
-        Standings
-      </button>
-      <button id="leaderboardBtn2" type="button"
-        class="inline-block bg-gray-800 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white transition duration-300 hover:bg-gray-900 hover:text-violet-300 active:bg-violet-700 focus:outline-none focus:ring focus:ring-slate-900 motion-reduce:transition-none"
-        data-twe-ripple-init data-twe-ripple-color="light">
-        Player Leaderboard
-      </button>
-      <button id="teamAnalyticsBtn2" type="button"
-        class="inline-block bg-gray-800 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white transition duration-300 hover:bg-gray-900 hover:text-violet-300 active:bg-violet-700 focus:outline-none focus:ring focus:ring-slate-900 motion-reduce:transition-none"
-        data-twe-ripple-init data-twe-ripple-color="light">
-        Team Analytics
-      </button>
-      <button id="playerAnalyticsBtn2" type="button"
-        class="inline-block bg-gray-800 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white transition duration-300 hover:bg-gray-900 hover:text-violet-300 active:bg-violet-700 focus:outline-none focus:ring focus:ring-slate-900 motion-reduce:transition-none"
-        data-twe-ripple-init data-twe-ripple-color="light">
-        Player Analytics
-      </button>
-    </div>
+      <button id="standingsBtn2" type="button" class="nav-btn text-xs">Standings</button>
+      <button id="leaderboardBtn2" type="button" class="nav-btn text-xs">Player Leaderboard</button>
+      <button id="teamAnalyticsBtn2" type="button" class="nav-btn text-xs">Team Analytics</button>
+      <button id="playerAnalyticsBtn2" type="button" class="nav-btn text-xs">Player Analytics</button>
+    </nav>
   </div>
   <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
