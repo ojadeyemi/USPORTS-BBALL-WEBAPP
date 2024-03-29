@@ -20,4 +20,4 @@ For contribution guidelines, please refer to the [CONTRIBUTING.md](CONTRIBUTING.
 
 For any questions, feedback, or inquiries, feel free to contact me:
 
-- LinkedIn: [your-email@example.com](https://www.linkedin.com/in/oj-adeyemi/)
+- LinkedIn: [OJ Adeyemi](https://www.linkedin.com/in/oj-adeyemi/)
