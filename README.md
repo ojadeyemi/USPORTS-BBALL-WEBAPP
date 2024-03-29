@@ -1,41 +1,23 @@
 # USPORTS BASKETBALL WEB APP
 
-As a computer science student who loves sports, I've built this platform to offer you current standings and insightful analysis on USports basketball teams.
+This is a personal project by me (OJ), a computer science student. This website serves as my platform to share analytics and insights into the Canadian university basketball league, commonly known as U Sports. I'm passionate about basketball and data analysis, and this project allows me to combine both interests.
 
-## Table of Contents
+## Goal
 
-- [Project Name](#project-name)
-  - [Table of Contents](#table-of-contents)
-  - [Description](#description)
-  - [Features](#features)
-  - [Installation](#installation)
-  - [Usage](#usage)
-  - [Contributing](#contributing)
-  - [License](#license)
-  - [Contact](#contact)
+My mission is to provide basketball enthusiasts, coaches, players, and fans with valuable data-driven insights and analytics to enhance their understanding and enjoyment of U Sports basketball. Through this project, I aim to promote the sport and contribute to the growth of basketball in Canadian universities.
 
-## Description
+## What I Offer
 
-Provide a more detailed description of your project. Explain its purpose, features, and any other relevant information.
+At U Sports Basketball Statistics, you'll find a wide range of statistical metrics and analyses, including team performance, player statistics, team standings and much more. My platform allows you to delve deep into the numbers, enabling informed decision-making and enhancing your basketball experience.
 
-## Features
+## Contributing
 
-List the key features of your project.
+This web application is open-source, and contributions are welcome! If you'd like to contribute to the development of the USPORTS BASKETBALL WEB APP, feel free to fork the repository, make your changes, and submit a pull request. Whether it's fixing a bug, adding a new feature, or improving the documentation, your contributions are greatly appreciated.
 
-- Feature 1
-- Feature 2
-- ...
+For contribution guidelines, please refer to the [CONTRIBUTING.md](CONTRIBUTING.md) file.
 
-## Installation
+## Contact
 
-Provide instructions on how to install and set up your project.
+For any questions, feedback, or inquiries, feel free to contact me:
 
-```bash
-# Clone the repository
-git clone <repository_url>
-
-# Navigate to the project directory
-cd project_name
-
-# Install dependencies
-npm install
+- LinkedIn: [your-email@example.com](https://www.linkedin.com/in/oj-adeyemi/)
