@@ -1,23 +1,23 @@
 {% extends "base.html" %} {% block content %}
 
 <body>
-  <h1 class="text-center font-bold text-3xl text-white py-5">
-    {{ league }} Basketball League
+  <h1 class="text-center text-gray-500 font-bold text-xl md:text-3xl py-2">
+    {{ league }} League
   </h1>
   <!-- Navigation -->
   <div class="flex justify-center ">
     <nav
-      class="flex flex-wrap justify-center items-center shadow-primary-3 px-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-1 dark:focus:shadow-dark-1 dark:active:shadow-dark-1"
+      class="flex flex-wrap md:flex-row"
       role="group">
-      <button id="standingsBtn" type="button" class="nav-btn">Standings</button>
-      <button id="leaderboardBtn" type="button" class="nav-btn">Player Leaderboard</button>
-      <button id="teamAnalyticsBtn" type="button" class="nav-btn">Team Analytics</button>
-      <button id="playerAnalyticsBtn" type="button" class="nav-btn">Player Analytics</button>
+      <button id="standingsBtn" type="button" class="nav-btn flex-auto shrink text-xs md:text-base">Standings</button>
+      <button id="leaderboardBtn" type="button" class="nav-btn flex-auto text-xs md:text-base">Player Leaderboard</button>
+      <button id="teamAnalyticsBtn" type="button" class="nav-btn flex-auto text-xs md:text-base">Team Analytics</button>
+      <button id="playerAnalyticsBtn" type="button" class="nav-btn flex-auto text-xs md:text-base">Player Analytics</button>
     </nav>
   </div>
   <!-- Standings Section -->
   <div id="standings-section" style="display: block">
-    <div id="filters" class="text-left my-4 ">
+    <div id="filters" class="text-left my-5 px-4 text-xs md:text-sm">
       <label for="conference-filter" class="text-white font-bold mr-2 ">Filter by Conference:</label>
       <select id="conference-filter"
         class="py-2 px-4 rounded bg-gray-800 text-white hover:bg-gray-700 focus:bg-gray-700">
@@ -32,29 +32,29 @@
     <div style="margin: 0 auto;" class="team-container w-full sm:w-11/12">
       <div class="team-header bg-gray-800 rounded-lg shadow-md mb-5 text-left">
         <table class="w-full">
-          <tr>
-            <th style="width: 20%" class="py-2"></th>
-            <th style="width: 20%" class="py-2">Team</th>
-            <th style="width: 10%" class="py-2">W</th>
-            <th style="width: 10%" class="py-2">L</th>
-            <th style="width: 10%" class="py-2 font-bold">Pct</th>
-            <th style="width: 10%" class="py-2">GP</th>
-            <th style="width: 10%" class="py-2">Last 10</th>
-            <th style="width: 10%" class="py-2">Streak</th>
+          <tr class="text-xs md:text-lg">
+            <th class="py-2">&nbsp; #</th>
+            <th style="width: 30%" class="py-2">Team</th>
+            <th style="width: 6%" class="py-2">W</th>
+            <th style="width: 6%" class="py-2">L</th>
+            <th style="width: 12%" class="py-2 font-bold">Pct</th>
+            <th style="width: 8%" class="py-2">GP</th>
+            <th style="width: 12%" class="py-2">L10</th>
+            <th style="width: 15%" class="py-2">Streak</th>
           </tr>
         </table>
       </div>
 
       {% for team in teams %}
       <div
-        class="team {{ team.conference }} bg-slate-950 rounded-lg shadow-md flex items-center justify-between flex-grow text-left mb-2">
+        class="team {{ team.conference }} bg-slate-950 rounded-lg shadow-md flex items-center justify-between flex-grow text-left mb-1">
         <table class="w-full">
-          <tr>
+          <tr class="text-xs md:text-lg">
             <td class="pl-3 ">{{ loop.index }}</td>
             <td><img src="{{ url_for('static', filename='team_logos/' + team.team_name +'.png') }}" alt="Team Logo"
-                class="max-w-13 max-h-12" /></td>
+                class=" max-w-7 h-auto md:max-w-14 " /></td>
                 
-                <td style="width: 20%" class="py-2 text-lg font-bold">
+                <td style="width: 25%" class="py-2  font-bold">
                   {% if team.team_name == 'Toronto Metropolitan' %}
                     <a href="{{ url_for('team_page', league_path=league_path, team_path='Toronto Metropolitan') }}"
                       class="no-underline hover:underline ">TMU</a>
@@ -63,25 +63,25 @@
                       class="no-underline hover:underline ">{{ team.team_name }}</a>
                   {% endif %}
                   <img src="{{ url_for('static', filename='conference_logos/' + team.conference +'.png') }}"
-                    alt="Team Logo" class="max-w-8 max-h-8" />
+                    alt="Team Logo" class="max-w-3 h-auto md:max-w-8 " />
                 </td>
                 
-            <td style="width: 10%" class="py-2">
+            <td style="width: 6%" class="py-2">
               {{ team.total_wins }}
             </td>
-            <td style="width: 10%" class="py-2">
+            <td style="width: 6%" class="py-2">
               {{ team.total_losses }}
             </td>
-            <td style="width: 10%" class="py-2 font-bold">
+            <td style="width: 12%" class="py-2 font-bold">
               {{ team.win_percentage }}
             </td>
-            <td style="width: 10%" class="py-2">
+            <td style="width: 8%" class="py-2">
               {{ team.games_played }}
             </td>
-            <td style="width: 10%" class="py-2">
+            <td style="width: 12%" class="py-2">
               {{ team.last_ten_games }}
             </td>
-            <td style="width: 10%" class="py-2">
+            <td style="width: 15%" class="py-2">
               {{ team.streak }}
             </td>
           </tr>
@@ -92,7 +92,7 @@
   </div>
 
   <!-- Player Leaderboard Section -->
-  <div id="playerleaderboard-section" style="display: none">
+  <div id="playerleaderboard-section" style="display: none" class="text-left my-5 px-4 text-xs md:text-base">
     {% set numval = 10 %}
 
     <div class="text-center sm:pl-4 md:pl-6">
@@ -420,14 +420,14 @@
     </div>
   </div>
   <!-- Navigation -->
-  <div class="flex justify-center mt-10 ">
+  <div class="flex justify-center my-5 ">
     <nav
-      class="flex flex-wrap justify-center items-center shadow-primary-3 px-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-1 dark:focus:shadow-dark-1 dark:active:shadow-dark-1"
+      class="flex flex-wrap md:flex-row"
       role="group">
-      <button id="standingsBtn2" type="button" class="nav-btn text-xs">Standings</button>
-      <button id="leaderboardBtn2" type="button" class="nav-btn text-xs">Player Leaderboard</button>
-      <button id="teamAnalyticsBtn2" type="button" class="nav-btn text-xs">Team Analytics</button>
-      <button id="playerAnalyticsBtn2" type="button" class="nav-btn text-xs">Player Analytics</button>
+      <button id="standingsBtn2" type="button" class="nav-btn flex-auto shrink text-xs md:text-base">Standings</button>
+      <button id="leaderboardBtn2" type="button" class="nav-btn flex-auto text-xs md:text-base">Player Leaderboard</button>
+      <button id="teamAnalyticsBtn2" type="button" class="nav-btn flex-auto text-xs md:text-base">Team Analytics</button>
+      <button id="playerAnalyticsBtn2" type="button" class="nav-btn flex-auto text-xs md:text-base">Player Analytics</button>
     </nav>
   </div>
   <script src="{{ url_for('static', filename='js/script.js') }}"></script>

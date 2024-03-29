@@ -46,7 +46,7 @@ def league(league_path):
         Team.conference,
         Team.total_losses,
         Team.total_wins,
-        cast(Team.win_percentage, Numeric(10, 3)).label('win_percentage'),
+        cast(Team.win_percentage, Numeric(10, 2)).label('win_percentage'),
         Team.streak,
         Team.games_played,
         cast(Team.offensive_efficiency, Numeric(10, 3)).label('offensive_efficiency'),
