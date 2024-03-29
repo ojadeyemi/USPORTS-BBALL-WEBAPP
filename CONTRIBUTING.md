@@ -14,23 +14,23 @@ git clone https://github.com/your-username/usports-basketball-web-app.git
 
 git checkout -b feature/new-feature
 ```
-Replace feature/new-feature with a descriptive branch name related to your contribution.
 
-Make your changes and improvements to the codebase.
+3. Make your changes and improvements to the codebase.
 
-Test your changes locally to ensure they work as expected.
+4. Test your changes locally to ensure they work as expected.
 
-Commit your changes with a descriptive commit message:
+5. Commit your changes with a descriptive commit message:
+
 
 ```bash
-Copy code
+
 git add .
 git commit -m "Add new feature"
 ```
 
 Push your changes to your forked repository:
+
 ```bash
-Copy code
 git push origin feature/new-feature
 ```
 Open a pull request (PR) from your forked repository to the main repository.
@@ -42,15 +42,13 @@ Open a pull request (PR) from your forked repository to the main repository.
 
 Once your PR is approved, your changes will be merged into the main repository.
 
-Code Style
+## Code Style
 Please follow the existing code style and conventions used in the project. Consistent coding style makes the codebase easier to maintain and understand for everyone.
 
-Reporting Issues
+## Reporting Issues
 If you encounter any bugs, issues, or have suggestions for improvements, please open an issue on the GitHub repository. Provide as much detail as possible, including steps to reproduce the issue if applicable.
 
-License
+## License
 By contributing to the USPORTS BASKETBALL WEB APP, you agree that your contributions will be licensed under the MIT License. See the LICENSE file for details.
 
-Thank you for contributing to the USPORTS BASKETBALL WEB APP and helping make it even better!
-
-Copy code
+Thank you for contributing and helping make it even better!
