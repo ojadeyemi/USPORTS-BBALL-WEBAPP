@@ -1,13 +1,14 @@
-
+from datetime import datetime, timezone
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
 class Feedback(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    __tablename__ = "feedback_test"
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(100))
     message = db.Column(db.Text)
-    timestamp = db.Column(db.DateTime)
+    timestamp = db.Column(db.DateTime, default=datetime.now(tz=timezone.utc))
 
 
 class MenTeam(db.Model):

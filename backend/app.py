@@ -6,14 +6,18 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://usportsballwebapp:Basketball.@localhost/usports_bball_test"
 
 db.init_app(app)
-mydict = {} #figure out how to use this dict and store in database
 
 @app.route("/", methods=["POST", "GET"])
 def index():
     if request.method == 'POST':
         name = request.form['name']
         message = request.form['message']
-        mydict[name] = message
+        # Create an instance of the Feedback model
+        feedback_entry = Feedback(name=name, message=message)
+        # Add the instance to the database session
+        db.session.add(feedback_entry)
+        # Commit the changes to the database
+        db.session.commit()
         return redirect("/")
     else:
         return render_template("home.html")
@@ -101,4 +105,4 @@ def team_page(league_path,team_path):
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
-    print(mydict)
+    

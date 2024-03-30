@@ -6,13 +6,13 @@
   </h1>
   <!-- Navigation -->
   <div class="flex justify-center ">
-    <nav
-      class="flex flex-wrap md:flex-row"
-      role="group">
+    <nav class="flex flex-wrap md:flex-row" role="group">
       <button id="standingsBtn" type="button" class="nav-btn flex-auto shrink text-xs md:text-base">Standings</button>
-      <button id="leaderboardBtn" type="button" class="nav-btn flex-auto text-xs md:text-base">Player Leaderboard</button>
+      <button id="leaderboardBtn" type="button" class="nav-btn flex-auto text-xs md:text-base">Player
+        Leaderboard</button>
       <button id="teamAnalyticsBtn" type="button" class="nav-btn flex-auto text-xs md:text-base">Team Analytics</button>
-      <button id="playerAnalyticsBtn" type="button" class="nav-btn flex-auto text-xs md:text-base">Player Analytics</button>
+      <button id="playerAnalyticsBtn" type="button" class="nav-btn flex-auto text-xs md:text-base">Player
+        Analytics</button>
     </nav>
   </div>
   <!-- Standings Section -->
@@ -53,19 +53,19 @@
             <td class="pl-3 ">{{ loop.index }}</td>
             <td><img src="{{ url_for('static', filename='team_logos/' + team.team_name +'.png') }}" alt="Team Logo"
                 class=" max-w-7 h-auto md:max-w-14 " /></td>
-                
-                <td style="width: 25%" class="py-2  font-bold">
-                  {% if team.team_name == 'Toronto Metropolitan' %}
-                    <a href="{{ url_for('team_page', league_path=league_path, team_path='Toronto Metropolitan') }}"
-                      class="no-underline hover:underline ">TMU</a>
-                  {% else %}
-                    <a href="{{ url_for('team_page', league_path=league_path, team_path=team.team_name) }}"
-                      class="no-underline hover:underline ">{{ team.team_name }}</a>
-                  {% endif %}
-                  <img src="{{ url_for('static', filename='conference_logos/' + team.conference +'.png') }}"
-                    alt="Team Logo" class="max-w-3 h-auto md:max-w-8 " />
-                </td>
-                
+
+            <td style="width: 25%" class="py-2  font-bold">
+              {% if team.team_name == 'Toronto Metropolitan' %}
+              <a href="{{ url_for('team_page', league_path=league_path, team_path='Toronto Metropolitan') }}"
+                class="no-underline hover:underline ">TMU</a>
+              {% else %}
+              <a href="{{ url_for('team_page', league_path=league_path, team_path=team.team_name) }}"
+                class="no-underline hover:underline ">{{ team.team_name }}</a>
+              {% endif %}
+              <img src="{{ url_for('static', filename='conference_logos/' + team.conference +'.png') }}" alt="Team Logo"
+                class="max-w-3 h-auto md:max-w-8 " />
+            </td>
+
             <td style="width: 6%" class="py-2">
               {{ team.total_wins }}
             </td>
@@ -363,8 +363,9 @@
           <td class="py-1 w-1/12"><img src="{{ url_for('static', filename='team_logos/' + team.team_name +'.png') }}"
               alt="Team Logo" class="max-w-8 max-h-8" /> </td>
           <td class="py-1 w-1/4 font-bold">{{ team.team_name}}</td>
-          <td class="py-1 w-1/12"><img src="{{ url_for('static', filename='conference_logos/' + team.conference +'.png') }}"
-            alt="Team Logo" class="max-w-8 max-h-8" /> </td>
+          <td class="py-1 w-1/12"><img
+              src="{{ url_for('static', filename='conference_logos/' + team.conference +'.png') }}" alt="Team Logo"
+              class="max-w-8 max-h-8" /> </td>
           <td class="py-1 w-1/6 ">{{ team.conference }}</td>
           <td class="py-1 font-bold text-right pr-10">{{ team.offensive_efficiency }}</td>
 
@@ -392,8 +393,9 @@
           <td class="py-1 w-1/12"><img src="{{ url_for('static', filename='team_logos/' + team.team_name +'.png') }}"
               alt="Team Logo" class="max-w-8 max-h-8" /> </td>
           <td class="py-1 w-1/4 font-bold">{{ team.team_name}}</td>
-          <td class="py-1 w-1/12"><img src="{{ url_for('static', filename='conference_logos/' + team.conference +'.png') }}"
-            alt="Team Logo" class="max-w-8 max-h-8" /> </td>
+          <td class="py-1 w-1/12"><img
+              src="{{ url_for('static', filename='conference_logos/' + team.conference +'.png') }}" alt="Team Logo"
+              class="max-w-8 max-h-8" /> </td>
           <td class="py-1 w-1/6 ">{{ team.conference }}</td>
           <td class="py-1 font-bold text-right pr-10">{{ team.defensive_efficiency }}</td>
 
@@ -421,13 +423,14 @@
   </div>
   <!-- Navigation -->
   <div class="flex justify-center my-5 ">
-    <nav
-      class="flex flex-wrap md:flex-row"
-      role="group">
+    <nav class="flex flex-wrap md:flex-row" role="group">
       <button id="standingsBtn2" type="button" class="nav-btn flex-auto shrink text-xs md:text-base">Standings</button>
-      <button id="leaderboardBtn2" type="button" class="nav-btn flex-auto text-xs md:text-base">Player Leaderboard</button>
-      <button id="teamAnalyticsBtn2" type="button" class="nav-btn flex-auto text-xs md:text-base">Team Analytics</button>
-      <button id="playerAnalyticsBtn2" type="button" class="nav-btn flex-auto text-xs md:text-base">Player Analytics</button>
+      <button id="leaderboardBtn2" type="button" class="nav-btn flex-auto text-xs md:text-base">Player
+        Leaderboard</button>
+      <button id="teamAnalyticsBtn2" type="button" class="nav-btn flex-auto text-xs md:text-base">Team
+        Analytics</button>
+      <button id="playerAnalyticsBtn2" type="button" class="nav-btn flex-auto text-xs md:text-base">Player
+        Analytics</button>
     </nav>
   </div>
   <script src="{{ url_for('static', filename='js/script.js') }}"></script>
