@@ -6,3 +6,22 @@ backend/instance/
 backend/.webassets-cache
 
 backend/static/node_modules/
+
+
+#vscode stuff
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+
+# Local History for Visual Studio Code
+.history/
+
+# Built Visual Studio Code Extensions
+*.vsix
+
+# Flask stuff:
+instance/
+.webassets-cache
