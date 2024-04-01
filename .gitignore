@@ -1,5 +1,6 @@
 virtualenv/
 
 backend/__pycache__/
+backend/*.py[cod]
 
 backend/static/node_modules/
