@@ -1,11 +1,11 @@
 virtualenv/
 
-backend/__pycache__/
-backend/*.py[cod]
-backend/instance/
-backend/.webassets-cache
+__pycache__/
+*.py[cod]
+instance/
+.webassets-cache
 
-backend/static/node_modules/
+node_modules/
 
 
 #vscode stuff
