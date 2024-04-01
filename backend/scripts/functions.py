@@ -416,7 +416,6 @@ def __usports_player_defense_data(defense_url):
         if len(cols) > 0:
             player_lastname_initials = cols[1].get_text(strip=True).split()[0]  # Assuming lastname initials are the first letter of the second <td> content
             firstname = ' '.join(cols[1].get_text(strip=True).split()[1:])  # Assuming firstname is the rest of the content after lastname initials
-            print(cols[1].get_text(strip=True) , firstname)
             school = cols[2].get_text(strip=True)
             games_played = cols[3].get_text(strip=True)
             games_started = cols[4].get_text(strip=True)
@@ -510,3 +509,4 @@ def usports_team_stats(arg:str):
 
 if __name__ == '__main__':
    df = usports_player_stats('men')
+   print(df.describe)
