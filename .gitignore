@@ -2,5 +2,7 @@ virtualenv/
 
 backend/__pycache__/
 backend/*.py[cod]
+backend/instance/
+backend/.webassets-cache
 
 backend/static/node_modules/
