@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect
 from sqlalchemy import func, cast, Numeric
-from models import *
+from models import db, Feedback, MenTeam, WomenTeam, MenPlayers, WomenPlayers
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://usportsballwebapp:Basketball.@localhost/usports_bball_test"
@@ -23,10 +23,10 @@ def index():
         return render_template("home.html")
 
 
-
 @app.route('/about')
 def about():
     return render_template("about.html")
+
 
 @app.route("/<league_path>")
 def league(league_path):
@@ -67,7 +67,6 @@ def league(league_path):
         Player.field_goal_percentage,
         Player.three_pointers_percentage,
         Player.free_throws_percentage,
-        Player.team_id,
         Team.games_played.label("team_games_played"),
         Team.conference.label("team_conference"),
         func.round(Player.total_points / Player.games_played, 1).label('points_per_game'),
@@ -84,6 +83,7 @@ def league(league_path):
     
     # Render the league.html template with the retrieved data
     return render_template("league.html", teams=teams, players=players, league=league_name, league_path=league_path)
+
 
 @app.route("/<league_path>/<team_path>")
 def team_page(league_path,team_path):

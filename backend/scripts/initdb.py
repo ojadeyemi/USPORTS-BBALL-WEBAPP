@@ -5,9 +5,6 @@ This script is used to override the old tables with the new table containing the
 
 Dependencies:
 - SQLAlchemy: Used for interacting with the MySQL database.
-- pandas: Used for data manipulation and processing.
-- requests: Used for making HTTP requests to fetch data from the USports website.
-- BeautifulSoup (bs4): Used for parsing HTML content fetched from the website.
 
 Usage:
 - Before running the script, ensure that a MySQL database is set up and accessible.

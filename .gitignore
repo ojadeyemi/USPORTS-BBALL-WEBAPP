@@ -1,20 +1,20 @@
-virtualenv/
+virtualenv
 
 # Flask stuff:
-__pycache__/
+__pycache__
 *.py[cod]
-instance/
+instance
 .webassets-cache
 
-.pytest_cache/
+.pytest_cache
 .coverage
-htmlcov/
+htmlcov
 
-dist/
-build/
-*.egg-info/
+dist
+build
+*.egg-info
 
-node_modules/
+node_modules
 
 #vscode stuff
 .vscode/*

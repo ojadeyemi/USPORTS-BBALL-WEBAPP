@@ -1,109 +1,96 @@
+"""
+Models for USports Basketball Data
+
+This file defines SQLAlchemy models representing the database schema used for storing USports basketball data for men's and women's teams and players.
+
+Dependencies:
+    - datetime
+    - timezone
+    - sqlalchemy
+
+Classes:
+    - Feedback: Represents feedback data.
+    - MenTeam: Represents men's basketball team data.
+    - WomenTeam: Represents women's basketball team data.
+    - MenPlayers: Represents men's basketball player data.
+    - WomenPlayers: Represents women's basketball player data.
+"""
+
 from datetime import datetime, timezone
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy import Integer, String, Float, ForeignKey, DateTime, Text
 
 db = SQLAlchemy()
 
 class Feedback(db.Model):
     __tablename__ = "feedback_test"
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name = db.Column(db.String(100))
-    message = db.Column(db.Text)
-    timestamp = db.Column(db.DateTime, default=datetime.now(tz=timezone.utc))
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    name: Mapped[str] = mapped_column(String(200))
+    message: Mapped[str] = mapped_column(Text)
+    timestamp: Mapped[datetime] = mapped_column(DateTime, default=datetime.now(tz=timezone.utc))
+
+class __BaseTeam(db.Model):
+    """ Base class for representing a basketball team. """
+    __abstract__ = True
+    team_id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    team_name: Mapped[str] = mapped_column(String(255), unique=True)
+    conference: Mapped[str] = mapped_column(String(10))
+    last_ten_games: Mapped[str] = mapped_column(String(50))
+    games_played: Mapped[int] = mapped_column(Integer)
+    total_wins: Mapped[int] = mapped_column(Integer)
+    total_losses: Mapped[int] = mapped_column(Integer)
+    win_percentage: Mapped[float] = mapped_column(Float(precision=1))
+    streak: Mapped[str] = mapped_column(String(50))
+    offensive_efficiency: Mapped[float] = mapped_column(Float(precision=2))
+    defensive_efficiency: Mapped[float] = mapped_column(Float(precision=2))
+
+class __BasePlayer(db.Model):
+    """ Base class for representing a player in a basketball team. """
+    __abstract__ = True
+    player_id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    team_id: Mapped[int] = mapped_column(Integer, ForeignKey('__BaseTeam.team_id'))
+    first_name: Mapped[str] = mapped_column(String(255))
+    lastname_initials: Mapped[str] = mapped_column(String(2))
+    school: Mapped[str] = mapped_column(String(255))
+    games_played: Mapped[int] = mapped_column(Integer)
+    games_started: Mapped[int] = mapped_column(Integer)
+    minutes_played: Mapped[int] = mapped_column(Integer)
+    total_points: Mapped[int] = mapped_column(Integer)
+    offensive_rebounds: Mapped[int] = mapped_column(Integer)
+    defensive_rebounds: Mapped[int] = mapped_column(Integer)
+    total_rebounds: Mapped[int] = mapped_column(Integer)
+    personal_fouls: Mapped[int] = mapped_column(Integer)
+    disqualifications: Mapped[int] = mapped_column(Integer)
+    assists: Mapped[int] = mapped_column(Integer)
+    turnovers: Mapped[int] = mapped_column(Integer)
+    assist_per_turnover: Mapped[float] = mapped_column(Float)
+    steals: Mapped[int] = mapped_column(Integer)
+    blocks: Mapped[int] = mapped_column(Integer)
+    field_goal_made: Mapped[int] = mapped_column(Integer)
+    field_goal_attempted: Mapped[int] = mapped_column(Integer)
+    field_goal_percentage: Mapped[float] = mapped_column(Float)
+    three_pointers_made: Mapped[int] = mapped_column(Integer)
+    three_pointers_attempted: Mapped[int] = mapped_column(Integer)
+    three_pointers_percentage: Mapped[float] = mapped_column(Float)
+    free_throws_made: Mapped[int] = mapped_column(Integer)
+    free_throws_attempted: Mapped[int] = mapped_column(Integer)
+    free_throws_percentage: Mapped[float] = mapped_column(Float)
 
 
-class MenTeam(db.Model):
+class MenTeam(__BaseTeam):
+    """Represents men's basketball team data."""
     __tablename__ = "men_team_test"
-    team_id = db.Column(db.Integer, primary_key=True)
-    players = db.relationship("MenPlayers", back_populates="school_team")
-    team_name = db.Column(db.String(255))
-    conference = db.Column(db.String(10))
-    last_ten_games = db.Column(db.String(50))
-    games_played = db.Column(db.Integer)
-    total_wins = db.Column(db.Integer)
-    total_losses = db.Column(db.Integer)
-    win_percentage = db.Column(db.Float(precision=1))
-    streak = db.Column(db.String(50))
-    offensive_efficiency = db.Column(db.Float(precision=2))
-    defensive_efficiency = db.Column(db.Float(precision=2))
     
-
-class WomenTeam(db.Model):
+class WomenTeam(__BaseTeam):
+    """Represents women's basketball team data."""
     __tablename__ = "women_team_test"
-    team_id = db.Column(db.Integer, primary_key=True)
-    players = db.relationship("WomenPlayers", back_populates="school_team")
-    team_name = db.Column(db.String(255))
-    conference = db.Column(db.String(10))
-    last_ten_games = db.Column(db.String(50))
-    games_played = db.Column(db.Integer)
-    total_wins = db.Column(db.Integer)
-    total_losses = db.Column(db.Integer)
-    win_percentage = db.Column(db.Float(precision=1))
-    streak = db.Column(db.String(50))
-    offensive_efficiency = db.Column(db.Float(precision=2))
-    defensive_efficiency = db.Column(db.Float(precision=2))
 
-class MenPlayers(db.Model):
+class MenPlayers(__BasePlayer):
+    """Represents men's basketball player data."""
     __tablename__ = "men_players_test"
-    player_id = db.Column(db.Integer, primary_key=True)
-    team_id = db.Column(db.Integer, db.ForeignKey('men_team_test.team_id'))
-    school_team = db.relationship("MenTeam", back_populates="players")
-    first_name = db.Column(db.String(255))
-    lastname_initials = db.Column(db.String(2))
-    school = db.Column(db.String(255))
-    games_played = db.Column(db.Integer)
-    games_started = db.Column(db.Integer)
-    minutes_played = db.Column(db.Integer)
-    total_points = db.Column(db.Integer)
-    offensive_rebounds = db.Column(db.Integer)
-    defensive_rebounds = db.Column(db.Integer)
-    total_rebounds = db.Column(db.Integer)
-    personal_fouls = db.Column(db.Integer)
-    disqualifications = db.Column(db.Integer)
-    assists = db.Column(db.Integer)
-    turnovers = db.Column(db.Integer)
-    assist_per_turnover = db.Column(db.Float)
-    steals = db.Column(db.Integer)
-    blocks = db.Column(db.Integer)
-    field_goal_made = db.Column(db.Integer)
-    field_goal_attempted = db.Column(db.Integer)
-    field_goal_percentage = db.Column(db.Float)
-    three_pointers_made = db.Column(db.Integer)
-    three_pointers_attempted = db.Column(db.Integer)
-    three_pointers_percentage = db.Column(db.Float)
-    free_throws_made = db.Column(db.Integer)
-    free_throws_attempted = db.Column(db.Integer)
-    free_throws_percentage = db.Column(db.Float)
     
 
-
-class WomenPlayers(db.Model):
+class WomenPlayers(__BasePlayer):
+    """Represents women's basketball player data."""
     __tablename__ = "women_players_test"
-    player_id = db.Column(db.Integer, primary_key=True)
-    team_id = db.Column(db.Integer, db.ForeignKey('women_team_test.team_id'))
-    school_team = db.relationship("WomenTeam", back_populates="players")
-    first_name = db.Column(db.String(255))
-    lastname_initials = db.Column(db.String(2))
-    school = db.Column(db.String(255))
-    games_played = db.Column(db.Integer)
-    games_started = db.Column(db.Integer)
-    minutes_played = db.Column(db.Integer)
-    total_points = db.Column(db.Integer)
-    offensive_rebounds = db.Column(db.Integer)
-    defensive_rebounds = db.Column(db.Integer)
-    total_rebounds = db.Column(db.Integer)
-    personal_fouls = db.Column(db.Integer)
-    disqualifications = db.Column(db.Integer)
-    assists = db.Column(db.Integer)
-    turnovers = db.Column(db.Integer)
-    assist_per_turnover = db.Column(db.Float)
-    steals = db.Column(db.Integer)
-    blocks = db.Column(db.Integer)
-    field_goal_made = db.Column(db.Integer)
-    field_goal_attempted = db.Column(db.Integer)
-    field_goal_percentage = db.Column(db.Float)
-    three_pointers_made = db.Column(db.Integer)
-    three_pointers_attempted = db.Column(db.Integer)
-    three_pointers_percentage = db.Column(db.Float)
-    free_throws_made = db.Column(db.Integer)
-    free_throws_attempted = db.Column(db.Integer)
-    free_throws_percentage = db.Column(db.Float)
