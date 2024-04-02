@@ -339,16 +339,25 @@ def __usports_team_data(stats_url: str, standings_url: str, no_of_teams: int) ->
             league_points_against.append(int(stats_elements[8].text.strip()))
             league_points.append(int(stats_elements[9].text.strip()))
     
+    # Assuming last_ten_games contains a list of strings like "Won 3" or "Lost 2"
+    modified_streak = []
+
+    for game_result in streak:
+        if "Won" in game_result:
+            modified_streak.append("W" + game_result[3:])
+        elif "Lost" in game_result:
+            modified_streak.append("L" + game_result[4:])
+
     data_collected = {
-        'team_name': team_names,
-        'total_wins': total_wins,
-        'total_losses': total_losses,
-        'win_percentage': win_percentage,
-        'last_ten_games': last_ten_games,
-        'streak' : streak,
-        'total_points': league_points_for,
-        'total_points_against':league_points_against
-    }
+    'team_name': team_names,
+    'total_wins': total_wins,
+    'total_losses': total_losses,
+    'win_percentage': win_percentage,
+    'last_ten_games': last_ten_games,
+    'streak' : modified_streak,
+    'total_points': league_points_for,
+    'total_points_against':league_points_against
+}
     #Create a DataFrame
     df2 = pd.DataFrame(data_collected)
     df = pd.merge(df,df2,on='team_name', how='inner')
@@ -581,5 +590,5 @@ def usports_team_stats(arg:str) -> pd.DataFrame:
     
 
 if __name__ == '__main__':
-   test_df = usports_player_stats('men')
+   test_df = usports_team_stats('men')
    

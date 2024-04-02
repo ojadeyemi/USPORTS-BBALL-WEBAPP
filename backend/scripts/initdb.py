@@ -81,6 +81,7 @@ women_df.to_sql('women_team_test', con=engine, if_exists='replace',index=False, 
 men_players_df.to_sql('men_players_test', con=engine, if_exists='replace', index=False,dtype=player_df_schema)
 women_players_df.to_sql('women_players_test', con=engine, if_exists='replace', index=False,dtype=player_df_schema)
 
+# SQL queries to alter tables and update data
 sql_query = ["""
 -- Alter the men_team_test table
 ALTER TABLE men_team_test
@@ -129,10 +130,11 @@ SET women_players_test.team_id = women_team_test.team_id
 WHERE player_id >= 0;
 """]
 
+# Execute SQL queries using SQLAlchemy
 with engine.connect() as con:
     for query in sql_query:
         con.execute(text(query))
         con.commit()
-        print('something')
-    print("success")
+        print("Executed query:", query.strip(), '\n')
+    print("All SQL queries executed successfully.")
 
