@@ -1,9 +1,33 @@
+"""
+USports Basketball Data Processing Script
+
+This script is used to override the old tables with the new table containing the latest data fetched from the USports website. The usports_team_stats and usports_player_stats functions, which are imported from another Python file, are used to parse through the USports website and collect statistics into pandas DataFrame objects.
+
+Dependencies:
+- SQLAlchemy: Used for interacting with the MySQL database.
+- pandas: Used for data manipulation and processing.
+- requests: Used for making HTTP requests to fetch data from the USports website.
+- BeautifulSoup (bs4): Used for parsing HTML content fetched from the website.
+
+Usage:
+- Before running the script, ensure that a MySQL database is set up and accessible.
+- Modify the connection_string variable to specify the connection details for the MySQL database.
+- Ensure that the necessary tables and schema are set up in the database.
+- Execute the script to fetch, process, and store the basketball statistics data in the database.
+
+Author:
+OJ Adeyemi
+
+Date:
+March 10, 2024
+"""
+
 from sqlalchemy import create_engine, text
 from sqlalchemy import types as t
-import sys
 
 from functions import usports_team_stats, usports_player_stats
 
+#DO NOT MODIFY UNLESS YOU ARE OJ ADEYEMI
 connection_string = 'mysql+pymysql://root:Basketball@localhost/usports_bball_test'
 
 # Create a SQLAlchemy engine
@@ -27,8 +51,7 @@ except Exception as e:
     raise
 
 
-
-#drop foreign key constraints first
+#drop foreign key constraints first if table has already been made
 sql_query = [
 """
 ALTER TABLE women_players_test

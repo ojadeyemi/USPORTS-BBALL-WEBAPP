@@ -1,13 +1,54 @@
+"""
+USports Basketball Data Scraping and Processing
+
+This Python file contains functions to scrape basketball statistics data from the USports website and process it into structured pandas DataFrame objects.
+
+Dependencies:
+    - requests
+    - BeautifulSoup (bs4)
+    - pandas
+
+Functions:
+    - usports_team_stats: Fetches and processes team statistics data.
+    - usports_player_stats: Fetches and processes player statistics data.
+
+Usage:
+    - Call the respective functions with appropriate arguments to retrieve processed data.
+
+# Example:
+>>> import pandas as pd 
+>>> from functions import usports_team_stats, usports_player_stats
+#Fetching and processing men's team and players statistics 
+>>> men_team_stats_df = usports_team_stats('men')
+# Fetching and processing player statistics data for men's players
+>>> men_player_stats_df = usports_player_stats('men') \n
+
+Author:
+    OJ Adeyemi
+
+Date Created:
+    March 1, 2024
+
+"""
+
 #importing libraries
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 
 
-def __usports_team_data(stats_url, url, no_of_teams:int):
+def __usports_team_data(stats_url: str, standings_url: str, no_of_teams: int) -> pd.DataFrame:
     '''
-    This function takes thr url of the usport's team stats and the number of teams and returns a
-    dataframe of the team and their stats removing any rows of team that didnt play that season.
+    This function takes the URL of the USport's team stats and the number of teams and returns a
+    DataFrame of the team and their stats, removing any rows of teams that didn't play that season.
+
+    Args:
+        stats_url (str): URL of the team statistics data.
+        standings_url (str): URL of the standings page.
+        no_of_teams (int): Number of teams.
+
+    Returns:
+        pd.DataFrame: DataFrame containing processed team statistics.
     '''
     #perfrom GET request to the URL and returns the server response to the HTTP request
     page = requests.get(stats_url)
@@ -257,7 +298,7 @@ def __usports_team_data(stats_url, url, no_of_teams:int):
         print(f"Some team's_efficiency was not recorded")
 
     #page from second url
-    page = requests.get(url)
+    page = requests.get(standings_url)
    
     if(page.status_code != 200):
         print("USport's Server did not respond with HTTP request")
@@ -313,9 +354,16 @@ def __usports_team_data(stats_url, url, no_of_teams:int):
     df = pd.merge(df,df2,on='team_name', how='inner')
     return df
 
-def __usports_player_offense_data(offense_url):
-        #page from second url
+def __usports_player_offense_data(offense_url:str) -> pd.DataFrame:
+    """
+    Fetches and processes player offense statistics data from the given URL.
 
+    Args:
+        offense_url (str): URL of the player offense statistics data.
+
+    Returns:
+        pd.DataFrame: DataFrame containing processed player offense statistics.
+    """ 
     offense_page = requests.get(offense_url)
 
     # Parse the HTML using BeautifulSoup
@@ -378,9 +426,16 @@ def __usports_player_offense_data(offense_url):
     return df
 
 
-def __usports_player_defense_data(defense_url):
-    #page from second url
+def __usports_player_defense_data(defense_url:str) -> pd.DataFrame:
+    """
+    Fetches and processes player offense statistics data from the given URL.
 
+    Args:
+        defense_url (str): URL of the player defense statistics data.
+
+    Returns:
+        pd.DataFrame: DataFrame containing processed player defense statistics.
+    """ 
     defense_page = requests.get(defense_url)
 
     # Parse the HTML using BeautifulSoup
@@ -457,7 +512,16 @@ def __usports_player_defense_data(defense_url):
     return df
 
 
-def usports_player_stats(arg):
+def usports_player_stats(arg:str) -> pd.DataFrame:
+    """
+    Fetches and processes player statistics data from USports website.
+
+    Args:
+        arg (str): Gender of the players. Should be either 'men' or 'women'.
+
+    Returns:
+        pd.DataFrame: DataFrame containing processed player statistics.
+    """
     if(arg == 'men'):
             players_off_stats_df = __usports_player_offense_data('https://universitysport.prestosports.com/sports/mbkb/2023-24/players?view=&pos=st&r=0')
             players_def_stats_df = __usports_player_defense_data('https://universitysport.prestosports.com/sports/mbkb/2023-24/players?view=&pos=bt&r=0')
@@ -495,7 +559,16 @@ def usports_player_stats(arg):
     return players_stats_df
 
 
-def usports_team_stats(arg:str):
+def usports_team_stats(arg:str) -> pd.DataFrame:
+    """
+    Fetches and processes team statistics data from USports website.
+
+    Args:
+        arg (str): Gender of the teams. Should be either 'men' or 'women'.
+
+    Returns:
+        pd.DataFrame: DataFrame containing processed team statistics.
+    """
     if(arg.lower() == 'men'):
         team = ('https://universitysport.prestosports.com/sports/mbkb/2023-24/teams?sort=&r=0&pos=off',
              'https://universitysport.prestosports.com/sports/mbkb/2023-24/standings-conf', 52)
@@ -508,5 +581,5 @@ def usports_team_stats(arg:str):
     
 
 if __name__ == '__main__':
-   df = usports_player_stats('men')
-   print(df.describe)
+   test_df = usports_player_stats('men')
+   
