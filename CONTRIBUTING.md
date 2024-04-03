@@ -1,25 +1,44 @@
-# Contributing to USPORTS BASKETBALL WEB APP
-
-Thank you for considering contributing to the USPORTS BASKETBALL WEB APP! Your contributions are greatly appreciated and help improve the project for everyone.
 
 ## How to Contribute
 
 To contribute to the USPORTS BASKETBALL WEB APP, follow these steps:
 
-1. Fork the repository to your GitHub account.
-2. Clone the forked repository to your local machine:
+- Fork the repository to your GitHub account.
+- Clone the forked repository to your local machine:
 
 ```bash
-git clone https://github.com/your-username/usports-basketball-web-app.git
+git clone https://github.com/ojadeyemi/USPORTS_WEBAPP.git
 
-git checkout -b feature/new-feature
+git checkout -b new-feature-or-fix #create new branch to add feature
 ```
 
-3. Make your changes and improvements to the codebase.
+### Create a virtual environment in the terminal
 
-4. Test your changes locally to ensure they work as expected.
+To create a virtual environment manually, use the following command (where ".virtualenv" is the name of the environment folder):
 
-5. Commit your changes with a descriptive commit message:
+```bash
+# macOS/Linux
+# You may need to run `sudo apt-get install python3-venv` first on Debian-based OSs
+python3 -m venv .virtualenv
+
+# Windows
+# You can also use `py -3 -m venv .virtualenv`
+python -m venv .virtualenv
+```
+Double check that your python Interpreter path is in your virtual environment directory
+
+>**Note**: To learn more about the `venv` module, read [it here](https://docs.python.org/3/library/venv.html) on Python.org.
+
+Install dependacies with pip:
+
+```
+$ pip install -r requirements.txt
+```
+- Make your changes and improvements to the codebase.
+
+- Test your changes locally to ensure they work as expected.
+
+- Commit your changes with a descriptive commit message:
 
 
 ```bash

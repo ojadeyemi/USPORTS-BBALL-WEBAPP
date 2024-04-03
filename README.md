@@ -1,14 +1,10 @@
 # USPORTS BASKETBALL WEB APP
 
-This is a personal project by me (OJ), a computer science student. This website serves as my platform to share analytics and insights into the Canadian university basketball league, commonly known as U Sports. I'm passionate about basketball and data analysis, and this project allows me to combine both interests.
+This is a personal project for me, a computer science student. This website serves as my platform for sharing analytics and insights into the Canadian university basketball league, also known as U Sports. I am passionate about basketball and data analysis, and this project allows me to combine the two.
 
 ## Goal
 
-My mission is to provide basketball enthusiasts, coaches, players, and fans with valuable data-driven insights and analytics to enhance their understanding and enjoyment of U Sports basketball. Through this project, I aim to promote the sport and contribute to the growth of basketball in Canadian universities.
-
-## What I Offer
-
-At U Sports Basketball Statistics, you'll find a wide range of statistical metrics and analyses, including team performance, player statistics, team standings and much more. My platform allows you to delve deep into the numbers, enabling informed decision-making and enhancing your basketball experience.
+My mission is to provide basketball enthusiasts, coaches, players, and fans with valuable data-driven insights and analytics to help them better understand and enjoy U Sports basketball. Through this project, I hope to promote the sport and contribute to the growth of basketball in Canadian universities.
 
 ## Contributing
 
