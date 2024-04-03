@@ -3,9 +3,9 @@
 
 To contribute to the USPORTS BASKETBALL WEB APP, follow these steps:
 
-- Fork the repository to your GitHub account.
+1. Fork the repository to your GitHub account.
 
-- Clone the forked repository to your local machine:
+2. Clone the forked repository to your local machine:
 
 ```bash
 git clone https://github.com/ojadeyemi/USPORTS_WEBAPP.git
@@ -33,18 +33,17 @@ Double check that your python Interpreter path is in your virtual environment di
 Install dependacies with pip:
 
 ```bash
-$ pip install -r requirements.txt
+ pip install -r requirements.txt
 ```
-- Make your changes and improvements to the codebase.
+3. Make your changes and improvements to the codebase.
 
-- Test your changes locally to ensure they work as expected.
+4. Test your changes locally to ensure they work as expected.
 
-### Run flask for develop
 ```bash
- python backend/app.py #r
+ python backend/app.py #run app on local server to see changes
 ```
 
-- Commit your changes with a descriptive commit message:
+5. Commit your changes with a descriptive commit message:
 
 
 ```bash
