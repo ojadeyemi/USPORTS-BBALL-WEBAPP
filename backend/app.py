@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, url_for
 from sqlalchemy import func, cast, Numeric
 from models import db, Feedback, MenTeam, WomenTeam, MenPlayers, WomenPlayers
 
@@ -41,7 +41,8 @@ def league(league_path):
     else:
          # Handle invalid paths or other cases
         return render_template("error.html", message="Invalid league")
-      
+    
+    fallback_player_portrait_url = url_for('static', filename='player_photos/default_portrait.png') 
     # Query the required columns from the teams table
     teams = Team.query.with_entities(
         Team.team_id,
@@ -82,22 +83,23 @@ def league(league_path):
 ).all()
     
     # Render the league.html template with the retrieved data
-    return render_template("league.html", teams=teams, players=players, league=league_name, league_path=league_path)
+    return render_template("league.html", teams=teams, players=players, league=league_name, league_path=league_path, fallback_player_portrait_url=fallback_player_portrait_url)
 
 
 @app.route("/<league_path>/<team_path>")
 def team_page(league_path,team_path):
+    fallback_player_portrait_url = url_for('static', filename='player_photos/default_portrait.png') 
     if league_path == "mbb":
         league_name = "Men's"
         team = MenTeam.query.filter_by(team_name=team_path).first()
         players = MenPlayers.query.filter_by(team_id=team.team_id).all()
-        return render_template("team.html", team=team, players=players, league=league_name, league_path=league_path)
+        return render_template("team.html", team=team, players=players, league=league_name, league_path=league_path, fallback_player_portrait_url=fallback_player_portrait_url)
     
     elif league_path == "wbb":
         league_name = "Women's"
         team = WomenTeam.query.filter_by(team_name=team_path).first()
         players = WomenPlayers.query.filter_by(team_id=team.team_id).all()
-        return render_template("team.html", team=team, players=players, league=league_name, league_path=league_path)
+        return render_template("team.html", team=team, players=players, league=league_name, league_path=league_path, fallback_player_portrait_url=fallback_player_portrait_url)
     else:
          # Handle invalid paths or other cases
         return render_template("error.html", message="Invalid team")
