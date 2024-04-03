@@ -15,7 +15,7 @@
         Analytics</button>
     </nav>
   </div>
-
+  <p>Remeber to remove borders before production</p>
   <!-- Standings Section -->
   <div id="standings-section" style="display: block">
     <div id="filters" class="text-left my-5 px-4 text-xs md:text-sm">
@@ -31,31 +31,35 @@
     </div>
 
     <div style="margin: 0 auto;" class="team-container w-full sm:w-11/12">
-      <div class="team-header bg-gray-800 rounded-lg shadow-md mb-5 text-left">
-        <table class="w-full">
-          <tr class="text-xs md:text-lg">
-            <th class="py-2">&nbsp; #</th>
-            <th style="width: 30%" class="py-2">Team</th>
-            <th style="width: 6%" class="py-2">W</th>
-            <th style="width: 6%" class="py-2">L</th>
-            <th style="width: 12%" class="py-2 font-bold">Pct</th>
-            <th style="width: 8%" class="py-2">GP</th>
-            <th style="width: 12%" class="py-2">L10</th>
-            <th style="width: 15%" class="py-2">Streak</th>
+      <div class="team-header bg-gray-800 rounded-lg shadow-md mb-5 text-center">
+        <table class="w-full border-collapse">
+          <tr class="text-xs md:text-base">
+            <th style="width: 10%" class="py-2 border">&nbsp; #</th>
+            <th style="width: 30%" class="py-2 border">TEAM</th>
+            <th style="width: 10%" class="py-2 border"><span class="hidden md:inline">WIN</span> <!-- Hidden on small screens -->
+              <span class="md:hidden">W</span> <!-- Shown on small screens --></th>
+            <th style="width: 10%" class="py-2 border"><span class="hidden md:inline">LOSS</span> <!-- Hidden on small screens -->
+              <span class="md:hidden">L</span> <!-- Shown on small screens --></th>
+            <th style="width: 10%" class="py-2 border font-bold">PCT</th>
+            <th style="width: 10%" class="py-2 border">GP</th>
+            <th style="width: 10%" class="py-2 border"><span class="hidden md:inline">LAST 10</span> <!-- Hidden on small screens -->
+              <span class="md:hidden">L 10</span> <!-- Shown on small screens --></th>
+            <th style="width: 10%" class="py-2 border"><span class="hidden md:inline">STREAK</span> <!-- Hidden on small screens -->
+              <span class="md:hidden">STK</span> <!-- Shown on small screens --></th>
           </tr>
         </table>
       </div>
 
-      {% for team in teams %}
+      {% for team in teams %} 
       <div
-        class="team {{ team.conference }} bg-slate-950 rounded-lg shadow-md flex items-center justify-between flex-grow text-left mb-1">
-        <table class="w-full">
+        class="team {{ team.conference }} bg-slate-950 rounded-lg shadow-md flex items-center justify-between flex-grow text-center mb-1">
+        <table class="w-full border-collapse">
           <tr class="text-xs md:text-lg">
-            <td class="pl-3 ">{{ loop.index }}</td>
+            <td style="width: 3%" class="py-2 border ">{{ loop.index }}</td>
             <td><img src="{{ url_for('static', filename='team_logos/' + team.team_name +'.png') }}" alt="Team Logo"
                 class=" max-w-7 h-auto md:max-w-14 " /></td>
 
-            <td style="width: 25%" class="py-2  font-bold">
+            <td style="width: 30%" class="py-2 border  font-bold">
               {% if team.team_name == 'Toronto Metropolitan' %}
               <a href="{{ url_for('team_page', league_path=league_path, team_path='Toronto Metropolitan') }}"
                 class="no-underline hover:underline ">TMU</a>
@@ -63,26 +67,24 @@
               <a href="{{ url_for('team_page', league_path=league_path, team_path=team.team_name) }}"
                 class="no-underline hover:underline ">{{ team.team_name }}</a>
               {% endif %}
-              <img src="{{ url_for('static', filename='conference_logos/' + team.conference +'.png') }}" alt="Team Logo"
-                class="max-w-3 h-auto md:max-w-8 " />
             </td>
 
-            <td style="width: 6%" class="py-2">
+            <td style="width: 10%" class="py-2 border">
               {{ team.total_wins }}
             </td>
-            <td style="width: 6%" class="py-2">
+            <td style="width: 10%" class="py-2 border">
               {{ team.total_losses }}
             </td>
-            <td style="width: 12%" class="py-2 font-bold">
+            <td style="width: 10%" class="py-2 border font-bold">
               {{ team.win_percentage }}
             </td>
-            <td style="width: 8%" class="py-2">
+            <td style="width: 10%" class="py-2 border">
               {{ team.games_played }}
             </td>
-            <td style="width: 12%" class="py-2">
+            <td style="width: 10%" class="py-2 border">
               {{ team.last_ten_games }}
             </td>
-            <td style="width: 15%" class="py-2">
+            <td style="width: 10%" class="py-2 border">
               {{ team.streak }}
             </td>
           </tr>
