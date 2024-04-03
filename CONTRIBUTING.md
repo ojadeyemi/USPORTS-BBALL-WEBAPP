@@ -32,7 +32,7 @@ Double check that your python Interpreter path is in your virtual environment di
 
 Install dependacies with pip:
 
-```
+```bash
 $ pip install -r requirements.txt
 ```
 - Make your changes and improvements to the codebase.
@@ -40,8 +40,8 @@ $ pip install -r requirements.txt
 - Test your changes locally to ensure they work as expected.
 
 ### Run flask for develop
-```
-$ python backend/app.py
+```bash
+ python backend/app.py #r
 ```
 
 - Commit your changes with a descriptive commit message:
