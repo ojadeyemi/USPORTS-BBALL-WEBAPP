@@ -8,7 +8,7 @@ To contribute to the USPORTS BASKETBALL WEB APP, follow these steps:
 2. Clone the forked repository to your local machine:
 
 ```bash
-git clone https://github.com/ojadeyemi/USPORTS_WEBAPP.git
+git clone https://github.com/ojadeyemi/USPORTS-BBALL-WEBAPP.git
 
 git checkout -b new-feature-or-fix #create new branch to add feature
 ```
@@ -27,14 +27,23 @@ python -m venv .virtualenv
 ```
 >**Note**: To learn more about the `venv` module, read [it here](https://docs.python.org/3/library/venv.html) on Python.org.
 
-Double check that your python Interpreter path is in your virtual environment directory
+Make sure that you have both [Node.js](https://nodejs.org/en) and [Python](https://www.python.org/) installed on your local machine.
+
+Double check that your python Interpreter path is in your virtual environment directory and node_modules is in the static/ directory.
 
 
-Install dependacies with pip:
+Install flask and all other dependacies from the requirements.txt fie with pip:
 
 ```bash
  pip install -r requirements.txt
 ```
+
+Navigate to the static/ directory and install tailwindcss package with  NPM:
+```bash
+ npm install -D tailwindcss
+```
+
+
 3. Make your changes and improvements to the codebase.
 
 4. Test your changes locally to ensure they work as expected.
