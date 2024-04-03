@@ -1,4 +1,4 @@
-# USPORTS BASKETBALL WEB APP
+# USPORTS BASKETBALL WEB APP (IN PROGRESS)
 
 This is a personal project for me, a computer science student. This website serves as my platform for sharing analytics and insights into the Canadian university basketball league, also known as U Sports. I am passionate about basketball and data analysis, and this project allows me to combine the two.
 
