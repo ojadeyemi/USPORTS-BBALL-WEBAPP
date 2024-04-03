@@ -18,14 +18,17 @@ OJ Adeyemi
 Date:
 March 10, 2024
 """
-
+import os
 from sqlalchemy import create_engine, text
 from sqlalchemy import types as t
 
 from functions import usports_team_stats, usports_player_stats
 
+# Get database password from environment variable
+db_password = os.getenv("USPORT_BBALL_PASSWORD")
+
 #DO NOT MODIFY UNLESS YOU ARE OJ ADEYEMI
-connection_string = 'mysql+pymysql://root:Basketball@localhost/usports_bball_test'
+connection_string = f'mysql+pymysql://root:{db_password}@localhost/usports_bball_test'
 
 # Create a SQLAlchemy engine
 engine = create_engine(connection_string)
