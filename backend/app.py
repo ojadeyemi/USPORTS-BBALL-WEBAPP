@@ -1,9 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for
 from sqlalchemy import func, cast, Numeric
 from models import db, Feedback, MenTeam, WomenTeam, MenPlayers, WomenPlayers
-
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://usportsballwebapp:Basketball.@localhost/usports_bball_test"
+app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///../database/usports_bball_test.sqlite"
 
 db.init_app(app)
 
@@ -13,11 +12,17 @@ def index():
         name = request.form['name']
         message = request.form['message']
         # Create an instance of the Feedback model
-        feedback_entry = Feedback(name=name, message=message)
+        feedback_entry = Feedback(name=name[:200], message=message)
         # Add the instance to the database session
         db.session.add(feedback_entry)
-        # Commit the changes to the database
-        db.session.commit()
+        try:
+            # Commit the changes to the database
+            db.session.commit()
+            print("Feedback entry added successfully.")
+        except Exception as e:
+            # Rollback the transaction in case of error
+            db.session.rollback()
+            print("Error adding feedback entry:", str(e))
         return redirect("/")
     else:
         return render_template("home.html")
