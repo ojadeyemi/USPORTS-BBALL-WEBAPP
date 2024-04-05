@@ -257,7 +257,7 @@ def __usports_team_data(stats_url: str, standings_url: str, no_of_teams: int) ->
     df[['three_pointers_made', 'three_pointers_attempted']] = df['three_points'].str.split('-', expand=True).astype(int)
     df[['free_throws_made', 'free_throws_attempted']] = df['free_throws'].str.split('-', expand=True).astype(int)
     df[['field_goal_made_against', 'field_goal_attempted_against']] = df['field_goals_against'].str.split('-', expand=True).astype(int)
-    df[['three_pointers_made_against_against', 'three_pointers_attempted_against']] = df['three_points_against'].str.split('-', expand=True).astype(int)
+    df[['three_pointers_made_against', 'three_pointers_attempted_against']] = df['three_points_against'].str.split('-', expand=True).astype(int)
     #delete original field_goal and three point columns
     df.drop(columns=['field_goals','three_points','free_throws','field_goals_against','three_points_against'], inplace=True)
 

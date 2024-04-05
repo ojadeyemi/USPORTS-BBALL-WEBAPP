@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for
 from sqlalchemy import func, cast, Numeric
 from models import db, Feedback, MenTeam, WomenTeam, MenPlayers, WomenPlayers
+from radar_data_calculator import calculate_radar_data, find_min_max_values
+
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///../database/usports_bball_test.sqlite"
 
@@ -80,15 +82,17 @@ def league(league_path):
         func.round(Player.assists / Player.games_played, 1).label('assists_per_game'),
         func.round(Player.three_pointers_made / Player.games_played, 1).label('three_pointers_made_per_game'),
         func.round(Player.free_throws_made / Player.games_played, 1).label('free_throws_made_per_game'),
-         func.round(Player.blocks / Player.games_played, 1).label('blocks_per_game'),
+        func.round(Player.blocks / Player.games_played, 1).label('blocks_per_game'),
         func.round(Player.steals / Player.games_played, 1).label('steals_per_game'),
         func.round(Player.field_goal_made / Player.games_played, 1).label('field_goal_made_per_game')
     ).outerjoin(
     Team, Player.team_id == Team.team_id
 ).all()
     
+    radar_data = calculate_radar_data(Team,find_min_max_values(Team))
+    
     # Render the league.html template with the retrieved data
-    return render_template("league.html", teams=teams, players=players, league=league_name, league_path=league_path, fallback_player_portrait_url=fallback_player_portrait_url)
+    return render_template("league.html", teams=teams, players=players, league=league_name, league_path=league_path, fallback_player_portrait_url=fallback_player_portrait_url, radar_data=radar_data)
 
 
 @app.route("/<league_path>/<team_path>")
@@ -97,14 +101,16 @@ def team_page(league_path,team_path):
     if league_path == "mbb":
         league_name = "Men's"
         team = MenTeam.query.filter_by(team_name=team_path).first()
+        radar_data = calculate_radar_data(team,find_min_max_values(MenTeam))
         players = MenPlayers.query.filter_by(team_id=team.team_id).all()
-        return render_template("team.html", team=team, players=players, league=league_name, league_path=league_path, fallback_player_portrait_url=fallback_player_portrait_url)
+        return render_template("team.html", team=team, players=players, league=league_name, league_path=league_path, fallback_player_portrait_url=fallback_player_portrait_url, radar_data=radar_data)
     
     elif league_path == "wbb":
         league_name = "Women's"
         team = WomenTeam.query.filter_by(team_name=team_path).first()
+        radar_data = calculate_radar_data(team,find_min_max_values(WomenTeam))
         players = WomenPlayers.query.filter_by(team_id=team.team_id).all()
-        return render_template("team.html", team=team, players=players, league=league_name, league_path=league_path, fallback_player_portrait_url=fallback_player_portrait_url)
+        return render_template("team.html", team=team, players=players, league=league_name, league_path=league_path, fallback_player_portrait_url=fallback_player_portrait_url, radar_data=radar_data)
     else:
          # Handle invalid paths or other cases
         return render_template("error.html", message="Invalid team")

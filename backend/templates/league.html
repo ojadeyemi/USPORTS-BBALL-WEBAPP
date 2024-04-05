@@ -17,7 +17,7 @@
   </div>
   <p>Remeber to remove borders before production</p>
   <!-- Standings Section -->
-  <div id="standings-section" style="display: block">
+  <div id="standings-section" style="display: none">
     <div id="filters" class="text-left my-5 px-4 text-xs md:text-sm">
       <label for="conference-filter" class="text-white font-bold mr-2 ">Filter by Conference:</label>
       <select id="conference-filter"
@@ -36,21 +36,29 @@
           <tr class="text-xs md:text-base">
             <th style="width: 10%" class="py-2 border">&nbsp; #</th>
             <th style="width: 30%" class="py-2 border">TEAM</th>
-            <th style="width: 10%" class="py-2 border"><span class="hidden md:inline">WIN</span> <!-- Hidden on small screens -->
-              <span class="md:hidden">W</span> <!-- Shown on small screens --></th>
-            <th style="width: 10%" class="py-2 border"><span class="hidden md:inline">LOSS</span> <!-- Hidden on small screens -->
-              <span class="md:hidden">L</span> <!-- Shown on small screens --></th>
+            <th style="width: 10%" class="py-2 border"><span class="hidden md:inline">WIN</span>
+              <!-- Hidden on small screens -->
+              <span class="md:hidden">W</span> <!-- Shown on small screens -->
+            </th>
+            <th style="width: 10%" class="py-2 border"><span class="hidden md:inline">LOSS</span>
+              <!-- Hidden on small screens -->
+              <span class="md:hidden">L</span> <!-- Shown on small screens -->
+            </th>
             <th style="width: 10%" class="py-2 border font-bold">PCT</th>
             <th style="width: 10%" class="py-2 border">GP</th>
-            <th style="width: 10%" class="py-2 border"><span class="hidden md:inline">LAST 10</span> <!-- Hidden on small screens -->
-              <span class="md:hidden">L 10</span> <!-- Shown on small screens --></th>
-            <th style="width: 10%" class="py-2 border"><span class="hidden md:inline">STREAK</span> <!-- Hidden on small screens -->
-              <span class="md:hidden">STK</span> <!-- Shown on small screens --></th>
+            <th style="width: 10%" class="py-2 border"><span class="hidden md:inline">LAST 10</span>
+              <!-- Hidden on small screens -->
+              <span class="md:hidden">L 10</span> <!-- Shown on small screens -->
+            </th>
+            <th style="width: 10%" class="py-2 border"><span class="hidden md:inline">STREAK</span>
+              <!-- Hidden on small screens -->
+              <span class="md:hidden">STK</span> <!-- Shown on small screens -->
+            </th>
           </tr>
         </table>
       </div>
 
-      {% for team in teams %} 
+      {% for team in teams %}
       <div
         class="team {{ team.conference }} bg-slate-950 rounded-lg shadow-md flex items-center justify-between flex-grow text-center mb-1">
         <table class="w-full border-collapse">
@@ -345,60 +353,18 @@
   </div>
 
   <!-- Team Analytics Section -->
-  <div id="teamanalytics-section" style="display: none">
-
-    <div class="relative text-center pl-10 sm:pl-4 md:pl-6">
-      <h2 class="text-2xl font-bold mb-5 mt-12">Best Offense</h2>
-      
+  <div id="teamanalytics-section" style="display: block">
+    <div>
+      <canvas id="radarChart" width="400" height="400"></canvas>
     </div>
+    <script>
+      // Radar data from Flask app
+      const radarData = {{ radar_data| tojson | safe }};
+    </script>
 
-    <div style="margin: 0 auto; " class="bg-slate-950 rounded-lg shadow-md mb-5  w-full sm:w-5/6">
-      <table class="w-full">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-        {% set count = namespace(value=numval) %} {% for team in
-        (teams|sort(attribute='offensive_efficiency', reverse=true)) %}{%if count.value >= 1%}
-
-        <tr class="pb-4  even:bg-slate-900">
-          <td class="py-1 w-1/12 pl-3">{{ numval - count.value + 1}}</td>
-          <td class="py-1 w-1/12"><img src="{{ url_for('static', filename='team_logos/' + team.team_name +'.png') }}"
-              alt="Team Logo" class="max-w-8 max-h-8" /> </td>
-          <td class="py-1 w-1/4 font-bold">{{ team.team_name}}</td>
-          <td class="py-1 w-1/12"><img
-              src="{{ url_for('static', filename='conference_logos/' + team.conference +'.png') }}" alt="Team Logo"
-              class="max-w-8 max-h-8" /> </td>
-          <td class="py-1 w-1/6 ">{{ team.conference }}</td>
-          <td class="py-1 font-bold text-right pr-10">{{ team.offensive_efficiency }}</td>
-
-        </tr>
-        {% set count.value = count.value - 1 %} {% endif %} {% endfor %}
-      </table>
-    </div>
-
-    <div class="relative text-center pl-10 sm:pl-4 md:pl-6">
-      <h2 class="text-2xl font-bold mb-5 mt-12">Best Defense</h2>
-    </div>
-
-    <div style="margin: 0 auto; " class="bg-slate-950 rounded-lg shadow-md mb-5  w-full sm:w-5/6">
-      <table class="w-full">
-
-        {% set count = namespace(value=numval) %} {% for team in
-        (teams|sort(attribute='defensive_efficiency')) %}{%if count.value >= 1%}
-
-        <tr class="pb-4  even:bg-slate-900">
-          <td class="py-1 w-1/12 pl-3">{{ numval - count.value + 1}}</td>
-          <td class="py-1 w-1/12"><img src="{{ url_for('static', filename='team_logos/' + team.team_name +'.png') }}"
-              alt="Team Logo" class="max-w-8 max-h-8" /> </td>
-          <td class="py-1 w-1/4 font-bold">{{ team.team_name}}</td>
-          <td class="py-1 w-1/12"><img
-              src="{{ url_for('static', filename='conference_logos/' + team.conference +'.png') }}" alt="Team Logo"
-              class="max-w-8 max-h-8" /> </td>
-          <td class="py-1 w-1/6 ">{{ team.conference }}</td>
-          <td class="py-1 font-bold text-right pr-10">{{ team.defensive_efficiency }}</td>
-
-        </tr>
-        {% set count.value = count.value - 1 %} {% endif %} {% endfor %}
-      </table>
-    </div>
+    <script src="{{ url_for('static', filename='js/charts.js') }}"></script>
 
   </div>
 

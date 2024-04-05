@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
+
+
 <div class="container mx-auto">
     <h1 class="text-center text-gray-500 font-bold text-xl md:text-3xl py-2">
         {{ league }} League
@@ -47,10 +49,13 @@
 
                 <tr class=" odd:bg-slate-900">
                     <td class="flex items-center">
-                        <img src="{{ url_for('static', filename='player_photos/' + league_path + '/' + player.school + '/' + player.lastname_initials + ' ' + player.first_name +'.jpg') }}" alt="PlayerPortrait"
-                        onerror="this.onerror=null; this.src='{{ fallback_player_portrait_url }}';" class=" max-w-8 h-auto md:max-w-10 rounded-full mr-2" />
+                        <img src="{{ url_for('static', filename='player_photos/' + league_path + '/' + player.school + '/' + player.lastname_initials + ' ' + player.first_name +'.jpg') }}"
+                            alt="PlayerPortrait"
+                            onerror="this.onerror=null; this.src='{{ fallback_player_portrait_url }}';"
+                            class=" max-w-8 h-auto md:max-w-10 rounded-full mr-2" />
                         <div class="flex items-center">
-                            <span class="font-bold">&nbsp; {{ player.lastname_initials }}. {{ player.first_name }}</span>
+                            <span class="font-bold">&nbsp; {{ player.lastname_initials }}. {{ player.first_name
+                                }}</span>
                         </div>
                     </td>
                     <td>
