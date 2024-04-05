@@ -40,10 +40,49 @@ class __BaseTeam(db.Model):
     games_played: Mapped[int] = mapped_column(Integer)
     total_wins: Mapped[int] = mapped_column(Integer)
     total_losses: Mapped[int] = mapped_column(Integer)
-    win_percentage: Mapped[float] = mapped_column(Float(precision=1))
+    win_percentage: Mapped[float] = mapped_column(Float(precision=2))
     streak: Mapped[str] = mapped_column(String(50))
     offensive_efficiency: Mapped[float] = mapped_column(Float(precision=2))
     defensive_efficiency: Mapped[float] = mapped_column(Float(precision=2))
+    net_efficiency: Mapped[float] = mapped_column(Float(precision=2))
+    points_per_game: Mapped[float] = mapped_column(Float(precision=2))
+    field_goal_percentage: Mapped[float] = mapped_column(Float)
+    three_point_percentage: Mapped[float] = mapped_column(Float)
+    free_throw_percentage: Mapped[float] = mapped_column(Float)
+    offensive_rebounds_per_game: Mapped[float] = mapped_column(Float)
+    defensive_rebounds_per_game: Mapped[float] = mapped_column(Float)
+    total_rebounds_per_game: Mapped[float] = mapped_column(Float)
+    assists_per_game: Mapped[float] = mapped_column(Float)
+    turnovers_per_game: Mapped[float] = mapped_column(Float)
+    steals_per_game: Mapped[float] = mapped_column(Float)
+    blocks_per_game: Mapped[float] = mapped_column(Float)
+    team_fouls_per_game: Mapped[float] = mapped_column(Float)
+    field_goals_percentage_against: Mapped[float] = mapped_column(Float)
+    three_points_percentage_against: Mapped[float] = mapped_column(Float)
+    offensive_rebounds_per_game_against: Mapped[float] = mapped_column(Float)
+    defensive_rebounds_per_game_against: Mapped[float] = mapped_column(Float)
+    total_rebounds_per_game_against: Mapped[float] = mapped_column(Float)
+    assists_per_game_against: Mapped[float] = mapped_column(Float)
+    turnovers_per_game_against: Mapped[float] = mapped_column(Float)
+    steals_per_game_against: Mapped[float] = mapped_column(Float)
+    blocks_per_game_against: Mapped[float] = mapped_column(Float)
+    team_fouls_per_game_against: Mapped[float] = mapped_column(Float)
+    points_per_game_against: Mapped[float] = mapped_column(Float)
+    field_goal_made: Mapped[int] = mapped_column(Integer)
+    field_goal_attempted: Mapped[int] = mapped_column(Integer)
+    three_pointers_made: Mapped[int] = mapped_column(Integer)
+    three_pointers_attempted: Mapped[int] = mapped_column(Integer)
+    free_throws_made: Mapped[int] = mapped_column(Integer)
+    free_throws_attempted: Mapped[int] = mapped_column(Integer)
+    field_goal_made_against: Mapped[int] = mapped_column(Integer)
+    field_goal_attempted_against: Mapped[int] = mapped_column(Integer)
+    three_pointers_made_against: Mapped[int] = mapped_column(Integer)
+    three_pointers_attempted_against: Mapped[int] = mapped_column(Integer)
+    total_points: Mapped[int] = mapped_column(Integer)
+    total_points_against: Mapped[int] = mapped_column(Integer)
+
+    def __repr__(self):
+        return f"<Team(id={self.team_id}, team_name='{self.team_name}', conference='{self.conference})>"
 
 class __BasePlayer(db.Model):
     """ Base class for representing a player in a basketball team. """
@@ -77,6 +116,9 @@ class __BasePlayer(db.Model):
     free_throws_attempted: Mapped[int] = mapped_column(Integer)
     free_throws_percentage: Mapped[float] = mapped_column(Float)
 
+    def __repr__(self):
+        return f"<Player(lastname_initials='{self.lastname_initials},first_name='{self.first_name}'," \
+            f"school='{self.school}', player_id={self.player_id}, team_id={self.team_id})>"
 
 class MenTeam(__BaseTeam):
     """Represents men's basketball team data."""
