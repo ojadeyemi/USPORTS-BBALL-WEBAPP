@@ -4,7 +4,9 @@ from models import db, Feedback, MenTeam, WomenTeam, MenPlayers, WomenPlayers
 from radar_data_calculator import calculate_radar_data, find_min_max_values
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///../database/usports_bball_test.sqlite"
+mysqldatabase = "mysql+pymysql://usportsballwebapp:Basketball.@localhost/usports_bball_test"
+sqlite_database = "sqlite:///../database/usports_bball_test.sqlite"
+app.config['SQLALCHEMY_DATABASE_URI'] = sqlite_database
 
 db.init_app(app)
 
@@ -96,21 +98,21 @@ def league(league_path):
 
 
 @app.route("/<league_path>/<team_path>")
-def team_page(league_path,team_path):
+def team_page(league_path: str,team_path: str):
     fallback_player_portrait_url = url_for('static', filename='player_photos/default_portrait.png') 
     if league_path == "mbb":
         league_name = "Men's"
-        team = MenTeam.query.filter_by(team_name=team_path).first()
-        radar_data = calculate_radar_data(team,find_min_max_values(MenTeam))
-        players = MenPlayers.query.filter_by(team_id=team.team_id).all()
-        return render_template("team.html", team=team, players=players, league=league_name, league_path=league_path, fallback_player_portrait_url=fallback_player_portrait_url, radar_data=radar_data)
+        team: MenTeam = MenTeam.query.filter_by(team_name=team_path).one() # type: ignore
+        
+        players: list[MenPlayers] = MenPlayers.query.filter_by(team_id=team.team_id).all() # type: ignore
+        return render_template("team.html", team=team, players=players, league=league_name, league_path=league_path, fallback_player_portrait_url=fallback_player_portrait_url)
     
     elif league_path == "wbb":
         league_name = "Women's"
-        team = WomenTeam.query.filter_by(team_name=team_path).first()
-        radar_data = calculate_radar_data(team,find_min_max_values(WomenTeam))
-        players = WomenPlayers.query.filter_by(team_id=team.team_id).all()
-        return render_template("team.html", team=team, players=players, league=league_name, league_path=league_path, fallback_player_portrait_url=fallback_player_portrait_url, radar_data=radar_data)
+        team: WomenTeam = WomenTeam.query.filter_by(team_name=team_path).one()
+        
+        players: list[WomenPlayers] = WomenPlayers.query.filter_by(team_id=team.team_id).all()
+        return render_template("team.html", team=team, players=players, league=league_name, league_path=league_path, fallback_player_portrait_url=fallback_player_portrait_url)
     else:
          # Handle invalid paths or other cases
         return render_template("error.html", message="Invalid team")

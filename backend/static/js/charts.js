@@ -14,11 +14,11 @@ function showRadarChart() {
   const config = {
     type: "radar",
     data: {
-      labels: ["Overall", "Offense", "Defense"], // Update labels as needed
+      labels: ["Overall", "Offense", "Defense", "Playmaking", 'Rebounding'], // Update labels as needed
       datasets: [
         {
-          label: teamNames[2], // Update label based on team names
-          data: radarValues[2], // Update data based on radar values
+          label: teamNames[44], // Update label based on team names
+          data: radarValues[44], // Update data based on radar values
           fill: true,
           backgroundColor: "rgba(255, 99, 132, 0.2)",
           borderColor: "rgb(255, 99, 132)",

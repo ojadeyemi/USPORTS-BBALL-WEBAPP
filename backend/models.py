@@ -30,6 +30,10 @@ class Feedback(db.Model):
     message: Mapped[str] = mapped_column(Text)
     timestamp: Mapped[datetime] = mapped_column(DateTime, default=datetime.now(tz=timezone.utc))
 
+    def __init__(self, name: str, message: str):
+        self.name = name
+        self.message = message
+
 class __BaseTeam(db.Model):
     """ Base class for representing a basketball team. """
     __abstract__ = True
@@ -76,7 +80,7 @@ class __BaseTeam(db.Model):
     free_throws_attempted: Mapped[int] = mapped_column(Integer)
     field_goal_made_against: Mapped[int] = mapped_column(Integer)
     field_goal_attempted_against: Mapped[int] = mapped_column(Integer)
-    three_pointers_made_against: Mapped[int] = mapped_column(Integer)
+    #three_pointers_made_against: Mapped[int] = mapped_column(Integer)
     three_pointers_attempted_against: Mapped[int] = mapped_column(Integer)
     total_points: Mapped[int] = mapped_column(Integer)
     total_points_against: Mapped[int] = mapped_column(Integer)
