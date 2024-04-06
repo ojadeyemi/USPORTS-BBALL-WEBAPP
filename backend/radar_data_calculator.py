@@ -4,7 +4,7 @@ from models import db, MenTeam, WomenTeam
 from math import floor
 from typing import Union
 
-def normalize(value: Union[int, float], min_value: Union[int, float], max_value: Union[int, float], upper_bound: int = 95) -> int:
+def normalize(value: Union[int, float], min_value: Union[int, float], max_value: Union[int, float], upper_bound: int = 99) -> int:
     """
     Normalize a value within a range defined by min_value and max_value.
     
@@ -63,11 +63,11 @@ def calculate_radar_data(specific_team_table: Union[type[MenTeam], type[WomenTea
     radar_data: dict[str, list[int]] = {}
     
     for team in team_data:
-        overall_efficiency = normalize(query_net_efficiency(team), min_net_efficiency, max_net_efficiency)
-        offensive_efficiency = normalize(query_off_efficiency(team), min_offensive_efficiency, max_offensive_efficiency, 99)
-        defensive_efficiency = normalize(1/query_def_efficiency(team), 1/max_defensive_efficiency, 1/min_defensive_efficiency, 99)
-        playmaking = normalize(query_playmaking(team), min_playmaking, max_playmaking, 99)
-        rebound_margin = normalize(query_rebound_margin(team),min_rebound_margin, max_rebound_margin,99)
+        overall_efficiency = normalize(query_net_efficiency(team), min_net_efficiency, max_net_efficiency, 98)
+        offensive_efficiency = normalize(query_off_efficiency(team), min_offensive_efficiency, max_offensive_efficiency)
+        defensive_efficiency = normalize(1/query_def_efficiency(team), 1/max_defensive_efficiency, 1/min_defensive_efficiency)
+        playmaking = normalize(query_playmaking(team), min_playmaking, max_playmaking)
+        rebound_margin = normalize(query_rebound_margin(team),min_rebound_margin, max_rebound_margin)
         
         
 

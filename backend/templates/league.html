@@ -34,23 +34,23 @@
       <div class="team-header bg-gray-800 rounded-lg shadow-md mb-5 text-center">
         <table class="w-full border-collapse">
           <tr class="text-xs md:text-base">
-            <th style="width: 10%" class="py-2 border">&nbsp; #</th>
-            <th style="width: 30%" class="py-2 border">TEAM</th>
-            <th style="width: 10%" class="py-2 border"><span class="hidden md:inline">WIN</span>
+            <th style="width: 10%" class="py-2 ">&nbsp; #</th>
+            <th style="width: 30%" class="py-2 ">TEAM</th>
+            <th style="width: 10%" class="py-2 "><span class="hidden md:inline">WIN</span>
               <!-- Hidden on small screens -->
               <span class="md:hidden">W</span> <!-- Shown on small screens -->
             </th>
-            <th style="width: 10%" class="py-2 border"><span class="hidden md:inline">LOSS</span>
+            <th style="width: 10%" class="py-2 "><span class="hidden md:inline">LOSS</span>
               <!-- Hidden on small screens -->
               <span class="md:hidden">L</span> <!-- Shown on small screens -->
             </th>
-            <th style="width: 10%" class="py-2 border font-bold">PCT</th>
-            <th style="width: 10%" class="py-2 border">GP</th>
-            <th style="width: 10%" class="py-2 border"><span class="hidden md:inline">LAST 10</span>
+            <th style="width: 10%" class="py-2  font-bold">PCT</th>
+            <th style="width: 10%" class="py-2 ">GP</th>
+            <th style="width: 10%" class="py-2 "><span class="hidden md:inline">LAST 10</span>
               <!-- Hidden on small screens -->
               <span class="md:hidden">L 10</span> <!-- Shown on small screens -->
             </th>
-            <th style="width: 10%" class="py-2 border"><span class="hidden md:inline">STREAK</span>
+            <th style="width: 10%" class="py-2 "><span class="hidden md:inline">STREAK</span>
               <!-- Hidden on small screens -->
               <span class="md:hidden">STK</span> <!-- Shown on small screens -->
             </th>
@@ -63,11 +63,11 @@
         class="team {{ team.conference }} bg-slate-950 rounded-lg shadow-md flex items-center justify-between flex-grow text-center mb-1">
         <table class="w-full border-collapse">
           <tr class="text-xs md:text-lg">
-            <td style="width: 3%" class="py-2 border ">{{ loop.index }}</td>
+            <td style="width: 3%" class="py-2  ">{{ loop.index }}</td>
             <td><img src="{{ url_for('static', filename='team_logos/' + team.team_name +'.png') }}" alt="Team Logo"
                 class=" max-w-7 h-auto md:max-w-14 " /></td>
 
-            <td style="width: 30%" class="py-2 border  font-bold">
+            <td style="width: 30%" class="py-2   font-bold">
               {% if team.team_name == 'Toronto Metropolitan' %}
               <a href="{{ url_for('team_page', league_path=league_path, team_path='Toronto Metropolitan') }}"
                 class="no-underline hover:underline ">TMU</a>
@@ -77,22 +77,22 @@
               {% endif %}
             </td>
 
-            <td style="width: 10%" class="py-2 border">
+            <td style="width: 10%" class="py-2 ">
               {{ team.total_wins }}
             </td>
-            <td style="width: 10%" class="py-2 border">
+            <td style="width: 10%" class="py-2 ">
               {{ team.total_losses }}
             </td>
-            <td style="width: 10%" class="py-2 border font-bold">
+            <td style="width: 10%" class="py-2  font-bold">
               {{ team.win_percentage }}
             </td>
-            <td style="width: 10%" class="py-2 border">
+            <td style="width: 10%" class="py-2 ">
               {{ team.games_played }}
             </td>
-            <td style="width: 10%" class="py-2 border">
+            <td style="width: 10%" class="py-2 ">
               {{ team.last_ten_games }}
             </td>
-            <td style="width: 10%" class="py-2 border">
+            <td style="width: 10%" class="py-2 ">
               {{ team.streak }}
             </td>
           </tr>
@@ -354,8 +354,27 @@
 
   <!-- Team Analytics Section -->
   <div id="teamanalytics-section" style="display: block">
-    <div>
-      <canvas id="radarChart" width="400" height="400" style="background-color: rgb(120, 120, 120, 30%);"></canvas>
+    <!-- Team Selection Dropdowns -->
+    <div class=" my-5 flex justify-center space-x-4 text-xs md:text-sm"><select id="team1-select"
+        class=" text-center rounded bg-gray-800 text-white hover:bg-gray-700 focus:bg-gray-700 w-1/4">
+        <!-- Populate options dynamically using Flask -->
+        {% for team in (teams |sort(attribute='team_name' )) %}
+        <option value="{{ team.team_name }}">{{ team.team_name }}</option>
+        {% endfor %}
+      </select>
+
+      <select id="team2-select"
+        class=" text-center rounded bg-gray-800 text-white hover:bg-gray-700 focus:bg-gray-700 w-1/4">
+        <!-- Populate options dynamically using Flask -->
+        {% for team in (teams |sort(attribute='team_name' )) %}
+        <option value="{{ team.team_name }}">{{ team.team_name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+
+    <div class="max-w-2 max-h-2">
+      <canvas id="radarChart" width="400" height="400"></canvas>
     </div>
     <script>
       // Radar data from Flask app
