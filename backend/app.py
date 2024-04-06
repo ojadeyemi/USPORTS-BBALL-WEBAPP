@@ -6,7 +6,7 @@ from radar_data_calculator import calculate_radar_data, find_min_max_values
 app = Flask(__name__)
 mysqldatabase = "mysql+pymysql://usportsballwebapp:Basketball.@localhost/usports_bball_test"
 sqlite_database = "sqlite:///../database/usports_bball_test.sqlite"
-app.config['SQLALCHEMY_DATABASE_URI'] = sqlite_database
+app.config['SQLALCHEMY_DATABASE_URI'] = mysqldatabase
 
 db.init_app(app)
 

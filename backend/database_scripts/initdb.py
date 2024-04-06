@@ -22,8 +22,11 @@ March 10, 2024
 from sqlalchemy import create_engine, text
 from functions import usports_team_stats, usports_player_stats
 
+
+mysqldatabase = "mysql+pymysql://root:Basketball@localhost/usports_bball_test"
+sqlite_database = "sqlite:///../database/usports_bball_test.sqlite"
 #DO NOT MODIFY UNLESS YOU ARE OJ ADEYEMI
-connection_string = 'sqlite:///../database/usports_bball_test.sqlite'
+connection_string = sqlite_database
 
 try:
     # Create a SQLAlchemy engine
@@ -69,23 +72,23 @@ except Exception as e:
 try:
     # Attempt to write women_df DataFrame to SQLite database
     women_df.to_sql('women_team_test', con=engine, if_exists='replace', index=False)
-    print("Women's team data written to 'women_team_test' table successfully!")
+    print("\nWomen's team data written to 'women_team_test' table successfully!")
 except Exception as e:
-    print("Error writing women's team data to database:", e)
+    print("\nError writing women's team data to database:", e)
 
 try:
     # Attempt to write men_players_df DataFrame to SQLite database
     men_players_df.to_sql('men_players_test', con=engine, if_exists='replace', index=False)
-    print("Men's players data written to 'men_players_test' table successfully!")
+    print("\nMen's players data written to 'men_players_test' table successfully!")
 except Exception as e:
-    print("Error writing men's players data to database:", e)
+    print("\nError writing men's players data to database:", e)
 
 try:
     # Attempt to write women_players_df DataFrame to SQLite database
     women_players_df.to_sql('women_players_test', con=engine, if_exists='replace', index=False)
-    print("Women's players data written to 'women_players_test' table successfully!")
+    print("\nWomen's players data written to 'women_players_test' table successfully!")
 except Exception as e:
-    print("Error writing women's players data to database:", e)
+    print("\nError writing women's players data to database:", e)
 
 
 sql_queries =[ "ALTER TABLE men_players_test ADD COLUMN team_id INTEGER;",
@@ -100,16 +103,16 @@ try:
             print(f"Executing SQL Query {idx}:")
             con.execute(text(query))
             con.commit()
-            print("Executed query:", query.strip(), '\n')
+            print("\nExecuted query:", query.strip(), '\n')
         print("All SQL queries executed successfully.")
 except Exception as e:
-    print("An error occurred while executing SQL queries:", e)
+    print("\nAn error occurred while executing SQL queries:", e)
 
 
 try:
-    # SQL query to check if the table exists
+    # SQLite query to check if the table exists
     check_table_query = """
-    SELECT name FROM sqlite_master WHERE type='table' AND name='feedback_test'
+    SELECT table FROM sqlite_master WHERE type='table' AND name='feedback_test'
     """
 
     # Check if the table exists
@@ -131,9 +134,10 @@ try:
     else:
         print("Table 'feedback_test' already exists.")
 
+    # Close the database connection
+    result.close()
+
 except Exception as e:
     print("An error occurred while executing SQL queries for feedback table:", e)
 
 
-# Close the database connection
-result.close()

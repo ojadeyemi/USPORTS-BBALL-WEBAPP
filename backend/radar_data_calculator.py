@@ -20,7 +20,7 @@ def normalize(value: Union[int, float], min_value: Union[int, float], max_value:
     if min_value == max_value:
         max_value += 0.1  # Add 0.1 to max_value if min_value and max_value are the same
 
-    # Normalize value to range 50-99
+    # Normalize value to range 60-99
     normalized_value = 60 + ((value - min_value) / (max_value - min_value)) * (upper_bound - 60)
     return floor(normalized_value) #return floor
 
@@ -64,10 +64,10 @@ def calculate_radar_data(specific_team_table: Union[type[MenTeam], type[WomenTea
     
     for team in team_data:
         overall_efficiency = normalize(query_net_efficiency(team), min_net_efficiency, max_net_efficiency)
-        offensive_efficiency = normalize(query_off_efficiency(team), min_offensive_efficiency, max_offensive_efficiency)
-        defensive_efficiency = normalize(1/query_def_efficiency(team), 1/max_defensive_efficiency, 1/min_defensive_efficiency)
-        playmaking = normalize(query_playmaking(team), min_playmaking, max_playmaking, 98)
-        rebound_margin = normalize(query_rebound_margin(team),min_rebound_margin, max_rebound_margin,98)
+        offensive_efficiency = normalize(query_off_efficiency(team), min_offensive_efficiency, max_offensive_efficiency, 99)
+        defensive_efficiency = normalize(1/query_def_efficiency(team), 1/max_defensive_efficiency, 1/min_defensive_efficiency, 99)
+        playmaking = normalize(query_playmaking(team), min_playmaking, max_playmaking, 99)
+        rebound_margin = normalize(query_rebound_margin(team),min_rebound_margin, max_rebound_margin,99)
         
         
 
