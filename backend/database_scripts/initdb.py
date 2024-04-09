@@ -104,16 +104,24 @@ try:
             con.execute(text(query))
             con.commit()
             print("\nExecuted query:", query.strip(), '\n')
-        print("All SQL queries executed successfully.")
+        print("All SQL queries executed successfully. \n")
 except Exception as e:
     print("\nAn error occurred while executing SQL queries:", e)
 
 
 try:
     # SQLite query to check if the table exists
-    check_table_query = """
-    SELECT table FROM sqlite_master WHERE type='table' AND name='feedback_test'
-    """
+    if connection_string == sqlite_database:
+        check_table_query = """
+        SELECT name FROM sqlite_master WHERE type='table' AND name='feedback_test'
+        """
+    elif connection_string == mysqldatabase:
+        check_table_query = """
+        SELECT table_name
+        FROM information_schema.tables
+        WHERE table_schema = 'usports_bball_test' 
+        AND table_name = 'feedback_test';
+        """
 
     # Check if the table exists
     result = engine.connect().execute(text(check_table_query))
@@ -123,11 +131,12 @@ try:
     if not table_exists:
         create_table_query = """
         CREATE TABLE feedback_test (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT,
-            message TEXT,
-            timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
-        )
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            name VARCHAR(255) NOT NULL,
+            email VARCHAR(255),
+            message TEXT NOT NULL,
+            timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        );
         """
         engine.connect().execute(text(create_table_query))
         print("Table 'feedback_test' created successfully.")

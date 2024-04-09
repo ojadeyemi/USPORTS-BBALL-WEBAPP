@@ -15,9 +15,9 @@
         Analytics</button>
     </nav>
   </div>
-  <p>Remeber to remove borders before production</p>
+  
   <!-- Standings Section -->
-  <div id="standings-section" style="display: none">
+  <div id="standings-section" style="display: block">
     <div id="filters" class="text-left my-5 px-4 text-xs md:text-sm">
       <label for="conference-filter" class="text-white font-bold mr-2 ">Filter by Conference:</label>
       <select id="conference-filter"
@@ -353,9 +353,12 @@
   </div>
 
   <!-- Team Analytics Section -->
-  <div id="teamanalytics-section" style="display: block">
+  <div id="teamanalytics-section" style="display: none">
+    <div class="max-w-xl mx-auto mt-8">
+      <p class="text-center text-xs md:text-sm text-gray-500">Select two teams from the dropdown menu to compare their stats plotted in the radar chart.</p>
+  </div>
     <!-- Team Selection Dropdowns -->
-    <div class=" my-5 flex justify-center space-x-4 text-xs md:text-sm"><select id="team1-select"
+    <div class=" my-5  flex justify-center space-x-4 text-xs md:text-lg"><select id="team1-select"
         class=" text-center rounded bg-gray-800 text-white hover:bg-gray-700 focus:bg-gray-700 w-1/4">
         <!-- Populate options dynamically using Flask -->
         {% for team in (teams |sort(attribute='team_name' )) %}
@@ -373,9 +376,11 @@
     </div>
 
 
-    <div class="max-w-2 max-h-2">
+    <div class=" flex justify-center items-center">
       <canvas id="radarChart" width="400" height="400"></canvas>
     </div>
+
+
     <script>
       // Radar data from Flask app
       const radarData = {{ radar_data| tojson | safe }};
@@ -403,18 +408,7 @@
     </div>
   </div>
 
-  <!-- Navigation -->
-  <div class="flex justify-center my-5 ">
-    <nav class="flex flex-wrap md:flex-row" role="group">
-      <button id="standingsBtn2" type="button" class="nav-btn flex-auto shrink text-xs md:text-base">Standings</button>
-      <button id="leaderboardBtn2" type="button" class="nav-btn flex-auto shrink text-xs md:text-base">Player
-        Leaderboard</button>
-      <button id="teamAnalyticsBtn2" type="button" class="nav-btn flex-auto shrink text-xs md:text-base">Team
-        Analytics</button>
-      <button id="playerAnalyticsBtn2" type="button" class="nav-btn flex-auto shrink text-xs md:text-base">Player
-        Analytics</button>
-    </nav>
-  </div>
+
   <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 {% endblock %}

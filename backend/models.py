@@ -24,14 +24,17 @@ from sqlalchemy import Integer, String, Float, ForeignKey, DateTime, Text
 db = SQLAlchemy()
 
 class Feedback(db.Model):
+    """Class for representing feedback table"""
     __tablename__ = "feedback_test"
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     name: Mapped[str] = mapped_column(String(200))
+    email: Mapped[str] = mapped_column(String(200))
     message: Mapped[str] = mapped_column(Text)
     timestamp: Mapped[datetime] = mapped_column(DateTime, default=datetime.now(tz=timezone.utc))
 
-    def __init__(self, name: str, message: str):
+    def __init__(self, name: str, email: str, message: str):
         self.name = name
+        self.email = email
         self.message = message
 
 class __BaseTeam(db.Model):

@@ -1,22 +1,29 @@
 from flask import Flask, render_template, request, redirect, url_for
-from sqlalchemy import func, cast, Numeric
+from sqlalchemy import create_engine, func, cast, Numeric
 from models import db, Feedback, MenTeam, WomenTeam, MenPlayers, WomenPlayers
 from radar_data_calculator import calculate_radar_data, find_min_max_values
 
 app = Flask(__name__)
+
+#Define the databse URI
 mysqldatabase = "mysql+pymysql://usportsballwebapp:Basketball.@localhost/usports_bball_test"
-sqlite_database = "sqlite:///../database/usports_bball_test.sqlite"
+sqlite_database = f"sqlite:///{app.root_path}/database/usports_bball_test.sqlite"
 app.config['SQLALCHEMY_DATABASE_URI'] = sqlite_database
 
+
+#Initialize the database
 db.init_app(app)
 
+# Define the route for the index page(home page)
 @app.route("/", methods=["POST", "GET"])
 def index():
     if request.method == 'POST':
+        # Handle form submission
         name = request.form['name']
+        email = request.form['email']
         message = request.form['message']
         # Create an instance of the Feedback model
-        feedback_entry = Feedback(name=name[:200], message=message)
+        feedback_entry = Feedback(name=name[:200], email=email, message=message)
         # Add the instance to the database session
         db.session.add(feedback_entry)
         try:
@@ -27,16 +34,19 @@ def index():
             # Rollback the transaction in case of error
             db.session.rollback()
             print("Error adding feedback entry:", str(e))
+        # Redirect to the index page after form submission
         return redirect("/")
     else:
+        # Render the home.html template for GET requests
         return render_template("home.html")
 
 
+# Define the route for the about page
 @app.route('/about')
 def about():
     return render_template("about.html")
 
-
+# Define the route for the league page
 @app.route("/<league_path>")
 def league(league_path):
     if league_path == "mbb":
@@ -96,7 +106,7 @@ def league(league_path):
     # Render the league.html template with the retrieved data
     return render_template("league.html", teams=teams, players=players, league=league_name, league_path=league_path, fallback_player_portrait_url=fallback_player_portrait_url, radar_data=radar_data)
 
-
+# Define the route for the team page
 @app.route("/<league_path>/<team_path>")
 def team_page(league_path: str,team_path: str):
     fallback_player_portrait_url = url_for('static', filename='player_photos/default_portrait.png') 
@@ -117,7 +127,7 @@ def team_page(league_path: str,team_path: str):
          # Handle invalid paths or other cases
         return render_template("error.html", message="Invalid team")
 
-
+# Run the Flask app
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
     
