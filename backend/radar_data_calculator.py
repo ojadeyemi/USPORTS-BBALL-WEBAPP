@@ -37,7 +37,9 @@ def find_min_max_values(team_table: Union[type[MenTeam], type[WomenTeam]]) -> Ro
     func.min(query_playmaking(team_table)).label('min_playmaking'),
     func.max(query_playmaking(team_table)).label('max_playmaking'),
     func.min(query_rebound_margin(team_table)).label('min_rebound_margin'),
-    func.max(query_rebound_margin(team_table)).label('max_rebound_margin')
+    func.max(query_rebound_margin(team_table)).label('max_rebound_margin'),
+    func.min(query_effective_fg_percentage(team_table)).label('min_EFG'),
+    func.max(query_effective_fg_percentage(team_table)).label('max_EFG')
     # Add similar queries for other categories
     ).one()
     return min_max_values
@@ -54,6 +56,8 @@ def calculate_radar_data(specific_team_table: Union[type[MenTeam], type[WomenTea
     max_playmaking = min_max_values.max_playmaking
     min_rebound_margin = min_max_values.min_rebound_margin
     max_rebound_margin = min_max_values.max_rebound_margin
+    min_effective_fg_percentage = min_max_values.min_EFG
+    max_effective_fg_percentage = min_max_values.max_EFG
     # Extract min and max values for other categories similarly
 
     # Get all teams from the provided table
@@ -68,10 +72,13 @@ def calculate_radar_data(specific_team_table: Union[type[MenTeam], type[WomenTea
         defensive_efficiency = normalize(1/query_def_efficiency(team), 1/max_defensive_efficiency, 1/min_defensive_efficiency)
         playmaking = normalize(query_playmaking(team), min_playmaking, max_playmaking)
         rebound_margin = normalize(query_rebound_margin(team),min_rebound_margin, max_rebound_margin)
+        EFG_percentage = normalize(query_effective_fg_percentage(team), min_effective_fg_percentage, max_effective_fg_percentage)
         
         
-
-        radar_data[team.team_name] = [overall_efficiency, offensive_efficiency, defensive_efficiency, playmaking, rebound_margin]# Add other categories similarly
+        if(EFG_percentage > 85):
+             print(team.team_name, EFG_percentage)
+        #order of array should match labels in javascript charjs label
+        radar_data[team.team_name] = [overall_efficiency, defensive_efficiency, playmaking, rebound_margin, EFG_percentage, offensive_efficiency]
 
                 
     return radar_data
@@ -95,6 +102,8 @@ def query_rebound_margin(team: Union[MenTeam, WomenTeam]):
      return team.total_rebounds_per_game - team.total_rebounds_per_game_against
 
 
-
+def query_effective_fg_percentage(team: Union[MenTeam, WomenTeam]):
+        efg = (team.field_goal_made + (0.5 * team.three_pointers_made))/team.field_goal_attempted
+        return efg
 
 

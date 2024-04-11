@@ -31,19 +31,19 @@
     <table class="w-full border border-gray-800 border-collapse">
       <thead>
         <tr class="text-xs my-4">
-          <th class="border-b border-r border-gray-700">Player</th>
-          <th class="border-b border-r border-gray-700">PPG</th>
-          <th class="border-b border-r border-gray-700">RPG</th>
-          <th class="border-b border-r border-gray-700">APG</th>
-          <th class="border-b border-r border-gray-700">SPG</th>
-          <th class="border-b border-r border-gray-700">BPG</th>
+          <th class="border-b border-r border-gray-800">Player</th>
+          <th class="border-b border-r border-gray-800">PPG</th>
+          <th class="border-b border-r border-gray-800">RPG</th>
+          <th class="border-b border-r border-gray-800">APG</th>
+          <th class="border-b border-r border-gray-800">SPG</th>
+          <th class="border-b border-r border-gray-800">BPG</th>
         </tr>
       </thead>
       <tbody>
         {% for player in players %}
 
         <tr class="even:bg-slate-800 ">
-          <td class="flex items-center border-r border-gray-700">
+          <td class="flex items-center border-r border-gray-800">
             <img
               src="{{ url_for('static', filename='player_photos/' + league_path + '/' + player.school + '/' + player.lastname_initials + ' ' + player.first_name +'.jpg') }}"
               alt="PlayerPortrait" onerror="this.onerror=null; this.src='{{ fallback_player_portrait_url }}';"
@@ -53,14 +53,14 @@
                 }}</span>
             </div>
           </td>
-          <td class="border-r border-gray-700">{{ (player.total_points / player.games_played) | round(1)
+          <td class="border-r border-gray-800">{{ (player.total_points / player.games_played) | round(1)
             }}</td>
-          <td class="items-center border-r border-gray-700">
+          <td class="items-center border-r border-gray-800">
             {{ (player.total_rebounds / player.games_played) | round(1) }}
           </td>
-          <td class="border-r border-gray-700">{{ (player.assists / player.games_played) | round(1)}}</td>
-          <td class="border-r border-gray-700">{{ (player.steals / player.games_played) | round(1) }}</td>
-          <td class="border-r border-gray-700">{{ (player.blocks / player.games_played) | round(1)}}</td>
+          <td class="border-r border-gray-800">{{ (player.assists / player.games_played) | round(1)}}</td>
+          <td class="border-r border-gray-800">{{ (player.steals / player.games_played) | round(1) }}</td>
+          <td class="border-r border-gray-800">{{ (player.blocks / player.games_played) | round(1)}}</td>
         </tr>
 
         {% endfor %}

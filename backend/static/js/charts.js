@@ -5,7 +5,7 @@ function showRadarChart(team1, team2) {
 
   // Define data valeus and its attributes
   const data = {
-    labels: ["Overall", "Offense", "Defense", "Playmaking", "Rebounding"], // Update labels as needed
+    labels: ["Overall", "Defense", "Playmaking", "Rebounding", "Efficiency", "Offense"], // Update labels as needed
     datasets: [
       {
         label: team1, // Update label based on selected team 1
@@ -63,7 +63,7 @@ function showRadarChart(team1, team2) {
         min: 40,
         max: 100,
         ticks: {
-          display: true,
+          display: false,
           stepSize: 10,
           backdropPadding: 5,
           font: {

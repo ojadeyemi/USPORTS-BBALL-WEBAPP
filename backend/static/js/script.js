@@ -1,5 +1,5 @@
 document
-  .getElementById("playerAnalyticsBtn")
+  .getElementById("playoffsBtn")
   .addEventListener("click", showPlayerAnalytics);
 
 document
@@ -24,7 +24,7 @@ function showStandings() {
   var leaderboardSection = document.getElementById("playerleaderboard-section");
   var teamanalyticsSection = document.getElementById("teamanalytics-section");
   var playeranalyticsSection = document.getElementById(
-    "playeranalytics-section"
+    "playoffs-section"
   );
 
   // Set the display property to "block" to show the standings section
@@ -48,7 +48,7 @@ function filterStandingsByConf() {
       selectedConference === "all" ||
       team.classList.contains(selectedConference)
     ) {
-      team.style.display = "flex";
+      team.style.display = "";
     } else {
       team.style.display = "none";
     }
@@ -61,7 +61,7 @@ function showLeaderboard() {
   var leaderboardSection = document.getElementById("playerleaderboard-section");
   var teamanalyticsSection = document.getElementById("teamanalytics-section");
   var playeranalyticsSection = document.getElementById(
-    "playeranalytics-section"
+    "playoffs-section"
   );
   // Set the display property to "block" to show the leaderboard section
   leaderboardSection.style.display = "block";
@@ -80,7 +80,7 @@ function showTeamAnalytics() {
   var leaderboardSection = document.getElementById("playerleaderboard-section");
   var teamanalyticsSection = document.getElementById("teamanalytics-section");
   var playeranalyticsSection = document.getElementById(
-    "playeranalytics-section"
+    "playoffs-section"
   );
   //Set the display to show team analytics
   teamanalyticsSection.style.display = "block";
@@ -99,7 +99,7 @@ function showPlayerAnalytics() {
   var leaderboardSection = document.getElementById("playerleaderboard-section");
   var teamanalyticsSection = document.getElementById("teamanalytics-section");
   var playeranalyticsSection = document.getElementById(
-    "playeranalytics-section"
+    "playoffs-section"
   );
 
   // Set the display property to "none" to show the leaderboard section

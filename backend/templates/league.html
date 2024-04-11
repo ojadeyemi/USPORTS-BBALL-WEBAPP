@@ -6,26 +6,31 @@
   </h1>
   <!-- Navigation -->
   <div class="flex justify-center">
-    <nav class="flex flex-wrap md:flex-row" role="group">
-      <button id="standingsBtn" type="button" class="nav-btn flex-auto shrink text-xs md:text-base">
+    <nav class="flex flex-row" role="group">
+      <button id="standingsBtn" type="button" class="nav-btn">
         Standings
       </button>
-      <button id="leaderboardBtn" type="button" class="nav-btn flex-auto text-xs md:text-base">
-        Player Leaderboard
+      <button id="leaderboardBtn" type="button" class="nav-btn">
+        <span class="hidden md:inline">Stats Leaderboard</span>
+              <!-- Hidden on small screens -->
+              <span class="md:hidden">Stats</span>
       </button>
-      <button id="teamAnalyticsBtn" type="button" class="nav-btn md:text-base text-xs flex-auto">
-        Team Analytics
+      <button id="teamAnalyticsBtn" type="button" class="nav-btn">
+        <span class="hidden md:inline">Team Analytics</span>
+              <!-- Hidden on small screens -->
+              <span class="md:hidden">Analytics</span>
       </button>
-      <button id="playerAnalyticsBtn" type="button" class="nav-btn flex-auto text-xs md:text-base">
-        Player Analytics
+      </button>
+      <button id="playoffsBtn" type="button" class="nav-btn">
+        Playoffs
       </button>
     </nav>
   </div>
 
   <!-- Standings Section -->
   <div id="standings-section" style="display: block">
-    <h2 class="text-base md:text-xl font-bold underline mt-5 text-center">STANDINGS</h2>
-    <div id="filters" class="text-left my-1 pl-5 text-xs ">
+    <h2 class="text-base md:text-xl font-bold  mt-8 text-center text-gray-500">STANDINGS</h2>
+    <div id="filters" class="text-left my-4 pl-5 text-xs ">
       <label for="conference-filter" class="text-white font-bold mr-2">Filter by Conference:</label>
       <select id="conference-filter"
         class="py-2 px-4 rounded bg-gray-800 text-white hover:bg-gray-700 focus:bg-gray-700">
@@ -37,88 +42,86 @@
       </select>
     </div>
 
-    <div style="margin: 0 auto" class="team-container w-full sm:w-11/12">
-      <div class="team-header bg-gray-800 rounded-lg shadow-md mb-5 text-center">
-        <table class="w-full border-collapse">
+    <div style="margin: 0 auto" class="team-container w-full lg:w-5/6 xl:w-2/3">
+
+      <table class="w-full  border-collapse ">
+        <thead class="border border-gray-800">
           <tr class="text-xs md:text-base">
-            <th style="width: 10%" class="py-2 text-left">&nbsp; #</th>
-            <th style="width: 30%" class="py-2">TEAM</th>
-            <th style="width: 10%" class="py-2">
+            <th class="py-2 border-r border-gray-800">#</th>
+            <th class="border-r border-gray-800 ">TEAM </th>
+            <th class=" border-r border-gray-800">
               <span class="hidden md:inline">WIN</span>
               <!-- Hidden on small screens -->
               <span class="md:hidden">W</span>
               <!-- Shown on small screens -->
             </th>
-            <th style="width: 10%" class="py-2">
+            <th class="border-r border-gray-800">
               <span class="hidden md:inline">LOSS</span>
               <!-- Hidden on small screens -->
               <span class="md:hidden">L</span>
               <!-- Shown on small screens -->
             </th>
-            <th style="width: 10%" class="py-2 font-bold">PCT</th>
-            <th style="width: 10%" class="py-2">GP</th>
-            <th style="width: 10%" class="py-2">
+            <th class="border-r border-gray-800">PCT</th>
+            <th class="border-r border-gray-800">GP</th>
+            <th class="border-r border-gray-800">
               <span class="hidden md:inline">LAST 10</span>
               <!-- Hidden on small screens -->
               <span class="md:hidden">L 10</span>
               <!-- Shown on small screens -->
             </th>
-            <th style="width: 10%" class="py-2">
+            <th class="border-b border-r border-gray-800">
               <span class="hidden md:inline">STREAK</span>
               <!-- Hidden on small screens -->
               <span class="md:hidden">STK</span>
               <!-- Shown on small screens -->
             </th>
           </tr>
-        </table>
-      </div>
+        </thead>
 
-      {% for team in teams %}
-      <div
-        class="team {{ team.conference }} bg-slate-950 rounded-lg shadow-md flex items-center justify-between flex-grow text-center mb-1 odd:bg-slate-900">
-        <table class="w-full border-collapse">
-          <tr class="text-xs md:text-base">
-            <td style="width: 3%" class="py-2">{{ loop.index }}</td>
-            <td>
+
+        <tbody class=" bg-slate-950 rounded-lg shadow-md ">
+          {% for team in teams %}
+
+          <tr class=" team {{ team.conference }} text-xs md:text-base  border-gray-800 text-center even:bg-slate-900">
+            <td class="border-r border-gray-800">{{ loop.index }}</td>
+            <td class="border-r border-gray-800 flex items-center">
               <img src="{{ url_for('static', filename='team_logos/' + team.team_name +'.png') }}" alt="Team Logo"
-                class="max-w-7 h-auto md:max-w-14" />
+                class="max-w-8 max-h-8 md:max-w-14 md-max-h-14 mx-3" />
+              <span class="font-bold">
+                {% if team.team_name == 'Toronto Metropolitan' %}
+                <a href="{{ url_for('team_page', league_path=league_path, team_path='Toronto Metropolitan') }}"
+                  class="no-underline hover:underline">TMU</a>
+                {% else %}
+                <a href="{{ url_for('team_page', league_path=league_path, team_path=team.team_name) }}"
+                  class="no-underline hover:underline">{{ team.team_name }}</a>
+                {% endif %}
+              </span>
             </td>
 
-            <td style="width: 30%" class="py-2 font-bold">
-              {% if team.team_name == 'Toronto Metropolitan' %}
-              <a href="{{ url_for('team_page', league_path=league_path, team_path='Toronto Metropolitan') }}"
-                class="no-underline hover:underline">TMU</a>
-              {% else %}
-              <a href="{{ url_for('team_page', league_path=league_path, team_path=team.team_name) }}"
-                class="no-underline hover:underline">{{ team.team_name }}</a>
-              {% endif %}
-            </td>
-
-            <td style="width: 10%" class="py-2">{{ team.total_wins }}</td>
-            <td style="width: 10%" class="py-2">{{ team.total_losses }}</td>
-            <td style="width: 10%" class="py-2 font-bold">
-              {{ team.win_percentage }}
-            </td>
-            <td style="width: 10%" class="py-2">{{ team.games_played }}</td>
-            <td style="width: 10%" class="py-2">{{ team.last_ten_games }}</td>
-            <td style="width: 10%" class="py-2">{{ team.streak }}</td>
+            <td class=" p-1 border-r border-gray-800">{{ team.total_wins }}</td>
+            <td class="p-1 border-r border-gray-800">{{ team.total_losses }}</td>
+            <td class="p-1 font-bold  border-r border-gray-800"> {{ team.win_percentage }}</td>
+            <td class="p-1 border-r border-gray-800">{{ team.games_played }}</td>
+            <td class="border-r border-gray-800">{{ team.last_ten_games }}</td>
+            <td class="border-r border-gray-800">{{ team.streak }}</td>
           </tr>
-        </table>
-      </div>
-      {% endfor %}
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
+
   </div>
 
   <!-- Player Leaderboard Section -->
-  <div id="playerleaderboard-section" style="display: none" class="text-left my-5 px-4 text-xs md:text-base">
+  <div id="playerleaderboard-section" style="display: none" class="flex flex-col">
     {% set numval = 10 %}
 
-    <div class="text-center sm:pl-4 md:pl-6">
-      <h2 class="text-2xl font-bold mb-5 mt-12">Points per game</h2>
-    </div>
+    <h2 class="text-base md:text-xl font-bold  mt-8 text-center text-gray-500">LEADERBOARD</h2>
 
-    <div style="margin: 0 auto" class="bg-slate-950 rounded-lg shadow-md mb-5 w-full sm:w-5/6">
-      <table class="w-full">
+    <!-- Points per game -->
+    <div >
+      <h2 class="leaderboard-stats-subtitle">Points per game</h2>
+      <table class="leaderboard-stats-table">
         {% set count = namespace(value=numval) %} {% for player in
         (players|sort(attribute='points_per_game', reverse=true)) %} {% if
         player.games_played > (0.6 * player.team_games_played) %}{%if
@@ -143,12 +146,10 @@
       </table>
     </div>
 
-    <div class="text-center sm:pl-4 md:pl-6">
-      <h2 class="text-2xl font-bold mb-5 mt-12">Rebounds per game</h2>
-    </div>
-
-    <div style="margin: 0 auto" class="bg-slate-950 rounded-lg shadow-md mb-5 w-full sm:w-5/6">
-      <table class="w-full">
+    <!-- Rebounds per game -->
+    <div>
+      <h2 class="leaderboard-stats-subtitle">Rebounds per game</h2>
+      <table class="leaderboard-stats-table">
         {% set count = namespace(value=numval) %} {% for player in
         (players|sort(attribute='rebounds_per_game', reverse=true)) %} {% if
         player.games_played > (0.6 * player.team_games_played) %}{%if
@@ -173,12 +174,10 @@
       </table>
     </div>
 
-    <div class="text-center sm:pl-4 md:pl-6">
-      <h2 class="text-2xl font-bold mb-5 mt-12">Assists per game</h2>
-    </div>
-
-    <div style="margin: 0 auto" class="bg-slate-950 rounded-lg shadow-md mb-5 w-full sm:w-5/6">
-      <table class="w-full">
+    <!-- Assists per game -->
+    <div>
+      <h2 class="leaderboard-stats-subtitle">Assists per game</h2>
+      <table class="leaderboard-stats-table">
         {% set count = namespace(value=numval) %} {% for player in
         (players|sort(attribute='assists_per_game', reverse=true)) %} {% if
         player.games_played > (0.6 * player.team_games_played) %}{%if
@@ -203,12 +202,11 @@
       </table>
     </div>
 
-    <div class="text-center sm:pl-4 md:pl-6">
-      <h2 class="text-2xl font-bold mb-5 mt-12">Field Goal Percentage</h2>
-    </div>
+    <!-- Field Goal Percentage -->
+    <div>
+      <h2 class="leaderboard-stats-subtitle">Field Goal Percentage</h2>
 
-    <div style="margin: 0 auto" class="bg-slate-950 rounded-lg shadow-md mb-5 w-full sm:w-5/6">
-      <table class="w-full">
+      <table class="leaderboard-stats-table">
         {% set count = namespace(value=numval) %} {% for player in
         (players|sort(attribute='field_goal_percentage', reverse=true)) %} {% if
         (player.games_played > (0.6 * player.team_games_played)) and
@@ -233,14 +231,13 @@
       </table>
     </div>
 
-    <div class="text-center sm:pl-4 md:pl-6">
-      <h2 class="text-2xl font-bold mb-5 mt-12">
+      <!-- 3-pointers made per game -->
+    <div>
+      <h2 class="leaderboard-stats-subtitle">
         Three pointers made per game
       </h2>
-    </div>
 
-    <div style="margin: 0 auto" class="bg-slate-950 rounded-lg shadow-md mb-5 w-full sm:w-5/6">
-      <table class="w-full">
+      <table class="leaderboard-stats-table">
         {% set count = namespace(value=numval) %} {% for player in
         (players|sort(attribute='three_pointers_made_per_game', reverse=true))
         %} {% if player.games_played > (0.6 * player.team_games_played) %}{%if
@@ -265,12 +262,11 @@
       </table>
     </div>
 
-    <div class="text-center sm:pl-4 md:pl-6">
-      <h2 class="text-2xl font-bold mb-5 mt-12">Three Point Percentage</h2>
-    </div>
+      <!-- 3-point percentage -->
+    <div>
+      <h2 class="leaderboard-stats-subtitle">Three Point Percentage</h2>
 
-    <div style="margin: 0 auto" class="bg-slate-950 rounded-lg shadow-md mb-5 w-full sm:w-5/6">
-      <table class="w-full">
+      <table class="leaderboard-stats-table">
         {% set count = namespace(value=numval) %} {% for player in
         (players|sort(attribute='three_pointers_percentage', reverse=true)) %}
         {% if (player.games_played > (0.6 * player.team_games_played)) and
@@ -295,12 +291,11 @@
       </table>
     </div>
 
-    <div class="text-center sm:pl-4 md:pl-6">
-      <h2 class="text-2xl font-bold mb-5 mt-12">Blocks per Game</h2>
-    </div>
+    <!-- Blocks per game -->
+    <div>
+      <h2 class="leaderboard-stats-subtitle">Blocks per Game</h2>
 
-    <div style="margin: 0 auto" class="bg-slate-950 rounded-lg shadow-md mb-5 w-full sm:w-5/6">
-      <table class="w-full">
+      <table class="leaderboard-stats-table">
         {% set count = namespace(value=numval) %} {% for player in
         (players|sort(attribute='blocks_per_game', reverse=true)) %} {% if
         player.games_played > (0.6 * player.team_games_played) %}{%if
@@ -325,12 +320,11 @@
       </table>
     </div>
 
-    <div class="text-center sm:pl-4 md:pl-6">
-      <h2 class="text-2xl font-bold mb-5 mt-12">Steals Per Game</h2>
-    </div>
+    <!-- Steals per game -->
+    <div>
+      <h2 class="leaderboard-stats-subtitle">Steals Per Game</h2>
 
-    <div style="margin: 0 auto" class="bg-slate-950 rounded-lg shadow-md mb-5 w-full sm:w-5/6">
-      <table class="w-full">
+      <table class="leaderboard-stats-table">
         {% set count = namespace(value=numval) %} {% for player in
         (players|sort(attribute='steals_per_game', reverse=true)) %} {% if
         player.games_played > (0.6 * player.team_games_played) %}{%if
@@ -355,12 +349,11 @@
       </table>
     </div>
 
-    <div class="text-center sm:pl-4 md:pl-6">
-      <h2 class="text-2xl font-bold mb-5 mt-12">Free Throws Made Per Game</h2>
-    </div>
+      <!-- Free throws made per game -->
+    <div>
+      <h2 class="leaderboard-stats-subtitle">Free Throws Made Per Game</h2>
 
-    <div style="margin: 0 auto" class="bg-slate-950 rounded-lg shadow-md mb-5 w-full sm:w-5/6">
-      <table class="w-full">
+      <table class="leaderboard-stats-table">
         {% set count = namespace(value=numval) %} {% for player in
         (players|sort(attribute='free_throws_made_per_game', reverse=true)) %}
         {% if player.games_played > (0.6 * player.team_games_played) %}{%if
@@ -385,12 +378,11 @@
       </table>
     </div>
 
-    <div class="text-center sm:pl-4 md:pl-6">
-      <h2 class="text-2xl font-bold mb-5 mt-12">Free Throws Percentage</h2>
-    </div>
+    <!-- free throws percentage -->
+    <div>
+      <h2 class="leaderboard-stats-subtitle">Free Throws Percentage</h2>
 
-    <div style="margin: 0 auto" class="bg-slate-950 rounded-lg shadow-md mb-5 w-full sm:w-5/6">
-      <table class="w-full">
+      <table class="leaderboard-stats-table">
         {% set count = namespace(value=numval) %} {% for player in
         (players|sort(attribute='free_throws_percentage', reverse=true)) %} {%
         if (player.games_played > (0.6 * player.team_games_played)) and
@@ -414,6 +406,7 @@
         endfor %}
       </table>
     </div>
+
   </div>
 
   <!-- Team Analytics Section -->
@@ -457,8 +450,8 @@
     <script src="{{ url_for('static', filename='js/charts.js') }}"></script>
   </div>
 
-  <!-- Player Analytics Section -->
-  <div id="playeranalytics-section" style="display: none">
+  <!-- Playoffs Section -->
+  <div id="playoffs-section" style="display: none">
     <div class="max-h-screen my-10 flex flex-col justify-center items-center">
       <img src="https://www.svgrepo.com/show/426192/cogs-settings.svg" alt="Logo" class="mb-8 h-40" />
       <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-center text-gray-700 dark:text-white mb-4">

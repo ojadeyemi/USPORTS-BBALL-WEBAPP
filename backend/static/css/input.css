@@ -4,6 +4,12 @@
 
 @layer components {
   .nav-btn {
-    @apply bg-gray-800 px-10 py-2 font-medium uppercase leading-normal text-white transition duration-300 hover:bg-gray-900 hover:text-violet-300 active:bg-violet-700 focus:outline-none focus:ring focus:ring-slate-900 motion-reduce:transition-none;
+    @apply bg-gray-800 border border-gray-500 px-4 md:px-10 py-2 font-medium uppercase flex-auto shrink text-xs md:text-base leading-normal text-white transition duration-300 hover:bg-gray-900 hover:text-violet-300 active:bg-violet-700 focus:outline-none focus:ring focus:ring-slate-900 motion-reduce:transition-none;
+  }
+  .leaderboard-stats-subtitle{
+    @apply text-center text-xl font-bold mb-4 mt-8
+  }
+  .leaderboard-stats-table{
+    @apply bg-slate-950 rounded-lg shadow-md mb-5 mx-auto w-full md:w-5/6 xl:w-2/3
   }
 }
