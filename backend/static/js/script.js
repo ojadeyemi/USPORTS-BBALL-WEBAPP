@@ -18,7 +18,6 @@ document
   .getElementById("conference-filter")
   .addEventListener("change", filterStandingsByConf);
 
-
 // Function to show standings section
 function showStandings() {
   var standingsSection = document.getElementById("standings-section");

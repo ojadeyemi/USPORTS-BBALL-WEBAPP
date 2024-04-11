@@ -41,20 +41,20 @@ function showRadarChart(team1, team2) {
       mode: "index", // Sets the interaction mode. Options: 'nearest', 'point', 'index', 'dataset'
     },
     plugins: {
-        //Title configuration
-        title: {
-            display: false,
-            text: ''
-        },
+      //Title configuration
+      title: {
+        display: false,
+        text: "",
+      },
       // Legend configuration
       legend: {
         display: true, // Determines if the legend should be displayed
         position: "top", // Position of the legend. Options: 'top', 'bottom', 'left', 'right'
         align: "center", // Alignment of the legend. Options: 'start', 'center', 'end'
-    
+
         labels: {
-          color: '#fff',
-          boxWidth: 50   //width of legend label box
+          color: "#fff",
+          boxWidth: 50, //width of legend label box
         },
       },
     },
@@ -83,7 +83,7 @@ function showRadarChart(team1, team2) {
         },
         pointLabels: {
           color: "#fff",
-          fontSize:10
+          fontSize: 10,
         },
       },
     },

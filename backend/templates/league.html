@@ -1,25 +1,32 @@
 {% extends "base.html" %} {% block content %}
 
 <body>
-  <h1 class="text-center text-gray-500 font-bold text-xl md:text-3xl py-2">
+  <h1 class="text-center text-gray-400 font-bold text-xl md:text-3xl py-2">
     {{ league }} League
   </h1>
   <!-- Navigation -->
-  <div class="flex justify-center ">
+  <div class="flex justify-center">
     <nav class="flex flex-wrap md:flex-row" role="group">
-      <button id="standingsBtn" type="button" class="nav-btn flex-auto shrink text-xs md:text-base">Standings</button>
-      <button id="leaderboardBtn" type="button" class="nav-btn flex-auto text-xs md:text-base">Player
-        Leaderboard</button>
-      <button id="teamAnalyticsBtn" type="button" class="nav-btn flex-auto text-xs md:text-base">Team Analytics</button>
-      <button id="playerAnalyticsBtn" type="button" class="nav-btn flex-auto text-xs md:text-base">Player
-        Analytics</button>
+      <button id="standingsBtn" type="button" class="nav-btn flex-auto shrink text-xs md:text-base">
+        Standings
+      </button>
+      <button id="leaderboardBtn" type="button" class="nav-btn flex-auto text-xs md:text-base">
+        Player Leaderboard
+      </button>
+      <button id="teamAnalyticsBtn" type="button" class="nav-btn md:text-base text-xs flex-auto">
+        Team Analytics
+      </button>
+      <button id="playerAnalyticsBtn" type="button" class="nav-btn flex-auto text-xs md:text-base">
+        Player Analytics
+      </button>
     </nav>
   </div>
-  
+
   <!-- Standings Section -->
   <div id="standings-section" style="display: block">
-    <div id="filters" class="text-left my-5 px-4 text-xs md:text-sm">
-      <label for="conference-filter" class="text-white font-bold mr-2 ">Filter by Conference:</label>
+    <h2 class="text-base md:text-xl font-bold underline mt-5 text-center">STANDINGS</h2>
+    <div id="filters" class="text-left my-1 pl-5 text-xs ">
+      <label for="conference-filter" class="text-white font-bold mr-2">Filter by Conference:</label>
       <select id="conference-filter"
         class="py-2 px-4 rounded bg-gray-800 text-white hover:bg-gray-700 focus:bg-gray-700">
         <option value="all" class="text-white">All Conferences</option>
@@ -30,29 +37,37 @@
       </select>
     </div>
 
-    <div style="margin: 0 auto;" class="team-container w-full sm:w-11/12">
+    <div style="margin: 0 auto" class="team-container w-full sm:w-11/12">
       <div class="team-header bg-gray-800 rounded-lg shadow-md mb-5 text-center">
         <table class="w-full border-collapse">
           <tr class="text-xs md:text-base">
-            <th style="width: 10%" class="py-2 ">&nbsp; #</th>
-            <th style="width: 30%" class="py-2 ">TEAM</th>
-            <th style="width: 10%" class="py-2 "><span class="hidden md:inline">WIN</span>
+            <th style="width: 10%" class="py-2 text-left">&nbsp; #</th>
+            <th style="width: 30%" class="py-2">TEAM</th>
+            <th style="width: 10%" class="py-2">
+              <span class="hidden md:inline">WIN</span>
               <!-- Hidden on small screens -->
-              <span class="md:hidden">W</span> <!-- Shown on small screens -->
+              <span class="md:hidden">W</span>
+              <!-- Shown on small screens -->
             </th>
-            <th style="width: 10%" class="py-2 "><span class="hidden md:inline">LOSS</span>
+            <th style="width: 10%" class="py-2">
+              <span class="hidden md:inline">LOSS</span>
               <!-- Hidden on small screens -->
-              <span class="md:hidden">L</span> <!-- Shown on small screens -->
+              <span class="md:hidden">L</span>
+              <!-- Shown on small screens -->
             </th>
-            <th style="width: 10%" class="py-2  font-bold">PCT</th>
-            <th style="width: 10%" class="py-2 ">GP</th>
-            <th style="width: 10%" class="py-2 "><span class="hidden md:inline">LAST 10</span>
+            <th style="width: 10%" class="py-2 font-bold">PCT</th>
+            <th style="width: 10%" class="py-2">GP</th>
+            <th style="width: 10%" class="py-2">
+              <span class="hidden md:inline">LAST 10</span>
               <!-- Hidden on small screens -->
-              <span class="md:hidden">L 10</span> <!-- Shown on small screens -->
+              <span class="md:hidden">L 10</span>
+              <!-- Shown on small screens -->
             </th>
-            <th style="width: 10%" class="py-2 "><span class="hidden md:inline">STREAK</span>
+            <th style="width: 10%" class="py-2">
+              <span class="hidden md:inline">STREAK</span>
               <!-- Hidden on small screens -->
-              <span class="md:hidden">STK</span> <!-- Shown on small screens -->
+              <span class="md:hidden">STK</span>
+              <!-- Shown on small screens -->
             </th>
           </tr>
         </table>
@@ -60,41 +75,33 @@
 
       {% for team in teams %}
       <div
-        class="team {{ team.conference }} bg-slate-950 rounded-lg shadow-md flex items-center justify-between flex-grow text-center mb-1">
+        class="team {{ team.conference }} bg-slate-950 rounded-lg shadow-md flex items-center justify-between flex-grow text-center mb-1 odd:bg-slate-900">
         <table class="w-full border-collapse">
-          <tr class="text-xs md:text-lg">
-            <td style="width: 3%" class="py-2  ">{{ loop.index }}</td>
-            <td><img src="{{ url_for('static', filename='team_logos/' + team.team_name +'.png') }}" alt="Team Logo"
-                class=" max-w-7 h-auto md:max-w-14 " /></td>
+          <tr class="text-xs md:text-base">
+            <td style="width: 3%" class="py-2">{{ loop.index }}</td>
+            <td>
+              <img src="{{ url_for('static', filename='team_logos/' + team.team_name +'.png') }}" alt="Team Logo"
+                class="max-w-7 h-auto md:max-w-14" />
+            </td>
 
-            <td style="width: 30%" class="py-2   font-bold">
+            <td style="width: 30%" class="py-2 font-bold">
               {% if team.team_name == 'Toronto Metropolitan' %}
               <a href="{{ url_for('team_page', league_path=league_path, team_path='Toronto Metropolitan') }}"
-                class="no-underline hover:underline ">TMU</a>
+                class="no-underline hover:underline">TMU</a>
               {% else %}
               <a href="{{ url_for('team_page', league_path=league_path, team_path=team.team_name) }}"
-                class="no-underline hover:underline ">{{ team.team_name }}</a>
+                class="no-underline hover:underline">{{ team.team_name }}</a>
               {% endif %}
             </td>
 
-            <td style="width: 10%" class="py-2 ">
-              {{ team.total_wins }}
-            </td>
-            <td style="width: 10%" class="py-2 ">
-              {{ team.total_losses }}
-            </td>
-            <td style="width: 10%" class="py-2  font-bold">
+            <td style="width: 10%" class="py-2">{{ team.total_wins }}</td>
+            <td style="width: 10%" class="py-2">{{ team.total_losses }}</td>
+            <td style="width: 10%" class="py-2 font-bold">
               {{ team.win_percentage }}
             </td>
-            <td style="width: 10%" class="py-2 ">
-              {{ team.games_played }}
-            </td>
-            <td style="width: 10%" class="py-2 ">
-              {{ team.last_ten_games }}
-            </td>
-            <td style="width: 10%" class="py-2 ">
-              {{ team.streak }}
-            </td>
+            <td style="width: 10%" class="py-2">{{ team.games_played }}</td>
+            <td style="width: 10%" class="py-2">{{ team.last_ten_games }}</td>
+            <td style="width: 10%" class="py-2">{{ team.streak }}</td>
           </tr>
         </table>
       </div>
@@ -110,22 +117,29 @@
       <h2 class="text-2xl font-bold mb-5 mt-12">Points per game</h2>
     </div>
 
-    <div style="margin: 0 auto; " class="bg-slate-950 rounded-lg shadow-md mb-5  w-full sm:w-5/6">
+    <div style="margin: 0 auto" class="bg-slate-950 rounded-lg shadow-md mb-5 w-full sm:w-5/6">
       <table class="w-full">
         {% set count = namespace(value=numval) %} {% for player in
         (players|sort(attribute='points_per_game', reverse=true)) %} {% if
-        player.games_played > (0.6 * player.team_games_played) %}{%if count.value >= 1%}
+        player.games_played > (0.6 * player.team_games_played) %}{%if
+        count.value >= 1%}
 
-        <tr class="pb-4  even:bg-slate-900">
+        <tr class="pb-4 even:bg-slate-900">
           <td class="py-1 w-1/12 pl-3">{{ numval - count.value + 1}}</td>
-          <td class="py-1 font-bold text-left">{{ player.lastname_initials }} &nbsp {{ player.first_name }}</td>
-          <td class="py-1 w-1/12"><img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}"
-              alt="Team Logo" class="max-w-8 max-h-8" /> </td>
+          <td class="py-1 font-bold text-left">
+            {{ player.lastname_initials }} &nbsp {{ player.first_name }}
+          </td>
+          <td class="py-1 w-1/12">
+            <img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}" alt="Team Logo"
+              class="max-w-8 max-h-8" />
+          </td>
           <td class="py-1 text-sm">{{ player.school }}</td>
-          <td class="py-1 font-bold text-center">{{ player.points_per_game }} &nbsp;&nbsp;</td>
-
+          <td class="py-1 font-bold text-center">
+            {{ player.points_per_game }} &nbsp;&nbsp;
+          </td>
         </tr>
-        {% set count.value = count.value - 1 %} {% endif %} {% endif %} {% endfor %}
+        {% set count.value = count.value - 1 %} {% endif %} {% endif %} {%
+        endfor %}
       </table>
     </div>
 
@@ -133,46 +147,59 @@
       <h2 class="text-2xl font-bold mb-5 mt-12">Rebounds per game</h2>
     </div>
 
-    <div style="margin: 0 auto; " class="bg-slate-950 rounded-lg shadow-md mb-5  w-full sm:w-5/6">
+    <div style="margin: 0 auto" class="bg-slate-950 rounded-lg shadow-md mb-5 w-full sm:w-5/6">
       <table class="w-full">
         {% set count = namespace(value=numval) %} {% for player in
         (players|sort(attribute='rebounds_per_game', reverse=true)) %} {% if
-        player.games_played > (0.6 * player.team_games_played) %}{%if count.value >= 1%}
+        player.games_played > (0.6 * player.team_games_played) %}{%if
+        count.value >= 1%}
 
-        <tr class="pb-4  even:bg-slate-900">
+        <tr class="pb-4 even:bg-slate-900">
           <td class="py-1 w-1/12 pl-3">{{ numval - count.value + 1}}</td>
-          <td class="py-1 font-bold text-left">{{ player.lastname_initials }} &nbsp {{ player.first_name }}</td>
-          <td class="py-1 w-1/12"><img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}"
-              alt="Team Logo" class="max-w-8 max-h-8" /> </td>
+          <td class="py-1 font-bold text-left">
+            {{ player.lastname_initials }} &nbsp {{ player.first_name }}
+          </td>
+          <td class="py-1 w-1/12">
+            <img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}" alt="Team Logo"
+              class="max-w-8 max-h-8" />
+          </td>
           <td class="py-1 text-sm">{{ player.school }}</td>
-          <td class="py-1 font-bold text-center">{{ player.rebounds_per_game }}&nbsp;&nbsp; </td>
-
+          <td class="py-1 font-bold text-center">
+            {{ player.rebounds_per_game }}&nbsp;&nbsp;
+          </td>
         </tr>
-        {% set count.value = count.value - 1 %} {% endif %} {% endif %} {% endfor %}
+        {% set count.value = count.value - 1 %} {% endif %} {% endif %} {%
+        endfor %}
       </table>
     </div>
-
 
     <div class="text-center sm:pl-4 md:pl-6">
       <h2 class="text-2xl font-bold mb-5 mt-12">Assists per game</h2>
     </div>
 
-    <div style="margin: 0 auto; " class="bg-slate-950 rounded-lg shadow-md mb-5  w-full sm:w-5/6">
+    <div style="margin: 0 auto" class="bg-slate-950 rounded-lg shadow-md mb-5 w-full sm:w-5/6">
       <table class="w-full">
         {% set count = namespace(value=numval) %} {% for player in
         (players|sort(attribute='assists_per_game', reverse=true)) %} {% if
-        player.games_played > (0.6 * player.team_games_played) %}{%if count.value >= 1%}
+        player.games_played > (0.6 * player.team_games_played) %}{%if
+        count.value >= 1%}
 
-        <tr class="pb-4  even:bg-slate-900">
+        <tr class="pb-4 even:bg-slate-900">
           <td class="py-1 w-1/12 pl-3">{{ numval - count.value + 1}}</td>
-          <td class="py-1 font-bold text-left">{{ player.lastname_initials }} &nbsp {{ player.first_name }}</td>
-          <td class="py-1 w-1/12"><img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}"
-              alt="Team Logo" class="max-w-8 max-h-8" /> </td>
+          <td class="py-1 font-bold text-left">
+            {{ player.lastname_initials }} &nbsp {{ player.first_name }}
+          </td>
+          <td class="py-1 w-1/12">
+            <img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}" alt="Team Logo"
+              class="max-w-8 max-h-8" />
+          </td>
           <td class="py-1 text-sm">{{ player.school }}</td>
-          <td class="py-1 font-bold text-center">{{ player.assists_per_game }} &nbsp;&nbsp;</td>
-
+          <td class="py-1 font-bold text-center">
+            {{ player.assists_per_game }} &nbsp;&nbsp;
+          </td>
         </tr>
-        {% set count.value = count.value - 1 %} {% endif %} {% endif %} {% endfor %}
+        {% set count.value = count.value - 1 %} {% endif %} {% endif %} {%
+        endfor %}
       </table>
     </div>
 
@@ -180,100 +207,121 @@
       <h2 class="text-2xl font-bold mb-5 mt-12">Field Goal Percentage</h2>
     </div>
 
-    <div style="margin: 0 auto; " class="bg-slate-950 rounded-lg shadow-md mb-5  w-full sm:w-5/6">
+    <div style="margin: 0 auto" class="bg-slate-950 rounded-lg shadow-md mb-5 w-full sm:w-5/6">
       <table class="w-full">
         {% set count = namespace(value=numval) %} {% for player in
-        (players|sort(attribute='field_goal_percentage', reverse=true)) %}
-        {% if (player.games_played > (0.6 * player.team_games_played)) and (player.field_goal_made_per_game > 3) %}{%if
-        count.value >= 1%}
+        (players|sort(attribute='field_goal_percentage', reverse=true)) %} {% if
+        (player.games_played > (0.6 * player.team_games_played)) and
+        (player.field_goal_made_per_game > 3) %}{%if count.value >= 1%}
 
-        <tr class="pb-4  even:bg-slate-900">
+        <tr class="pb-4 even:bg-slate-900">
           <td class="py-1 w-1/12 pl-3">{{ numval - count.value + 1}}</td>
-          <td class="py-1 font-bold text-left">{{ player.lastname_initials }} &nbsp {{ player.first_name }}</td>
-          <td class="py-1 w-1/12"><img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}"
-              alt="Team Logo" class="max-w-8 max-h-8" /> </td>
+          <td class="py-1 font-bold text-left">
+            {{ player.lastname_initials }} &nbsp {{ player.first_name }}
+          </td>
+          <td class="py-1 w-1/12">
+            <img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}" alt="Team Logo"
+              class="max-w-8 max-h-8" />
+          </td>
           <td class="py-1 text-sm">{{ player.school }}</td>
-          <td class="py-1 font-bold text-center">{{ player.field_goal_percentage}}%</td>
-
+          <td class="py-1 font-bold text-center">
+            {{ player.field_goal_percentage}}%
+          </td>
         </tr>
-        {% set count.value = count.value - 1 %} {% endif %} {% endif %} {% endfor %}
-      </table>
-    </div>
-
-
-    <div class="text-center sm:pl-4 md:pl-6">
-      <h2 class="text-2xl font-bold mb-5 mt-12">Three pointers made per game</h2>
-    </div>
-
-    <div style="margin: 0 auto; " class="bg-slate-950 rounded-lg shadow-md mb-5  w-full sm:w-5/6">
-      <table class="w-full">
-        {% set count = namespace(value=numval) %} {% for player in
-        (players|sort(attribute='three_pointers_made_per_game', reverse=true)) %} {% if
-        player.games_played > (0.6 * player.team_games_played) %}{%if count.value >= 1%}
-
-        <tr class="pb-4  even:bg-slate-900">
-          <td class="py-1 w-1/12 pl-3">{{ numval - count.value + 1}}</td>
-          <td class="py-1 font-bold text-left">{{ player.lastname_initials }} &nbsp {{ player.first_name }}</td>
-          <td class="py-1 w-1/12"><img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}"
-              alt="Team Logo" class="max-w-8 max-h-8" /> </td>
-          <td class="py-1 text-sm">{{ player.school }}</td>
-          <td class="py-1 font-bold text-center">{{ player.three_pointers_made_per_game }} &nbsp;&nbsp;</td>
-
-        </tr>
-        {% set count.value = count.value - 1 %} {% endif %} {% endif %} {% endfor %}
+        {% set count.value = count.value - 1 %} {% endif %} {% endif %} {%
+        endfor %}
       </table>
     </div>
 
     <div class="text-center sm:pl-4 md:pl-6">
       <h2 class="text-2xl font-bold mb-5 mt-12">
-        Three Point Percentage
+        Three pointers made per game
       </h2>
     </div>
 
-    <div style="margin: 0 auto; " class="bg-slate-950 rounded-lg shadow-md mb-5  w-full sm:w-5/6">
+    <div style="margin: 0 auto" class="bg-slate-950 rounded-lg shadow-md mb-5 w-full sm:w-5/6">
+      <table class="w-full">
+        {% set count = namespace(value=numval) %} {% for player in
+        (players|sort(attribute='three_pointers_made_per_game', reverse=true))
+        %} {% if player.games_played > (0.6 * player.team_games_played) %}{%if
+        count.value >= 1%}
+
+        <tr class="pb-4 even:bg-slate-900">
+          <td class="py-1 w-1/12 pl-3">{{ numval - count.value + 1}}</td>
+          <td class="py-1 font-bold text-left">
+            {{ player.lastname_initials }} &nbsp {{ player.first_name }}
+          </td>
+          <td class="py-1 w-1/12">
+            <img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}" alt="Team Logo"
+              class="max-w-8 max-h-8" />
+          </td>
+          <td class="py-1 text-sm">{{ player.school }}</td>
+          <td class="py-1 font-bold text-center">
+            {{ player.three_pointers_made_per_game }} &nbsp;&nbsp;
+          </td>
+        </tr>
+        {% set count.value = count.value - 1 %} {% endif %} {% endif %} {%
+        endfor %}
+      </table>
+    </div>
+
+    <div class="text-center sm:pl-4 md:pl-6">
+      <h2 class="text-2xl font-bold mb-5 mt-12">Three Point Percentage</h2>
+    </div>
+
+    <div style="margin: 0 auto" class="bg-slate-950 rounded-lg shadow-md mb-5 w-full sm:w-5/6">
       <table class="w-full">
         {% set count = namespace(value=numval) %} {% for player in
         (players|sort(attribute='three_pointers_percentage', reverse=true)) %}
-        {% if (player.games_played > (0.6 * player.team_games_played)) and (player.three_pointers_made_per_game > 1)
-        %}{%if
-        count.value >= 1%}
+        {% if (player.games_played > (0.6 * player.team_games_played)) and
+        (player.three_pointers_made_per_game > 1) %}{%if count.value >= 1%}
 
-        <tr class="pb-4  even:bg-slate-900">
+        <tr class="pb-4 even:bg-slate-900">
           <td class="py-1 w-1/12 pl-3">{{ numval - count.value + 1}}</td>
-          <td class="py-1 font-bold text-left">{{ player.lastname_initials }} &nbsp {{ player.first_name }}</td>
-          <td class="py-1 w-1/12"><img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}"
-              alt="Team Logo" class="max-w-8 max-h-8" /> </td>
+          <td class="py-1 font-bold text-left">
+            {{ player.lastname_initials }} &nbsp {{ player.first_name }}
+          </td>
+          <td class="py-1 w-1/12">
+            <img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}" alt="Team Logo"
+              class="max-w-8 max-h-8" />
+          </td>
           <td class="py-1 text-sm">{{ player.school }}</td>
-          <td class="py-1 font-bold text-center">{{ player.three_pointers_percentage }}%</td>
-
+          <td class="py-1 font-bold text-center">
+            {{ player.three_pointers_percentage }}%
+          </td>
         </tr>
-        {% set count.value = count.value - 1 %} {% endif %} {% endif %} {% endfor %}
+        {% set count.value = count.value - 1 %} {% endif %} {% endif %} {%
+        endfor %}
       </table>
     </div>
 
     <div class="text-center sm:pl-4 md:pl-6">
-      <h2 class="text-2xl font-bold mb-5 mt-12">
-        Blocks per Game
-      </h2>
+      <h2 class="text-2xl font-bold mb-5 mt-12">Blocks per Game</h2>
     </div>
 
-    <div style="margin: 0 auto; " class="bg-slate-950 rounded-lg shadow-md mb-5  w-full sm:w-5/6">
+    <div style="margin: 0 auto" class="bg-slate-950 rounded-lg shadow-md mb-5 w-full sm:w-5/6">
       <table class="w-full">
-
         {% set count = namespace(value=numval) %} {% for player in
         (players|sort(attribute='blocks_per_game', reverse=true)) %} {% if
-        player.games_played > (0.6 * player.team_games_played) %}{%if count.value >= 1%}
+        player.games_played > (0.6 * player.team_games_played) %}{%if
+        count.value >= 1%}
 
-        <tr class="pb-4  even:bg-slate-900">
+        <tr class="pb-4 even:bg-slate-900">
           <td class="py-1 w-1/12 pl-3">{{ numval - count.value + 1}}</td>
-          <td class="py-1 font-bold text-left">{{ player.lastname_initials }} &nbsp {{ player.first_name }}</td>
-          <td class="py-1 w-1/12"><img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}"
-              alt="Team Logo" class="max-w-8 max-h-8" /> </td>
+          <td class="py-1 font-bold text-left">
+            {{ player.lastname_initials }} &nbsp {{ player.first_name }}
+          </td>
+          <td class="py-1 w-1/12">
+            <img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}" alt="Team Logo"
+              class="max-w-8 max-h-8" />
+          </td>
           <td class="py-1 text-sm">{{ player.school }}</td>
-          <td class="py-1 font-bold text-center">{{ player.blocks_per_game }} &nbsp;&nbsp;</td>
-
+          <td class="py-1 font-bold text-center">
+            {{ player.blocks_per_game }} &nbsp;&nbsp;
+          </td>
         </tr>
-        {% set count.value = count.value - 1 %} {% endif %} {% endif %} {% endfor %}
+        {% set count.value = count.value - 1 %} {% endif %} {% endif %} {%
+        endfor %}
       </table>
     </div>
 
@@ -281,23 +329,29 @@
       <h2 class="text-2xl font-bold mb-5 mt-12">Steals Per Game</h2>
     </div>
 
-    <div style="margin: 0 auto; " class="bg-slate-950 rounded-lg shadow-md mb-5  w-full sm:w-5/6">
+    <div style="margin: 0 auto" class="bg-slate-950 rounded-lg shadow-md mb-5 w-full sm:w-5/6">
       <table class="w-full">
-
         {% set count = namespace(value=numval) %} {% for player in
         (players|sort(attribute='steals_per_game', reverse=true)) %} {% if
-        player.games_played > (0.6 * player.team_games_played) %}{%if count.value >= 1%}
+        player.games_played > (0.6 * player.team_games_played) %}{%if
+        count.value >= 1%}
 
-        <tr class="pb-4  even:bg-slate-900">
+        <tr class="pb-4 even:bg-slate-900">
           <td class="py-1 w-1/12 pl-3">{{ numval - count.value + 1}}</td>
-          <td class="py-1 font-bold text-left">{{ player.lastname_initials }} &nbsp {{ player.first_name }}</td>
-          <td class="py-1 w-1/12"><img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}"
-              alt="Team Logo" class="max-w-8 max-h-8" /> </td>
+          <td class="py-1 font-bold text-left">
+            {{ player.lastname_initials }} &nbsp {{ player.first_name }}
+          </td>
+          <td class="py-1 w-1/12">
+            <img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}" alt="Team Logo"
+              class="max-w-8 max-h-8" />
+          </td>
           <td class="py-1 text-sm">{{ player.school }}</td>
-          <td class="py-1 font-bold text-center">{{ player.steals_per_game }} &nbsp;&nbsp;</td>
-
+          <td class="py-1 font-bold text-center">
+            {{ player.steals_per_game }} &nbsp;&nbsp;
+          </td>
         </tr>
-        {% set count.value = count.value - 1 %} {% endif %} {% endif %} {% endfor %}
+        {% set count.value = count.value - 1 %} {% endif %} {% endif %} {%
+        endfor %}
       </table>
     </div>
 
@@ -305,23 +359,29 @@
       <h2 class="text-2xl font-bold mb-5 mt-12">Free Throws Made Per Game</h2>
     </div>
 
-    <div style="margin: 0 auto; " class="bg-slate-950 rounded-lg shadow-md mb-5  w-full sm:w-5/6">
+    <div style="margin: 0 auto" class="bg-slate-950 rounded-lg shadow-md mb-5 w-full sm:w-5/6">
       <table class="w-full">
-
         {% set count = namespace(value=numval) %} {% for player in
-        (players|sort(attribute='free_throws_made_per_game', reverse=true)) %} {% if
-        player.games_played > (0.6 * player.team_games_played) %}{%if count.value >= 1%}
+        (players|sort(attribute='free_throws_made_per_game', reverse=true)) %}
+        {% if player.games_played > (0.6 * player.team_games_played) %}{%if
+        count.value >= 1%}
 
-        <tr class="pb-4  even:bg-slate-900">
+        <tr class="pb-4 even:bg-slate-900">
           <td class="py-1 w-1/12 pl-3">{{ numval - count.value + 1}}</td>
-          <td class="py-1 font-bold text-left">{{ player.lastname_initials }} &nbsp {{ player.first_name }}</td>
-          <td class="py-1 w-1/12"><img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}"
-              alt="Team Logo" class="max-w-8 max-h-8" /> </td>
+          <td class="py-1 font-bold text-left">
+            {{ player.lastname_initials }} &nbsp {{ player.first_name }}
+          </td>
+          <td class="py-1 w-1/12">
+            <img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}" alt="Team Logo"
+              class="max-w-8 max-h-8" />
+          </td>
           <td class="py-1 text-sm">{{ player.school }}</td>
-          <td class="py-1 font-bold text-center">{{ player.free_throws_made_per_game }} &nbsp;&nbsp;</td>
-
+          <td class="py-1 font-bold text-center">
+            {{ player.free_throws_made_per_game }} &nbsp;&nbsp;
+          </td>
         </tr>
-        {% set count.value = count.value - 1 %} {% endif %} {% endif %} {% endfor %}
+        {% set count.value = count.value - 1 %} {% endif %} {% endif %} {%
+        endfor %}
       </table>
     </div>
 
@@ -329,37 +389,45 @@
       <h2 class="text-2xl font-bold mb-5 mt-12">Free Throws Percentage</h2>
     </div>
 
-    <div style="margin: 0 auto; " class="bg-slate-950 rounded-lg shadow-md mb-5  w-full sm:w-5/6">
+    <div style="margin: 0 auto" class="bg-slate-950 rounded-lg shadow-md mb-5 w-full sm:w-5/6">
       <table class="w-full">
-
         {% set count = namespace(value=numval) %} {% for player in
-        (players|sort(attribute='free_throws_percentage', reverse=true)) %} {% if (player.games_played > (0.6 *
-        player.team_games_played)) and (player.free_throws_made_per_game > 2)
-        %}{%if count.value >= 1%}
+        (players|sort(attribute='free_throws_percentage', reverse=true)) %} {%
+        if (player.games_played > (0.6 * player.team_games_played)) and
+        (player.free_throws_made_per_game > 2) %}{%if count.value >= 1%}
 
-        <tr class="pb-4  even:bg-slate-900">
+        <tr class="pb-4 even:bg-slate-900">
           <td class="py-1 w-1/12 pl-3">{{ numval - count.value + 1}}</td>
-          <td class="py-1 font-bold text-left">{{ player.lastname_initials }} &nbsp {{ player.first_name }}</td>
-          <td class="py-1 w-1/12"><img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}"
-              alt="Team Logo" class="max-w-8 max-h-8" /> </td>
+          <td class="py-1 font-bold text-left">
+            {{ player.lastname_initials }} &nbsp {{ player.first_name }}
+          </td>
+          <td class="py-1 w-1/12">
+            <img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}" alt="Team Logo"
+              class="max-w-8 max-h-8" />
+          </td>
           <td class="py-1 text-sm">{{ player.school }}</td>
-          <td class="py-1 font-bold text-center">{{ player.free_throws_percentage }}%</td>
-
+          <td class="py-1 font-bold text-center">
+            {{ player.free_throws_percentage }}%
+          </td>
         </tr>
-        {% set count.value = count.value - 1 %} {% endif %} {% endif %} {% endfor %}
+        {% set count.value = count.value - 1 %} {% endif %} {% endif %} {%
+        endfor %}
       </table>
     </div>
-
   </div>
 
   <!-- Team Analytics Section -->
   <div id="teamanalytics-section" style="display: none">
     <div class="max-w-xl mx-auto mt-8">
-      <p class="text-center text-xs md:text-sm text-gray-500">Select two teams from the dropdown menu to compare their stats plotted in the radar chart.</p>
-  </div>
+      <p class="text-center text-xs md:text-sm text-gray-500">
+        Select two teams from the dropdown menu to compare their stats plotted
+        in the radar chart.
+      </p>
+    </div>
     <!-- Team Selection Dropdowns -->
-    <div class=" my-5  flex justify-center space-x-4 text-xs md:text-lg"><select id="team1-select"
-        class=" text-center rounded bg-gray-800 text-white hover:bg-gray-700 focus:bg-gray-700 w-1/4">
+    <div class="my-5 flex justify-center space-x-4 text-xs md:text-lg">
+      <select id="team1-select"
+        class="text-center rounded bg-gray-800 text-white hover:bg-gray-700 focus:bg-gray-700 w-1/4">
         <!-- Populate options dynamically using Flask -->
         {% for team in (teams |sort(attribute='team_name' )) %}
         <option value="{{ team.team_name }}">{{ team.team_name }}</option>
@@ -367,7 +435,7 @@
       </select>
 
       <select id="team2-select"
-        class=" text-center rounded bg-gray-800 text-white hover:bg-gray-700 focus:bg-gray-700 w-1/4">
+        class="text-center rounded bg-gray-800 text-white hover:bg-gray-700 focus:bg-gray-700 w-1/4">
         <!-- Populate options dynamically using Flask -->
         {% for team in (teams |sort(attribute='team_name' )) %}
         <option value="{{ team.team_name }}">{{ team.team_name }}</option>
@@ -375,11 +443,9 @@
       </select>
     </div>
 
-
-    <div class=" flex justify-center items-center">
+    <div class="flex justify-center items-center">
       <canvas id="radarChart" width="400" height="400"></canvas>
     </div>
-
 
     <script>
       // Radar data from Flask app
@@ -389,15 +455,15 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script src="{{ url_for('static', filename='js/charts.js') }}"></script>
-
   </div>
 
   <!-- Player Analytics Section -->
   <div id="playeranalytics-section" style="display: none">
     <div class="max-h-screen my-10 flex flex-col justify-center items-center">
-      <img src="https://www.svgrepo.com/show/426192/cogs-settings.svg" alt="Logo" class="mb-8 h-40">
-      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-center text-gray-700 dark:text-white mb-4">This page is
-        under maintenance</h1>
+      <img src="https://www.svgrepo.com/show/426192/cogs-settings.svg" alt="Logo" class="mb-8 h-40" />
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-center text-gray-700 dark:text-white mb-4">
+        This page is under maintenance
+      </h1>
       <div class="flex space-x-4 my-10">
         <a href="/#bottom"
           class="bg-gray-800 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded dark:bg-gray-700 dark:hover:bg-gray-600">Contact
@@ -407,7 +473,6 @@
       </div>
     </div>
   </div>
-
 
   <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>

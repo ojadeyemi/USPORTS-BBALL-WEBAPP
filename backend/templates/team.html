@@ -1,85 +1,71 @@
-{% extends "base.html" %}
-
-{% block content %}
-
+{% extends "base.html" %} {% block content %}
 
 <div class="container mx-auto">
-    <h1 class="text-center text-gray-500 font-bold text-xl md:text-3xl py-2">
-        {{ league }} League
-    </h1>
-    <a href="#" onclick="history.go(-1)" class="inline-block">
-        <img src="https://www.svgrepo.com/show/478704/arrow-button-left-3.svg" alt="Back" class="w-10 h-10">
-    </a>
-    <div class="flex flex-row justify-evenly w-full">
-        <div class="w-1/3 flex flex-col items-center">
-            <img src="{{ url_for('static', filename='team_logos/' + team.team_name +'.png') }}" alt="Team Logo"
-                class="max-w-15 max-h-15" />
-            <div class="font-bold text-base md:text-lg">{{ team.team_name }}</div>
-        </div>
-        
-    
-        <div class="w-2/3 grid grid-cols-1 md:grid-cols-2 gap-y-2 md:gap-x-4 font-semibold">
-            <div>Total Wins: &nbsp; {{ team.total_wins }}</div>
-            <div>Total Losses: &nbsp; {{ team.total_losses }}</div>
-            <div>Win Percentage: &nbsp; {{ team.win_percentage }}</div>
-            <div>Games Played: &nbsp; {{ team.games_played }}</div>
-            <div>Last Ten Games: &nbsp; {{ team.last_ten_games }}</div>
-            <div>Streak: &nbsp; {{ team.streak }}</div>
-        </div>
-    </div>
-    
-
-    <h2 class="text-center font-bold mt-5 py-5">Key Players</h2>
-
-    <div style="margin: 0 auto;"
-        class="team-container w-full md:w-11/12 team-header rounded-lg shadow-md my-5 text-center">
-        <table class="w-full border  border-gray-800 border-collapse">
-            <thead>
-                <tr class="text-xs my-4">
-                    <th class="border-b border-r border-gray-400"> Player</th>
-                    <th  class="border-b border-r border-gray-400">PPG</th>
-                    <th  class="border-b border-r border-gray-400">RPG</th>
-                    <th  class="border-b border-r border-gray-400">APG</th>
-                    <th  class="border-b border-r border-gray-400">SPG</th>
-                    <th  class="border-b border-r border-gray-400">BPG</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for player in players %}
-
-                <tr class=" odd:bg-slate-900">
-                    <td class="flex items-center">
-                        <img src="{{ url_for('static', filename='player_photos/' + league_path + '/' + player.school + '/' + player.lastname_initials + ' ' + player.first_name +'.jpg') }}"
-                            alt="PlayerPortrait"
-                            onerror="this.onerror=null; this.src='{{ fallback_player_portrait_url }}';"
-                            class=" max-w-8 h-auto md:max-w-10 rounded-full mr-2" />
-                        <div class="flex items-center">
-                            <span class="font-bold">&nbsp; {{ player.lastname_initials }}. {{ player.first_name
-                                }}</span>
-                        </div>
-                    </td>
-                    <td>
-                        {{ (player.total_points / player.games_played) | round(1) }}
-                    </td>
-                    <td>
-                        {{ (player.total_rebounds / player.games_played) | round(1) }}
-                    </td>
-                    <td>
-                        {{ (player.assists / player.games_played) | round(1)}}
-                    </td>
-                    <td>
-                        {{ (player.steals / player.games_played) | round(1) }}
-                    </td>
-                    <td>
-                        {{ (player.blocks / player.games_played) | round(1)}}
-                    </td>
-                </tr>
-
-
-                {% endfor %}
-            </tbody>
-        </table>
+  <h1 class="text-center text-gray-500 font-bold text-xl md:text-3xl py-2">
+    {{ league }} League
+  </h1>
+  <a href="#" onclick="history.go(-1)" class="inline-block">
+    <img src="https://www.svgrepo.com/show/478704/arrow-button-left-3.svg" alt="Back" class="w-10 h-10" />
+  </a>
+  <div class="flex flex-row justify-evenly w-full">
+    <div class="w-1/3 flex flex-col items-center">
+      <img src="{{ url_for('static', filename='team_logos/' + team.team_name +'.png') }}" alt="Team Logo"
+        class="max-w-15 max-h-15" />
+      <div class="font-bold text-base md:text-lg">{{ team.team_name }}</div>
     </div>
 
+    <div class="w-2/3 grid grid-cols-2  gap-y-2 gap-x-4 font-semibold text-xs md:text-base">
+      <div>Total Wins: &nbsp; {{ team.total_wins }}</div>
+      <div>Total Losses: &nbsp; {{ team.total_losses }}</div>
+      <div>Win Percentage: &nbsp; {{ team.win_percentage }}</div>
+      <div>Games Played: &nbsp; {{ team.games_played }}</div>
+      <div>Last Ten Games: &nbsp; {{ team.last_ten_games }}</div>
+      <div>Streak: &nbsp; {{ team.streak }}</div>
+    </div>
+  </div>
+
+  <h2 class="text-center font-bold mt-5 py-5">Key Players</h2>
+
+  <div style="margin: 0 auto"
+    class="team-container w-full md:w-11/12 team-header rounded-lg shadow-md my-5 text-center">
+    <table class="w-full border border-gray-800 border-collapse">
+      <thead>
+        <tr class="text-xs my-4">
+          <th class="border-b border-r border-gray-700">Player</th>
+          <th class="border-b border-r border-gray-700">PPG</th>
+          <th class="border-b border-r border-gray-700">RPG</th>
+          <th class="border-b border-r border-gray-700">APG</th>
+          <th class="border-b border-r border-gray-700">SPG</th>
+          <th class="border-b border-r border-gray-700">BPG</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for player in players %}
+
+        <tr class="even:bg-slate-800 ">
+          <td class="flex items-center border-r border-gray-700">
+            <img
+              src="{{ url_for('static', filename='player_photos/' + league_path + '/' + player.school + '/' + player.lastname_initials + ' ' + player.first_name +'.jpg') }}"
+              alt="PlayerPortrait" onerror="this.onerror=null; this.src='{{ fallback_player_portrait_url }}';"
+              class="max-w-8 h-auto md:max-w-10 rounded-full mr-2" />
+            <div class="flex items-center">
+              <span class="font-bold">&nbsp; {{ player.lastname_initials }}. {{ player.first_name
+                }}</span>
+            </div>
+          </td>
+          <td class="border-r border-gray-700">{{ (player.total_points / player.games_played) | round(1)
+            }}</td>
+          <td class="items-center border-r border-gray-700">
+            {{ (player.total_rebounds / player.games_played) | round(1) }}
+          </td>
+          <td class="border-r border-gray-700">{{ (player.assists / player.games_played) | round(1)}}</td>
+          <td class="border-r border-gray-700">{{ (player.steals / player.games_played) | round(1) }}</td>
+          <td class="border-r border-gray-700">{{ (player.blocks / player.games_played) | round(1)}}</td>
+        </tr>
+
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 </div>
 {% endblock %}
