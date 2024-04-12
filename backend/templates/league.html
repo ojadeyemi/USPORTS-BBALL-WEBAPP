@@ -61,8 +61,8 @@
               <span class="md:hidden">L</span>
               <!-- Shown on small screens -->
             </th>
-            <th class="border-r border-gray-900">PCT</th>
-            <th class="border-r border-gray-900">GP</th>
+            <th class="border-r border-gray-900 ">PCT</th>
+            <th class="border-r border-gray-900 hidden md:table-cell">GP</th>
             <th class="border-r border-gray-900">
               <span class="hidden md:inline">LAST 10</span>
               <!-- Hidden on small screens -->
@@ -101,7 +101,7 @@
             <td class=" p-1 border-r border-gray-900">{{ team.total_wins }}</td>
             <td class="p-1 border-r border-gray-900">{{ team.total_losses }}</td>
             <td class="p-1 font-bold  border-r border-gray-900"> {{ team.win_percentage }}</td>
-            <td class="p-1 border-r border-gray-900">{{ team.games_played }}</td>
+            <td class="p-1 border-r border-gray-900 hidden md:table-cell">{{ team.games_played }}</td>
             <td class="border-r border-gray-900">{{ team.last_ten_games }}</td>
             <td class="border-r border-gray-900">{{ team.streak }}</td>
           </tr>
@@ -436,8 +436,8 @@
       </select>
     </div>
 
-    <div class="flex justify-center items-center">
-      <canvas id="radarChart" width="400" height="400"></canvas>
+    <div class="flex justify-center items-center sm:h-screen">
+      <canvas id="radarChart"></canvas>
     </div>
 
     <script>
