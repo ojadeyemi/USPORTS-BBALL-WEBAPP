@@ -4,21 +4,28 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>U Sports Basketball Statistics</title>
+
+  <meta property="og:type" content="website">
+  <title>U Sports Basketball</title>
   <link href="{{ url_for('static', filename='css/output.css') }}" rel="stylesheet" />
 </head>
 
 <body>
   <!-- Header -->
   <header class="bg-gray-900 text-white py-3 px-6 flex justify-between items-center text-sm md:text-xl">
-    <h1>U Sports Basketball Statistics</h1>
+    <h1 class="text-lg md:text-xl font-bold">U Sports Basketball</h1>
     <nav>
       <ul class="flex">
-        <li class="mr-5"><a href="/" class="hover:text-gray-300">Home</a></li>
-        <li><a href="/about" class="hover:text-gray-300">About</a></li>
+        <li class="mr-5">
+          <a href="/" class="hover:text-gray-300 px-3 py-1 rounded hover:bg-blue-600 transition duration-300">Home</a>
+        </li>
+        <li>
+          <a href="/about" class="hover:text-gray-300 px-3 py-1 rounded hover:bg-blue-600 transition duration-300">About</a>
+        </li>
       </ul>
     </nav>
-  </header>
+</header>
+
 
   <!-- Main content -->
   <main class="px-6">

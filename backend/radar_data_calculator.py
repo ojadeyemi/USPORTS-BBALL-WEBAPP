@@ -75,8 +75,7 @@ def calculate_radar_data(specific_team_table: Union[type[MenTeam], type[WomenTea
         EFG_percentage = normalize(query_effective_fg_percentage(team), min_effective_fg_percentage, max_effective_fg_percentage)
         
         
-        if(EFG_percentage > 85):
-             print(team.team_name, EFG_percentage)
+        
         #order of array should match labels in javascript charjs label
         radar_data[team.team_name] = [overall_efficiency, defensive_efficiency, playmaking, rebound_margin, EFG_percentage, offensive_efficiency]
 

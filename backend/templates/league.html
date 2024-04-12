@@ -33,7 +33,7 @@
     <div id="filters" class="text-left my-4 pl-5 text-xs ">
       <label for="conference-filter" class="text-white font-bold mr-2">Filter by Conference:</label>
       <select id="conference-filter"
-        class="py-2 px-4 rounded bg-gray-800 text-white hover:bg-gray-700 focus:bg-gray-700">
+        class="py-2 px-4 rounded bg-gray-800 text-white transition duration-200 ease-in-out hover:bg-gray-500 focus:bg-blue-400">
         <option value="all" class="text-white">All Conferences</option>
         <option value="OUA" class="text-white">OUA</option>
         <option value="AUS" class="text-white">AUS</option>
@@ -45,25 +45,25 @@
     <div style="margin: 0 auto" class="team-container w-full lg:w-5/6 xl:w-2/3">
 
       <table class="w-full  border-collapse ">
-        <thead class="border border-gray-800">
+        <thead class=" bg-gray-800 border border-gray-800">
           <tr class="text-xs md:text-base">
-            <th class="py-2 border-r border-gray-800">#</th>
-            <th class="border-r border-gray-800 ">TEAM </th>
-            <th class=" border-r border-gray-800">
+            <th class="py-2 border-r border-gray-900">#</th>
+            <th class="border-r border-gray-900 ">TEAM </th>
+            <th class=" border-r border-gray-900">
               <span class="hidden md:inline">WIN</span>
               <!-- Hidden on small screens -->
               <span class="md:hidden">W</span>
               <!-- Shown on small screens -->
             </th>
-            <th class="border-r border-gray-800">
+            <th class="border-r border-gray-900">
               <span class="hidden md:inline">LOSS</span>
               <!-- Hidden on small screens -->
               <span class="md:hidden">L</span>
               <!-- Shown on small screens -->
             </th>
-            <th class="border-r border-gray-800">PCT</th>
-            <th class="border-r border-gray-800">GP</th>
-            <th class="border-r border-gray-800">
+            <th class="border-r border-gray-900">PCT</th>
+            <th class="border-r border-gray-900">GP</th>
+            <th class="border-r border-gray-900">
               <span class="hidden md:inline">LAST 10</span>
               <!-- Hidden on small screens -->
               <span class="md:hidden">L 10</span>
@@ -83,8 +83,8 @@
           {% for team in teams %}
 
           <tr class=" team {{ team.conference }} text-xs md:text-base  border-gray-800 text-center even:bg-slate-900">
-            <td class="border-r border-gray-800">{{ loop.index }}</td>
-            <td class="border-r border-gray-800 flex items-center">
+            <td class="border-r border-gray-900">{{ loop.index }}</td>
+            <td class="border-r border-gray-900 flex items-center">
               <img src="{{ url_for('static', filename='team_logos/' + team.team_name +'.png') }}" alt="Team Logo"
                 class="max-w-8 max-h-8 md:max-w-14 md-max-h-14 mx-3" />
               <span class="font-bold">
@@ -98,12 +98,12 @@
               </span>
             </td>
 
-            <td class=" p-1 border-r border-gray-800">{{ team.total_wins }}</td>
-            <td class="p-1 border-r border-gray-800">{{ team.total_losses }}</td>
-            <td class="p-1 font-bold  border-r border-gray-800"> {{ team.win_percentage }}</td>
-            <td class="p-1 border-r border-gray-800">{{ team.games_played }}</td>
-            <td class="border-r border-gray-800">{{ team.last_ten_games }}</td>
-            <td class="border-r border-gray-800">{{ team.streak }}</td>
+            <td class=" p-1 border-r border-gray-900">{{ team.total_wins }}</td>
+            <td class="p-1 border-r border-gray-900">{{ team.total_losses }}</td>
+            <td class="p-1 font-bold  border-r border-gray-900"> {{ team.win_percentage }}</td>
+            <td class="p-1 border-r border-gray-900">{{ team.games_played }}</td>
+            <td class="border-r border-gray-900">{{ team.last_ten_games }}</td>
+            <td class="border-r border-gray-900">{{ team.streak }}</td>
           </tr>
           {% endfor %}
         </tbody>
