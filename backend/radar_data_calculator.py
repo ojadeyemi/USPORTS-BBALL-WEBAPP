@@ -39,7 +39,9 @@ def find_min_max_values(team_table: Union[type[MenTeam], type[WomenTeam]]) -> Ro
     func.min(query_rebound_margin(team_table)).label('min_rebound_margin'),
     func.max(query_rebound_margin(team_table)).label('max_rebound_margin'),
     func.min(query_effective_fg_percentage(team_table)).label('min_EFG'),
-    func.max(query_effective_fg_percentage(team_table)).label('max_EFG')
+    func.max(query_effective_fg_percentage(team_table)).label('max_EFG'),
+     func.min(query_3pt_shooting_efficiency(team_table)).label('min_3pt_rating'),
+    func.max(query_3pt_shooting_efficiency(team_table)).label('max_3pt_rating')
     # Add similar queries for other categories
     ).one()
     return min_max_values
@@ -58,6 +60,8 @@ def calculate_radar_data(specific_team_table: Union[type[MenTeam], type[WomenTea
     max_rebound_margin = min_max_values.max_rebound_margin
     min_effective_fg_percentage = min_max_values.min_EFG
     max_effective_fg_percentage = min_max_values.max_EFG
+    min_3pt_rating = min_max_values.min_3pt_rating
+    max_3pt_rating = min_max_values.max_3pt_rating    
     # Extract min and max values for other categories similarly
 
     # Get all teams from the provided table
@@ -73,36 +77,106 @@ def calculate_radar_data(specific_team_table: Union[type[MenTeam], type[WomenTea
         playmaking = normalize(query_playmaking(team), min_playmaking, max_playmaking)
         rebound_margin = normalize(query_rebound_margin(team),min_rebound_margin, max_rebound_margin)
         EFG_percentage = normalize(query_effective_fg_percentage(team), min_effective_fg_percentage, max_effective_fg_percentage)
-        
+        three_point_rating = normalize(query_3pt_shooting_efficiency(team), min_3pt_rating, max_3pt_rating, 96)
         
         
         #order of array should match labels in javascript charjs label
-        radar_data[team.team_name] = [overall_efficiency, defensive_efficiency, playmaking, rebound_margin, EFG_percentage, offensive_efficiency]
+        radar_data[team.team_name] = [overall_efficiency, defensive_efficiency, playmaking, rebound_margin, three_point_rating, EFG_percentage, offensive_efficiency]
 
                 
     return radar_data
 
+
 def query_net_efficiency(team: Union[MenTeam, WomenTeam]):
-        return team.net_efficiency
+    """
+    Retrieves the net efficiency of a team.
+
+    Args:
+        team (Union[MenTeam, WomenTeam]): The team for which to retrieve the net efficiency.
+
+    Returns:
+        float: The net efficiency of the team.
+    """
+    return team.net_efficiency
 
 def query_off_efficiency(team: Union[MenTeam, WomenTeam]):
-        return team.offensive_efficiency
+    """
+    Retrieves the offensive efficiency of a team.
+
+    Args:
+        team (Union[MenTeam, WomenTeam]): The team for which to retrieve the offensive efficiency.
+
+    Returns:
+        float: The offensive efficiency of the team.
+    """
+    return team.offensive_efficiency
 
 def query_def_efficiency(team: Union[MenTeam, WomenTeam]):
-        return team.defensive_efficiency
+    """
+    Retrieves the defensive efficiency of a team.
+
+    Args:
+        team (Union[MenTeam, WomenTeam]): The team for which to retrieve the defensive efficiency.
+
+    Returns:
+        float: The defensive efficiency of the team.
+    """
+    return team.defensive_efficiency
 
 def query_playmaking(team: Union[MenTeam, WomenTeam]):
+    """
+    Calculates the playmaking efficiency of a team.
+
+    Args:
+        team (Union[MenTeam, WomenTeam]): The team for which to calculate the playmaking efficiency.
+
+    Returns:
+        float: The playmaking efficiency of the team.
+    """
     if team.turnovers_per_game == 0:
         return team.assists_per_game  # To handle division by zero
     assist_turnover_ratio = team.assists_per_game / team.turnovers_per_game
     return assist_turnover_ratio
 
 def query_rebound_margin(team: Union[MenTeam, WomenTeam]):
-     return team.total_rebounds_per_game - team.total_rebounds_per_game_against
+    """
+    Retrieves the rebound margin of a team.
 
+    Args:
+        team (Union[MenTeam, WomenTeam]): The team for which to retrieve the rebound margin.
+
+    Returns:
+        float: The rebound margin of the team.
+    """
+    return team.total_rebounds_per_game - team.total_rebounds_per_game_against
 
 def query_effective_fg_percentage(team: Union[MenTeam, WomenTeam]):
-        efg = (team.field_goal_made + (0.5 * team.three_pointers_made))/team.field_goal_attempted
-        return efg
+    """
+    Calculates the effective field goal percentage of a team.
 
+    Args:
+        team (Union[MenTeam, WomenTeam]): The team for which to calculate the effective field goal percentage.
 
+    Returns:
+        float: The effective field goal percentage of the team.
+    """
+    efg = (team.field_goal_made + (0.5 * team.three_pointers_made)) / team.field_goal_attempted
+    return efg
+
+def query_3pt_shooting_efficiency(team: Union[MenTeam, WomenTeam]):
+    """
+    Calculates the 3-point shooting efficiency of a team.
+
+    Args:
+        team (Union[MenTeam, WomenTeam]): The team for which to calculate the 3-point shooting efficiency.
+
+    Returns:
+        float: The 3-point shooting efficiency of the team.
+    """
+    # Calculate the team's 3-point attempts per game
+    three_point_attempts_per_game = team.three_pointers_attempted / team.games_played
+    
+    # Calculate the team's 3-point shooting efficiency
+    three_point_efficiency = (0.9 * team.three_point_percentage) + (0.1 * three_point_attempts_per_game)
+    
+    return three_point_efficiency
