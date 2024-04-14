@@ -32,14 +32,15 @@ Make sure that you have both [Node.js](https://nodejs.org/en) and [Python](https
 Double check that your python Interpreter path is in your virtual environment directory and node_modules is in the static/ directory.
 
 
-Install flask and all other dependacies from the requirements.txt fie with pip:
+Install flask and all other dependacies from the requirements.txt file with pip:
 
 ```bash
  pip install -r requirements.txt
 ```
 
-Navigate to the static/ directory and install tailwindcss package with  NPM:
+Navigate to the static/ directory and install tailwindcss package with NPM:
 ```bash
+cd usport_flask_app/static/
  npm install -D tailwindcss
 ```
 
@@ -49,7 +50,7 @@ Navigate to the static/ directory and install tailwindcss package with  NPM:
 4. Test your changes locally to ensure they work as expected.
 
 ```bash
- python backend/app.py #run app on local server to see changes
+ python usport_flask_app/app.py #run app on local server to see changes
 ```
 
 5. Commit your changes with a descriptive commit message:
