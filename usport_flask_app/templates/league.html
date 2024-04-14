@@ -85,7 +85,7 @@
           <tr class=" team {{ team.conference }} text-sm md:text-base  border-gray-800 text-center even:bg-slate-900">
             <td class="border-r border-gray-900">{{ loop.index }}</td>
             <td class="border-r border-gray-900 flex items-center">
-              <img src="{{ url_for('static', filename='team_logos/' + team.team_name +'.png') }}" alt="Team Logo"
+              <img src="{{ url_for('static', filename='img/team_logos/' + team.team_name +'.png') }}" alt="Team Logo"
                 class="max-w-10 max-h-10 md:max-w-20 md-max-h-20 mx-6 px-1" />
               <span class="font-bold">
                 {% if team.team_name == 'Toronto Metropolitan' %}
@@ -133,7 +133,7 @@
             {{ player.lastname_initials }} &nbsp {{ player.first_name }}
           </td>
           <td class=" w-1/12">
-            <img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}" alt="Team Logo"
+            <img src="{{ url_for('static', filename='img/team_logos/' + player.school +'.png') }}" alt="Team Logo"
               class="leaderboard-stats-images" />
           </td>
           <td>{{ player.school }}</td>
@@ -161,7 +161,7 @@
             {{ player.lastname_initials }} &nbsp {{ player.first_name }}
           </td>
           <td class="w-1/12">
-            <img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}" alt="Team Logo"
+            <img src="{{ url_for('static', filename='img/team_logos/' + player.school +'.png') }}" alt="Team Logo"
               class="leaderboard-stats-images" />
           </td>
           <td>{{ player.school }}</td>
@@ -189,7 +189,7 @@
             {{ player.lastname_initials }} &nbsp {{ player.first_name }}
           </td>
           <td class="w-1/12">
-            <img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}" alt="Team Logo"
+            <img src="{{ url_for('static', filename='img/team_logos/' + player.school +'.png') }}" alt="Team Logo"
               class="leaderboard-stats-images" />
           </td>
           <td>{{ player.school }}</td>
@@ -218,7 +218,7 @@
             {{ player.lastname_initials }} &nbsp {{ player.first_name }}
           </td>
           <td class="w-1/12">
-            <img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}" alt="Team Logo"
+            <img src="{{ url_for('static', filename='img/team_logos/' + player.school +'.png') }}" alt="Team Logo"
               class="leaderboard-stats-images" />
           </td>
           <td>{{ player.school }}</td>
@@ -249,7 +249,7 @@
             {{ player.lastname_initials }} &nbsp {{ player.first_name }}
           </td>
           <td class="w-1/12">
-            <img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}" alt="Team Logo"
+            <img src="{{ url_for('static', filename='img/team_logos/' + player.school +'.png') }}" alt="Team Logo"
               class="leaderboard-stats-images" />
           </td>
           <td>{{ player.school }}</td>
@@ -278,7 +278,7 @@
             {{ player.lastname_initials }} &nbsp {{ player.first_name }}
           </td>
           <td class="w-1/12">
-            <img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}" alt="Team Logo"
+            <img src="{{ url_for('static', filename='img/team_logos/' + player.school +'.png') }}" alt="Team Logo"
               class="leaderboard-stats-images" />
           </td>
           <td>{{ player.school }}</td>
@@ -307,7 +307,7 @@
             {{ player.lastname_initials }} &nbsp {{ player.first_name }}
           </td>
           <td class="w-1/12">
-            <img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}" alt="Team Logo"
+            <img src="{{ url_for('static', filename='img/team_logos/' + player.school +'.png') }}" alt="Team Logo"
               class="leaderboard-stats-images" />
           </td>
           <td>{{ player.school }}</td>
@@ -336,7 +336,7 @@
             {{ player.lastname_initials }} &nbsp {{ player.first_name }}
           </td>
           <td class="w-1/12">
-            <img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}" alt="Team Logo"
+            <img src="{{ url_for('static', filename='img/team_logos/' + player.school +'.png') }}" alt="Team Logo"
               class="leaderboard-stats-images" />
           </td>
           <td>{{ player.school }}</td>
@@ -365,7 +365,7 @@
             {{ player.lastname_initials }} &nbsp {{ player.first_name }}
           </td>
           <td class="w-1/12">
-            <img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}" alt="Team Logo"
+            <img src="{{ url_for('static', filename='img/team_logos/' + player.school +'.png') }}" alt="Team Logo"
               class="leaderboard-stats-images" />
           </td>
           <td>{{ player.school }}</td>
@@ -394,7 +394,7 @@
             {{ player.lastname_initials }} &nbsp {{ player.first_name }}
           </td>
           <td class="w-1/12">
-            <img src="{{ url_for('static', filename='team_logos/' + player.school +'.png') }}" alt="Team Logo"
+            <img src="{{ url_for('static', filename='img/team_logos/' + player.school +'.png') }}" alt="Team Logo"
               class="leaderboard-stats-images" />
           </td>
           <td>{{ player.school }}</td>
@@ -411,6 +411,7 @@
 
   <!-- Team Analytics Section -->
   <div id="teamanalytics-section" style="display: none" class="min-h-screen">
+    <h2 class="text-base md:text-xl font-bold  mt-8 text-center text-gray-500">TEAM ANALYTICS</h2>
     <div class="max-w-xl mx-auto mt-8">
       <p class="text-center text-xs md:text-sm text-gray-400">
         Select two teams from the dropdown menu to compare their stats plotted
@@ -436,7 +437,7 @@
       </select>
     </div>
 
-    <div class="flex justify-center items-center md:m-5 md:p-5" style="max-height: 60rem;">
+    <div class="flex justify-center items-center md:m-5" style="max-height: 55rem;">
       <canvas id="radarChart" height="500" width="500"></canvas>
     </div>
 
@@ -445,9 +446,9 @@
         <hr class="border-gray-300">
       </div>
       <div class="flex items-center">
-        <label for="glossary" class="mr-4 text-lg font-semibold">Glossary:</label>
+        <label for="glossary" class="m-2 md:m-4 text-base md:text-lg font-semibold">Glossary:</label>
         <select id="glossary" onchange="showDescription(this.value)"
-          class="bg-blue-500 text-white font-semibold py-2 px-4 rounded">
+          class="bg-slate-700 text-white font-semibold py-2 px-20 rounded">
           <option value="Overall">Overall</option>
           <option value="Offense">Offense</option>
           <option value="Defense">Defense</option>
@@ -458,12 +459,10 @@
         </select>
       </div>
       <div id="description" class="mt-4 hidden">
-        <p class="text-xl font-semibold" id="term"></p>
+        <p class="text-xl font-semibold py-2" id="term"></p>
         <p id="termDescription" class="text-gray-400"></p>
       </div>
     </div>
-
-
 
     <script>
       // Radar data from Flask app
@@ -477,6 +476,7 @@
 
   <!-- Playoffs Section -->
   <div id="playoffs-section" style="display: none" class="min-h-screen">
+    <h2 class="text-base md:text-xl font-bold  mt-8 text-center text-gray-500">PLAYOFFS</h2>
     <div class="min-h-screen flex flex-col justify-center items-center">
       <img src="https://www.svgrepo.com/show/426192/cogs-settings.svg" alt="Logo" class="mb-8 h-40" />
       <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-center text-gray-700 dark:text-white mb-4">

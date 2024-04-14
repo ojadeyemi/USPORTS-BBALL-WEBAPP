@@ -10,7 +10,7 @@
     </a>
     <div class="flex flex-row justify-center w-full">
       <div class="w-1/3 flex flex-col items-center">
-        <img src="{{ url_for('static', filename='team_logos/' + team.team_name +'.png') }}" alt="Team Logo"
+        <img src="{{ url_for('static', filename='img/team_logos/' + team.team_name +'.png') }}" alt="Team Logo"
           class="max-w-15 max-h-15 m-4" />
         <div class="font-bold text-base md:text-xl m-2">{{ team.team_name }}</div>
       </div>
@@ -69,7 +69,7 @@
         <tr class="even:bg-slate-800 ">
           <td class="flex items-center border-r border-gray-800">
             <img
-              src="{{ url_for('static', filename='player_photos/' + league_path + '/' + player.school + '/' + player.lastname_initials + ' ' + player.first_name +'.jpg') }}"
+              src="{{ url_for('static', filename='img/player_photos/' + league_path + '/' + player.school + '/' + player.lastname_initials + ' ' + player.first_name +'.jpg') }}"
               alt="PlayerPortrait" onerror="this.onerror=null; this.src='{{ fallback_player_portrait_url }}';"
               class="max-w-8 h-auto md:max-w-10 mr-2" />
 

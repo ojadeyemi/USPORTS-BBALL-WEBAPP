@@ -1,19 +1,12 @@
+"""
+This contains view functions for handling HTTP requests
+"""
 from flask import Flask, render_template, request, redirect, url_for
-from sqlalchemy import create_engine, func, cast, Numeric
+from sqlalchemy import func, cast, Numeric
 from models import db, Feedback, MenTeam, WomenTeam, MenPlayers, WomenPlayers
 from radar_data_calculator import calculate_radar_data, find_min_max_values
 
 app = Flask(__name__)
-
-#Define the databse URI
-mysqldatabase = "mysql+pymysql://usportsballwebapp:Basketball.@localhost/usports_bball_test"
-sqlite_database = f"sqlite:///{app.root_path}/database/usports_bball_test.sqlite"
-app.config['SQLALCHEMY_DATABASE_URI'] = sqlite_database
-
-
-#Initialize the database
-db.init_app(app)
-
 # Define the route for the index page(home page)
 @app.route("/", methods=["POST", "GET"])
 def index():
@@ -38,7 +31,7 @@ def index():
         return redirect("/")
     else:
         # Render the home.html template for GET requests
-        return render_template("home.html")
+        return render_template("index.html")
 
 
 # Define the route for the about page
@@ -127,7 +120,4 @@ def team_page(league_path: str,team_path: str):
          # Handle invalid paths or other cases
         return render_template("error.html", message="Invalid team")
 
-# Run the Flask app
-if __name__ == "__main__":
-    app.run(debug=True, port=5000)
-    
+#define error routes seperately

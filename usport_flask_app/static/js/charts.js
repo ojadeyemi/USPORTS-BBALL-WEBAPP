@@ -60,11 +60,11 @@ function showRadarChart(team1, team2) {
     },
     scales: {
       r: {
-        min: 40,
+        min: 10,
         max: 100,
         ticks: {
-          display: false,
-          stepSize: 10,
+          display: true,
+          stepSize: 20,
           backdropPadding: 5,
           font: {
             size: 10, // Size of the font
@@ -144,37 +144,37 @@ function showDescription(term) {
     'Overall': `
       Overall refers to the combined performance of a team in all aspects of the game.
       It is derived from the team's net efficiency, which measures how effectively the team utilizes its possessions to score points and prevent the opposing team from scoring.
-      Net efficiency values are normalized within the range of 60-99.
+      Net efficiency values are normalized within the range of 50-99.
     `,
     'Offense': `
       Offense represents a team's capability to score points through various methods like shooting, passing, and driving to the basket.
       Offensive efficiency gauges how efficiently a team scores points per possession.
-      Offensive efficiency values are normalized within the range of 60-99.
+      Offensive efficiency values are normalized within the range of 50-99.
     `,
     'Defense': `
       Defense signifies a team's proficiency in preventing the opposing team from scoring points.
       Defensive efficiency quantifies how effectively a team prevents the opposition from scoring per possession.
-      Defensive efficiency values are normalized within the range of 60-99.
+      Defensive efficiency values are normalized within the range of 50-99.
     `,
     'Playmaking': `
       Playmaking denotes a team's skill in creating scoring opportunities for both themselves and their teammates.
       Playmaking efficiency is determined by the team's assist-turnover ratio, which compares assists per game to turnovers per game.
-      Playmaking efficiency values are normalized within the range of 60-99.
+      Playmaking efficiency values are normalized within the range of 50-99.
     `,
     'Rebounding': `
       Rebounding showcases a team's ability to retrieve missed shots on both offense and defense.
       Rebound margin quantifies the difference between total rebounds per game by the team and total rebounds per game allowed by their opponents.
-      Rebound margin values are normalized within the range of 60-99.
+      Rebound margin values are normalized within the range of 50-99.
     `,
     '3pt Shooting': `
       3pt Shooting assesses a team's effectiveness in scoring points through three-pointers.
       3-Point Shooting efficiency considers both the team's three-point shooting percentage and the frequency of three-point attempts per game.
-      3-Point Shooting efficiency values are normalized within the range of 60-99.
+      3-Point Shooting efficiency values are normalized within the range of 50-99.
     `,
     'Efficiency': `
       Efficiency reflects how efficiently a team utilizes its possessions to score points and prevent the opposing team from scoring.
       Effective Field Goal Percentage (EFG) adjusts for the value of three-point shots, calculated based on field goals made, three-pointers made, and field goal attempts.
-      EFG values are normalized within the range of 60-99.
+      EFG values are normalized within the range of 50-99.
     `
   };
   

@@ -18,13 +18,15 @@ OJ Adeyemi
 Date:
 March 10, 2024
 """
-
+import os
+import sys
 from sqlalchemy import create_engine, text
-from functions import usports_team_stats, usports_player_stats
+from usports_webscraper import usports_team_stats, usports_player_stats
 
 
-mysqldatabase = "mysql+pymysql://root:Basketball@localhost/usports_bball_test"
+mysqldatabase = f"mysql+pymysql://root:{os.environ.get('USPORT_BBALL_PASSWORD')}@localhost/usports_bball_test" #ignore
 sqlite_database = "sqlite:///../database/usports_bball_test.sqlite"
+
 #DO NOT MODIFY UNLESS YOU ARE OJ ADEYEMI
 connection_string = sqlite_database
 
@@ -35,7 +37,7 @@ try:
     print("Connection successful!")
 except Exception as e:
     print("Error connecting to the database:", e)
-
+    sys.exit(1)  # Exit the script with a non-zero exit code indicating failure
 
 try:
     #dataframe for teams
