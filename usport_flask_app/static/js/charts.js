@@ -60,7 +60,7 @@ function showRadarChart(team1, team2) {
     },
     scales: {
       r: {
-        min: 10,
+        min: 30,
         max: 100,
         ticks: {
           display: true,

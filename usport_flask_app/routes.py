@@ -102,7 +102,7 @@ def league(league_path):
 # Define the route for the team page
 @app.route("/<league_path>/<team_path>")
 def team_page(league_path: str,team_path: str):
-    fallback_player_portrait_url = url_for('static', filename='player_photos/default_portrait.png') 
+    fallback_player_portrait_url = url_for('static', filename='img/player_photos/default_portrait.png') 
     if league_path == "mbb":
         league_name = "Men's"
         team: MenTeam = MenTeam.query.filter_by(team_name=team_path).one() # type: ignore

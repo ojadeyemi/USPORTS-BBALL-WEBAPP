@@ -1,5 +1,7 @@
 {% extends "base.html" %} {% block content %}
 <div class="min-h-screen">
+
+
   <section>
     <h1 class="text-center text-gray-500 font-bold text-xl md:text-3xl py-2">
       {{ league }} League
@@ -8,46 +10,66 @@
       class="inline-block w-8 h-8 md:w-10 md:h-10 group transform transition duration-500 ml-5">
       <img src="https://www.svgrepo.com/show/101168/go-back-arrow.svg" alt="Back" class=" group-hover:scale-150" />
     </a>
-    <div class="flex flex-row justify-center w-full">
-      <div class="w-1/3 flex flex-col items-center">
-        <img src="{{ url_for('static', filename='img/team_logos/' + team.team_name +'.png') }}" alt="Team Logo"
-          class="max-w-15 max-h-15 m-4" />
-        <div class="font-bold text-base md:text-xl m-2">{{ team.team_name }}</div>
-      </div>
-      <div class="w-2/3">
-        <table class="table-auto w-4/5 border-collapse border border-slate-400 md:w-3/5 lg:w-1/2 text-left m-4">
-          <tr>
-            <th class="border border-slate-300 px-4 py-2">Games Played:</th>
-            <td class="border border-slate-300 px-4 py-2 text-sm md:text-base">{{ team.games_played }}</td>
-          </tr>
-          <tr>
-            <th class="border border-slate-300 px-4 py-2">Total Wins:</th>
-            <td class="border border-slate-300 px-4 py-2 text-sm md:text-base">{{ team.total_wins }}</td>
-          </tr>
-          <tr>
-            <th class="border border-slate-300 px-4 py-2">Total Losses:</th>
-            <td class="border border-slate-300 px-4 py-2 text-sm md:text-base">{{ team.total_losses }}</td>
-          </tr>
-          <tr>
-            <th class="border border-slate-300 px-4 py-2">Win Percentage:</th>
-            <td class="border border-slate-300 px-4 py-2 text-sm md:text-base">{{ team.win_percentage }}</td>
-          </tr>
+    <div class=" w-full">
+      <!-- For mobile screens -->
+      <div class="md:hidden grid grid-flow-col items-center justify-stretch text-base">
+        <div class="flex flex-col items-center">
+          <div class="font-semibold">{{ team.last_ten_games }}</div>
+          <div class="text-gray-400">L10</div>
+        </div>
 
-          <tr>
-            <th class="border border-slate-300 px-4 py-2">Last Ten Games:</th>
-            <td class="border border-slate-300 px-4 py-2 text-sm md:text-base">{{ team.last_ten_games }}</td>
-          </tr>
-          <tr>
-            <th class="border border-slate-300 px-4 py-2">Streak:</th>
-            <td class="border border-slate-300 px-4 py-2 text-sm md:text-base">{{ team.streak }}</td>
-          </tr>
-        </table>
+        <div class="flex flex-col items-center">
+          <img src="{{ url_for('static', filename='img/team_logos/' + team.team_name +'.png') }}" alt="Team Logo"
+            class="w-auto h-24 m-1" />
+          <div class="font-semibold">{{ team.team_name }}</div>
+          <div> <img src="{{ url_for('static', filename='img/conference_logos/' + team.conference +'.png') }}"
+              alt="Team Logo" class="w-auto h-8 m-1" />
+          </div>
+
+        </div>
+        <div class="flex flex-col items-center">
+          <div class="font-semibold">{{ team.streak }}</div>
+          <div class="text-gray-400">Streak</div>
+        </div>
       </div>
-    </div>
+
+
+      <!-- For larger screens -->
+      <div class="hidden md:grid grid-flow-col items-center justify-stretch text-xl px-16 lg:px-32 xl:px-48">
+        <img src="{{ url_for('static', filename='img/team_logos/' + team.team_name +'.png') }}" alt="Team Logo"
+          class="w-auto h-28 lg:h-32 mx-4" />
+
+        <div class="flex flex-col justify-start">
+          {% if team.team_name == 'Toronto Metropolitan' %}
+          <div class="font-semibold text-2xl xl:text-3xl">{{ team.team_name }}</div>
+          {% else %}
+          <div class="font-semibold text-3xl xl:text-4xl">{{ team.team_name }}</div>
+          {% endif %}
+          <div> <img src="{{ url_for('static', filename='img/conference_logos/' + team.conference +'.png') }}"
+              alt="Team Logo" class="w-auto h-8 lg:h-9 my-1" />
+          </div>
+        </div>
+
+        <div class="flex flex-col items-center">
+          <div class="font-semibold text-3xl">{{ team.total_wins }}-{{ team.total_losses }}</div>
+          <div class="text-gray-400">Record</div>
+        </div>
+
+        <div class="flex flex-col items-center">
+          <div class="font-semibold text-3xl">{{ team.last_ten_games }}</div>
+          <div class="text-gray-400">L10</div>
+        </div>
+
+        <div class="flex flex-col items-center">
+          <div class="font-semibold text-3xl">{{ team.streak }}</div>
+          <div class="text-gray-400">Streak</div>
+        </div>
+      </div>
+
 
   </section>
 
- 
+
 
   <div style="margin: 0 auto"
     class="team-container w-full md:w-4/5  xl:w-1/2 team-header rounded-lg shadow-md my-5 text-center">
@@ -65,17 +87,14 @@
       </thead>
       <tbody>
         {% for player in players %}
-
-        <tr class="even:bg-slate-800 ">
+        <tr class="even:bg-slate-800 text-xs md:text-base">
           <td class="flex items-center border-r border-gray-800">
             <img
               src="{{ url_for('static', filename='img/player_photos/' + league_path + '/' + player.school + '/' + player.lastname_initials + ' ' + player.first_name +'.jpg') }}"
               alt="PlayerPortrait" onerror="this.onerror=null; this.src='{{ fallback_player_portrait_url }}';"
-              class="max-w-8 h-auto md:max-w-10 mr-2" />
-
+              class="max-w-6 h-auto md:max-w-8 mr-2 rounded-s-lg" />
             <span class="font-bold">&nbsp; {{ player.lastname_initials }}. {{ player.first_name
               }}</span>
-
           </td>
           <td class="border-r border-gray-800">{{ (player.total_points / player.games_played) | round(1)
             }}</td>
@@ -86,7 +105,6 @@
           <td class="border-r border-gray-800">{{ (player.steals / player.games_played) | round(1) }}</td>
           <td class="border-r border-gray-800">{{ (player.blocks / player.games_played) | round(1)}}</td>
         </tr>
-
         {% endfor %}
       </tbody>
     </table>
