@@ -312,7 +312,7 @@
           </td>
           <td>{{ player.school }}</td>
           <td class="font-bold text-center">
-            {{ player.blocks_per_game }} &nbsp;&nbsp;
+            {{ player.blocks_per_game | round(1) }} &nbsp;&nbsp;
           </td>
         </tr>
         {% set count.value = count.value - 1 %} {% endif %} {% endif %} {%
@@ -437,7 +437,7 @@
       </select>
     </div>
 
-    <div class="flex justify-center items-center md:m-5" style="max-height: 55rem;">
+    <div class="flex justify-center items-center md:m-5" style="max-height: 38rem;">
       <canvas id="radarChart" height="500" width="500"></canvas>
     </div>
 

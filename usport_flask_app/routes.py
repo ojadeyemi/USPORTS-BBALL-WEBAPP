@@ -87,7 +87,7 @@ def league(league_path):
         func.round(Player.assists / Player.games_played, 1).label('assists_per_game'),
         func.round(Player.three_pointers_made / Player.games_played, 1).label('three_pointers_made_per_game'),
         func.round(Player.free_throws_made / Player.games_played, 1).label('free_throws_made_per_game'),
-        func.round(Player.blocks / Player.games_played, 1).label('blocks_per_game'),
+        cast(func.round(Player.blocks / Player.games_played, 2),Numeric(10,2)).label('blocks_per_game'),
         func.round(Player.steals / Player.games_played, 1).label('steals_per_game'),
         func.round(Player.field_goal_made / Player.games_played, 1).label('field_goal_made_per_game')
     ).outerjoin(
