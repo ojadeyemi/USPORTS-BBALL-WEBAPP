@@ -30,4 +30,12 @@
   .glossary-text{
     @apply text-gray-300 text-sm mb-2
   }
+
+  .standings-conference-title{
+    @apply text-lg font-semibold mt-8 mb-4 text-center text-gray-300
+  }
+
+  .standings-conference-title{
+    @apply text-lg font-semibold mt-8 mb-4 text-center text-gray-300
+  }
 }

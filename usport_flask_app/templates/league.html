@@ -27,19 +27,227 @@
     <h2 class="text-base md:text-xl font-bold mt-8 text-center text-gray-500">
       STANDINGS
     </h2>
-    <div id="filters" class="text-center my-4 text-xs">
-      <label for="conference-filter" class="text-white font-bold mr-2">Filter by Conference:</label>
-      <select id="conference-filter"
-        class="py-2 px-4 rounded bg-gray-800 text-white transition duration-200 ease-in-out hover:bg-gray-500 focus:bg-blue-400">
-        <option value="all" class="text-white">All Conferences</option>
-        <option value="OUA" class="text-white">OUA</option>
-        <option value="AUS" class="text-white">AUS</option>
-        <option value="CW" class="text-white">CW</option>
-        <option value="RSEQ" class="text-white">RSEQ</option>
-      </select>
+
+    <div style="margin: 0 auto" class="team-container w-full lg:w-4/5">
+      <h3 class="standings-conference-title">CW Conference</h3>
+      <table class="w-full border-collapse">
+        <thead class="bg-gray-800 border border-gray-800">
+          <tr class="text-xs md:text-base">
+            <th class="py-2 border-r border-gray-900">#</th>
+            <th class="border-r border-gray-900">TEAM</th>
+            <th class="px-2 border-r border-gray-900">
+              <span class="hidden md:inline">WIN</span>
+              <!-- Hidden on small screens -->
+              <span class="md:hidden">W</span>
+              <!-- Shown on small screens -->
+            </th>
+            <th class="px-2 border-r border-gray-900">
+              <span class="hidden md:inline">LOSS</span>
+              <!-- Hidden on small screens -->
+              <span class="md:hidden">L</span>
+              <!-- Shown on small screens -->
+            </th>
+            <th class="border-r border-gray-900">PCT</th>
+            <th class="border-r px-2 border-gray-900 hidden md:table-cell">
+              GP
+            </th>
+            <th class="px-2 border-r border-gray-900">
+              <span class="hidden md:inline">LAST 10</span>
+              <!-- Hidden on small screens -->
+              <span class="md:hidden">L 10</span>
+              <!-- Shown on small screens -->
+            </th>
+            <th class="px-2 border-b border-r border-gray-800">
+              <span class="hidden md:inline">STREAK</span>
+              <!-- Hidden on small screens -->
+              <span class="md:hidden">STRK</span>
+              <!-- Shown on small screens -->
+            </th>
+          </tr>
+        </thead>
+        <tbody class="bg-slate-950 rounded-lg shadow-md">
+          {% for team in teams if team.conference == 'CW' %}
+          <tr class=" team {{ team.conference }} text-sm md:text-base  border-gray-800 text-center even:bg-slate-900">
+            <td class="border-r border-gray-900">{{ loop.index }}</td>
+            <td class="border-r border-gray-900 flex items-center">
+              <img src="{{ url_for('static', filename='img/team_logos/' + team.team_name +'.png') }}" alt="Team Logo"
+                class="max-w-10 max-h-10 md:max-w-20 md-max-h-20 mx-6 px-1" />
+              <span class="font-bold">
+                {% if team.team_name == 'Toronto Metropolitan' %}
+                <a href="{{ url_for('team_page', league_path=league_path, team_path='Toronto Metropolitan') }}"
+                  class="no-underline hover:underline">TMU</a>
+                {% else %}
+                <a href="{{ url_for('team_page', league_path=league_path, team_path=team.team_name) }}"
+                  class="no-underline hover:underline">{{ team.team_name }}</a>
+                {% endif %}
+              </span>
+            </td>
+            <td class="p-1 border-r border-gray-900">{{ team.total_wins }}</td>
+            <td class="p-1 border-r border-gray-900">
+              {{ team.total_losses }}
+            </td>
+            <td class="p-1 font-bold border-r border-gray-900">
+              {{ team.win_percentage }}
+            </td>
+            <td class="p-1 border-r border-gray-900 hidden md:table-cell">
+              {{ team.games_played }}
+            </td>
+            <td class="border-r border-gray-900">{{ team.last_ten_games }}</td>
+            <td class="border-r border-gray-900">{{ team.streak }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
 
     <div style="margin: 0 auto" class="team-container w-full lg:w-4/5">
+      <h3 class="standings-conference-title">AUS Conference</h3>
+      <table class="w-full border-collapse">
+        <thead class="bg-gray-800 border border-gray-800">
+          <tr class="text-xs md:text-base">
+            <th class="py-2 border-r border-gray-900">#</th>
+            <th class="border-r border-gray-900">TEAM</th>
+            <th class="px-2 border-r border-gray-900">
+              <span class="hidden md:inline">WIN</span>
+              <!-- Hidden on small screens -->
+              <span class="md:hidden">W</span>
+              <!-- Shown on small screens -->
+            </th>
+            <th class="px-2 border-r border-gray-900">
+              <span class="hidden md:inline">LOSS</span>
+              <!-- Hidden on small screens -->
+              <span class="md:hidden">L</span>
+              <!-- Shown on small screens -->
+            </th>
+            <th class="border-r border-gray-900">PCT</th>
+            <th class="border-r px-2 border-gray-900 hidden md:table-cell">
+              GP
+            </th>
+            <th class="px-2 border-r border-gray-900">
+              <span class="hidden md:inline">LAST 10</span>
+              <!-- Hidden on small screens -->
+              <span class="md:hidden">L 10</span>
+              <!-- Shown on small screens -->
+            </th>
+            <th class="px-2 border-b border-r border-gray-800">
+              <span class="hidden md:inline">STREAK</span>
+              <!-- Hidden on small screens -->
+              <span class="md:hidden">STRK</span>
+              <!-- Shown on small screens -->
+            </th>
+          </tr>
+        </thead>
+        <tbody class="bg-slate-950 rounded-lg shadow-md">
+          {% for team in teams if team.conference == 'AUS' %}
+          <tr class=" team {{ team.conference }} text-sm md:text-base  border-gray-800 text-center even:bg-slate-900">
+            <td class="border-r border-gray-900">{{ loop.index }}</td>
+            <td class="border-r border-gray-900 flex items-center">
+              <img src="{{ url_for('static', filename='img/team_logos/' + team.team_name +'.png') }}" alt="Team Logo"
+                class="max-w-10 max-h-10 md:max-w-20 md-max-h-20 mx-6 px-1" />
+              <span class="font-bold">
+                {% if team.team_name == 'Toronto Metropolitan' %}
+                <a href="{{ url_for('team_page', league_path=league_path, team_path='Toronto Metropolitan') }}"
+                  class="no-underline hover:underline">TMU</a>
+                {% else %}
+                <a href="{{ url_for('team_page', league_path=league_path, team_path=team.team_name) }}"
+                  class="no-underline hover:underline">{{ team.team_name }}</a>
+                {% endif %}
+              </span>
+            </td>
+
+            <td class="p-1 border-r border-gray-900">{{ team.total_wins }}</td>
+            <td class="p-1 border-r border-gray-900">
+              {{ team.total_losses }}
+            </td>
+            <td class="p-1 font-bold border-r border-gray-900">
+              {{ team.win_percentage }}
+            </td>
+            <td class="p-1 border-r border-gray-900 hidden md:table-cell">
+              {{ team.games_played }}
+            </td>
+            <td class="border-r border-gray-900">{{ team.last_ten_games }}</td>
+            <td class="border-r border-gray-900">{{ team.streak }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div style="margin: 0 auto" class="team-container w-full lg:w-4/5">
+      <h3 class="standings-conference-title">RSEQ Conference</h3>
+      <table class="w-full border-collapse">
+        <thead class="bg-gray-800 border border-gray-800">
+          <tr class="text-xs md:text-base">
+            <th class="py-2 border-r border-gray-900">#</th>
+            <th class="border-r border-gray-900">TEAM</th>
+            <th class="px-2 border-r border-gray-900">
+              <span class="hidden md:inline">WIN</span>
+              <!-- Hidden on small screens -->
+              <span class="md:hidden">W</span>
+              <!-- Shown on small screens -->
+            </th>
+            <th class="px-2 border-r border-gray-900">
+              <span class="hidden md:inline">LOSS</span>
+              <!-- Hidden on small screens -->
+              <span class="md:hidden">L</span>
+              <!-- Shown on small screens -->
+            </th>
+            <th class="border-r border-gray-900">PCT</th>
+            <th class="border-r px-2 border-gray-900 hidden md:table-cell">
+              GP
+            </th>
+            <th class="px-2 border-r border-gray-900">
+              <span class="hidden md:inline">LAST 10</span>
+              <!-- Hidden on small screens -->
+              <span class="md:hidden">L 10</span>
+              <!-- Shown on small screens -->
+            </th>
+            <th class="px-2 border-b border-r border-gray-800">
+              <span class="hidden md:inline">STREAK</span>
+              <!-- Hidden on small screens -->
+              <span class="md:hidden">STRK</span>
+              <!-- Shown on small screens -->
+            </th>
+          </tr>
+        </thead>
+        <tbody class="bg-slate-950 rounded-lg shadow-md">
+          {% for team in teams if team.conference == 'RSEQ' %}
+          <tr class=" team {{ team.conference }} text-sm md:text-base  border-gray-800 text-center even:bg-slate-900">
+            <td class="border-r border-gray-900">{{ loop.index }}</td>
+            <td class="border-r border-gray-900 flex items-center">
+              <img src="{{ url_for('static', filename='img/team_logos/' + team.team_name +'.png') }}" alt="Team Logo"
+                class="max-w-10 max-h-10 md:max-w-20 md-max-h-20 mx-6 px-1" />
+              <span class="font-bold">
+                {% if team.team_name == 'Toronto Metropolitan' %}
+                <a href="{{ url_for('team_page', league_path=league_path, team_path='Toronto Metropolitan') }}"
+                  class="no-underline hover:underline">TMU</a>
+                {% else %}
+                <a href="{{ url_for('team_page', league_path=league_path, team_path=team.team_name) }}"
+                  class="no-underline hover:underline">{{ team.team_name }}</a>
+                {% endif %}
+              </span>
+            </td>
+
+            <td class="p-1 border-r border-gray-900">{{ team.total_wins }}</td>
+            <td class="p-1 border-r border-gray-900">
+              {{ team.total_losses }}
+            </td>
+            <td class="p-1 font-bold border-r border-gray-900">
+              {{ team.win_percentage }}
+            </td>
+            <td class="p-1 border-r border-gray-900 hidden md:table-cell">
+              {{ team.games_played }}
+            </td>
+            <td class="border-r border-gray-900">{{ team.last_ten_games }}</td>
+            <td class="border-r border-gray-900">{{ team.streak }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    
+    <div style="margin: 0 auto" class="team-container w-full lg:w-4/5">
+      <h3 class="standings-conference-title">OUA Conference</h3>
       <table class="w-full border-collapse">
         <thead class="bg-gray-800 border border-gray-800">
           <tr class="text-xs md:text-base">
@@ -77,8 +285,7 @@
         </thead>
 
         <tbody class="bg-slate-950 rounded-lg shadow-md">
-          {% for team in teams %}
-
+          {% for team in teams if team.conference == 'OUA East' or team.conference == 'OUA West'  or team.conference == 'OUA Central' %}
           <tr class=" team {{ team.conference }} text-sm md:text-base  border-gray-800 text-center even:bg-slate-900">
             <td class="border-r border-gray-900">{{ loop.index }}</td>
             <td class="border-r border-gray-900 flex items-center">
@@ -94,7 +301,6 @@
                 {% endif %}
               </span>
             </td>
-
             <td class="p-1 border-r border-gray-900">{{ team.total_wins }}</td>
             <td class="p-1 border-r border-gray-900">
               {{ team.total_losses }}
@@ -112,6 +318,7 @@
         </tbody>
       </table>
     </div>
+
   </div>
 
   <!-- Player Leaderboard Section -->
@@ -445,13 +652,15 @@
     </div>
 
     <hr>
-    <p class="glossary-text" style="font-size: x-small;"><strong>Note: &nbsp;</strong>All metrics in the radar chart are normalized between 50 and 99. For instance, the team with
-      the highest assist-turnover ratio, will be rated a 99 Playmaking, while the lowest-ranking team will be rated a 50. Every
+    <p class="glossary-text px-2 md:px-4" style="font-size: x-small;"><strong>Note: &nbsp;</strong>All metrics in the radar chart are
+      normalized between 50 and 99. For instance, the team with
+      the highest assist-turnover ratio, will be rated a 99 Playmaking, while the lowest-ranking team will be rated a
+      50. Every
       team's rating falls somewhere in between these extremes, reflecting their performance relative to each other
       (normalized).</p>
     <div class="container mx-auto px-4 py-2">
       <h2 class="text-2xl md:text-3xl font-bold my-2">Glossary</h2>
-      
+
       <!-- Glossary Term: Overall -->
       <div class="mb-8">
         <h3 class="glossary-titles">Overall</h3>

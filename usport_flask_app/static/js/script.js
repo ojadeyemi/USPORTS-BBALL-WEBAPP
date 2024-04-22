@@ -14,9 +14,7 @@ document
   .getElementById("teamAnalyticsBtn")
   .addEventListener("click", showTeamAnalytics);
 
-document
-  .getElementById("conference-filter")
-  .addEventListener("change", filterStandingsByConf);
+
 
 // Function to show standings section
 function showStandings() {
@@ -34,23 +32,6 @@ function showStandings() {
   // Set the display property to "none" to show the leaderboard section
   leaderboardSection.style.display = "none";
   playeranalyticsSection.style.display = "none";
-}
-
-// Function to filter standings by conference
-function filterStandingsByConf() {
-  var selectedConference = document.getElementById("conference-filter").value;
-  var teams = document.getElementsByClassName("team");
-  for (var i = 0; i < teams.length; i++) {
-    var team = teams[i];
-    if (
-      selectedConference === "all" ||
-      team.classList.contains(selectedConference)
-    ) {
-      team.style.display = "";
-    } else {
-      team.style.display = "none";
-    }
-  }
 }
 
 // Function to show leaderboard senone
