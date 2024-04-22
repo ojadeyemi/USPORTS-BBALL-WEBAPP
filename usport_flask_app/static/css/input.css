@@ -7,35 +7,49 @@
     @apply flex-auto shrink rounded-sm border border-gray-700 bg-gray-800 px-5 py-2 text-xs font-medium uppercase transition duration-300 hover:bg-gray-600 hover:text-violet-300 focus:outline-none focus:ring focus:ring-slate-900 active:bg-violet-700 motion-reduce:transition-none md:px-10 md:text-base;
   }
 
+  .nav-title{
+    @apply text-base md:text-lg font-bold mt-5 text-center text-gray-500
+  }
+
+  .standings-conference-title{
+    @apply text-base md:text-lg font-semibold mt-8 mb-4 text-center text-gray-300
+  }
+
+  .standings-conference-table{
+    @apply w-full border-collapse
+  }
+
+  .standings-team-logos{
+    @apply max-w-10 max-h-10 md:max-w-12 md:max-h-10 mx-6 px-1
+  }
+  .standings-table-rows{
+    @apply text-sm md:text-base text-center even:bg-slate-900
+  }
+
   .leaderboard-stats-subtitle {
     @apply mb-4 mt-8 text-center text-xl font-bold;
   }
 
   .leaderboard-stats-table {
-    @apply mx-auto mb-5 w-full rounded-lg bg-slate-950 text-sm shadow-md md:w-4/5 md:text-base lg:w-3/5;
+    @apply mx-auto mb-5 w-full rounded-lg bg-slate-950 text-sm shadow-md md:w-3/4 md:text-base lg:w-3/5;
   }
 
   .leaderboard-stats-rows {
-    @apply even:bg-slate-900;
+    @apply even:bg-slate-900 ;
   }
 
   .leaderboard-stats-images {
-    @apply max-h-10 max-w-10 px-2 md:max-h-14 md:max-w-14;
+    @apply max-w-10 max-h-10 md:max-w-12 md:max-h-10 mx-6 px-1
   }
 
   .glossary-titles{
-    @apply text-lg font-semibold mb-1
+    @apply text-base md:text-lg font-semibold m-1
   }
 
   .glossary-text{
-    @apply text-gray-300 text-sm mb-2
+    @apply text-gray-300 text-xs md:text-sm mb-1
   }
 
-  .standings-conference-title{
-    @apply text-lg font-semibold mt-8 mb-4 text-center text-gray-300
-  }
 
-  .standings-conference-title{
-    @apply text-lg font-semibold mt-8 mb-4 text-center text-gray-300
-  }
+
 }

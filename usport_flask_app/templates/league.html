@@ -24,13 +24,87 @@
 
   <!-- Standings Section -->
   <div id="standings-section" style="display: block" class="min-h-screen">
-    <h2 class="text-base md:text-xl font-bold mt-8 text-center text-gray-500">
+    <h2 class="nav-title">
       STANDINGS
     </h2>
 
-    <div style="margin: 0 auto" class="team-container w-full lg:w-4/5">
+    <div style="margin: 0 auto" class="w-full lg:w-3/4">
+      <h3 class="standings-conference-title">OUA Conference</h3>
+      <table class="standings-conference-table">
+        <thead class="bg-gray-800 border border-gray-800">
+          <tr class="text-xs md:text-base">
+            <th class="py-2 border-r border-gray-900">#</th>
+            <th class="border-r border-gray-900">TEAM</th>
+            <th class="px-2 border-r border-gray-900">
+              <span class="hidden md:inline">WIN</span>
+              <!-- Hidden on small screens -->
+              <span class="md:hidden">W</span>
+              <!-- Shown on small screens -->
+            </th>
+            <th class="px-2 border-r border-gray-900">
+              <span class="hidden md:inline">LOSS</span>
+              <!-- Hidden on small screens -->
+              <span class="md:hidden">L</span>
+              <!-- Shown on small screens -->
+            </th>
+            <th class="border-r border-gray-900">PCT</th>
+            <th class="border-r px-2 border-gray-900 hidden md:table-cell">
+              GP
+            </th>
+            <th class="px-2 border-r border-gray-900">
+              <span class="hidden md:inline">LAST 10</span>
+              <!-- Hidden on small screens -->
+              <span class="md:hidden">L 10</span>
+              <!-- Shown on small screens -->
+            </th>
+            <th class="px-2 border-b border-r border-gray-800">
+              <span class="hidden md:inline">STREAK</span>
+              <!-- Hidden on small screens -->
+              <span class="md:hidden">STRK</span>
+              <!-- Shown on small screens -->
+            </th>
+          </tr>
+        </thead>
+
+        <tbody class="bg-slate-950 rounded-lg shadow-md">
+          {% for team in teams if team.conference == 'OUA East' or team.conference == 'OUA West' or team.conference ==
+          'OUA Central' %}
+          <tr class=" team {{ team.conference }} standings-table-rows">
+            <td class="border-r border-gray-900">{{ loop.index }}</td>
+            <td class="border-r border-gray-900 flex items-center">
+              <img src="{{ url_for('static', filename='img/team_logos/' + team.team_name +'.png') }}" alt="Team Logo"
+                class="standings-team-logos" />
+              <span class="font-bold">
+                {% if team.team_name == 'Toronto Metropolitan' %}
+                <a href="{{ url_for('team_page', league_path=league_path, team_path='Toronto Metropolitan') }}"
+                  class="no-underline hover:underline">TMU</a>
+                {% else %}
+                <a href="{{ url_for('team_page', league_path=league_path, team_path=team.team_name) }}"
+                  class="no-underline hover:underline">{{ team.team_name }}</a>
+                {% endif %}
+              </span>
+            </td>
+            <td class="p-1 border-r border-gray-900">{{ team.total_wins }}</td>
+            <td class="p-1 border-r border-gray-900">
+              {{ team.total_losses }}
+            </td>
+            <td class="p-1 font-bold border-r border-gray-900">
+              {{ team.win_percentage }}
+            </td>
+            <td class="p-1 border-r border-gray-900 hidden md:table-cell">
+              {{ team.games_played }}
+            </td>
+            <td class="border-r border-gray-900">{{ team.last_ten_games }}</td>
+            <td class="border-r border-gray-900">{{ team.streak }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div style="margin: 0 auto" class="w-full lg:w-3/4">
       <h3 class="standings-conference-title">CW Conference</h3>
-      <table class="w-full border-collapse">
+      <table class="standings-conference-table">
         <thead class="bg-gray-800 border border-gray-800">
           <tr class="text-xs md:text-base">
             <th class="py-2 border-r border-gray-900">#</th>
@@ -67,11 +141,11 @@
         </thead>
         <tbody class="bg-slate-950 rounded-lg shadow-md">
           {% for team in teams if team.conference == 'CW' %}
-          <tr class=" team {{ team.conference }} text-sm md:text-base  border-gray-800 text-center even:bg-slate-900">
+          <tr class="standings-table-rows">
             <td class="border-r border-gray-900">{{ loop.index }}</td>
             <td class="border-r border-gray-900 flex items-center">
               <img src="{{ url_for('static', filename='img/team_logos/' + team.team_name +'.png') }}" alt="Team Logo"
-                class="max-w-10 max-h-10 md:max-w-20 md-max-h-20 mx-6 px-1" />
+                class="standings-team-logos" />
               <span class="font-bold">
                 {% if team.team_name == 'Toronto Metropolitan' %}
                 <a href="{{ url_for('team_page', league_path=league_path, team_path='Toronto Metropolitan') }}"
@@ -100,9 +174,9 @@
       </table>
     </div>
 
-    <div style="margin: 0 auto" class="team-container w-full lg:w-4/5">
+    <div style="margin: 0 auto" class="w-full lg:w-3/4">
       <h3 class="standings-conference-title">AUS Conference</h3>
-      <table class="w-full border-collapse">
+      <table class="standings-conference-table">
         <thead class="bg-gray-800 border border-gray-800">
           <tr class="text-xs md:text-base">
             <th class="py-2 border-r border-gray-900">#</th>
@@ -139,11 +213,11 @@
         </thead>
         <tbody class="bg-slate-950 rounded-lg shadow-md">
           {% for team in teams if team.conference == 'AUS' %}
-          <tr class=" team {{ team.conference }} text-sm md:text-base  border-gray-800 text-center even:bg-slate-900">
+          <tr class=" team {{ team.conference }} standings-table-rows">
             <td class="border-r border-gray-900">{{ loop.index }}</td>
             <td class="border-r border-gray-900 flex items-center">
               <img src="{{ url_for('static', filename='img/team_logos/' + team.team_name +'.png') }}" alt="Team Logo"
-                class="max-w-10 max-h-10 md:max-w-20 md-max-h-20 mx-6 px-1" />
+                class="standings-team-logos" />
               <span class="font-bold">
                 {% if team.team_name == 'Toronto Metropolitan' %}
                 <a href="{{ url_for('team_page', league_path=league_path, team_path='Toronto Metropolitan') }}"
@@ -173,9 +247,9 @@
       </table>
     </div>
 
-    <div style="margin: 0 auto" class="team-container w-full lg:w-4/5">
+    <div style="margin: 0 auto" class="w-full lg:w-3/4">
       <h3 class="standings-conference-title">RSEQ Conference</h3>
-      <table class="w-full border-collapse">
+      <table class="standings-conference-table">
         <thead class="bg-gray-800 border border-gray-800">
           <tr class="text-xs md:text-base">
             <th class="py-2 border-r border-gray-900">#</th>
@@ -212,11 +286,11 @@
         </thead>
         <tbody class="bg-slate-950 rounded-lg shadow-md">
           {% for team in teams if team.conference == 'RSEQ' %}
-          <tr class=" team {{ team.conference }} text-sm md:text-base  border-gray-800 text-center even:bg-slate-900">
+          <tr class=" team {{ team.conference }} standings-table-rows">
             <td class="border-r border-gray-900">{{ loop.index }}</td>
             <td class="border-r border-gray-900 flex items-center">
               <img src="{{ url_for('static', filename='img/team_logos/' + team.team_name +'.png') }}" alt="Team Logo"
-                class="max-w-10 max-h-10 md:max-w-20 md-max-h-20 mx-6 px-1" />
+                class="standings-team-logos" />
               <span class="font-bold">
                 {% if team.team_name == 'Toronto Metropolitan' %}
                 <a href="{{ url_for('team_page', league_path=league_path, team_path='Toronto Metropolitan') }}"
@@ -245,79 +319,8 @@
         </tbody>
       </table>
     </div>
-    
-    <div style="margin: 0 auto" class="team-container w-full lg:w-4/5">
-      <h3 class="standings-conference-title">OUA Conference</h3>
-      <table class="w-full border-collapse">
-        <thead class="bg-gray-800 border border-gray-800">
-          <tr class="text-xs md:text-base">
-            <th class="py-2 border-r border-gray-900">#</th>
-            <th class="border-r border-gray-900">TEAM</th>
-            <th class="px-2 border-r border-gray-900">
-              <span class="hidden md:inline">WIN</span>
-              <!-- Hidden on small screens -->
-              <span class="md:hidden">W</span>
-              <!-- Shown on small screens -->
-            </th>
-            <th class="px-2 border-r border-gray-900">
-              <span class="hidden md:inline">LOSS</span>
-              <!-- Hidden on small screens -->
-              <span class="md:hidden">L</span>
-              <!-- Shown on small screens -->
-            </th>
-            <th class="border-r border-gray-900">PCT</th>
-            <th class="border-r px-2 border-gray-900 hidden md:table-cell">
-              GP
-            </th>
-            <th class="px-2 border-r border-gray-900">
-              <span class="hidden md:inline">LAST 10</span>
-              <!-- Hidden on small screens -->
-              <span class="md:hidden">L 10</span>
-              <!-- Shown on small screens -->
-            </th>
-            <th class="px-2 border-b border-r border-gray-800">
-              <span class="hidden md:inline">STREAK</span>
-              <!-- Hidden on small screens -->
-              <span class="md:hidden">STRK</span>
-              <!-- Shown on small screens -->
-            </th>
-          </tr>
-        </thead>
 
-        <tbody class="bg-slate-950 rounded-lg shadow-md">
-          {% for team in teams if team.conference == 'OUA East' or team.conference == 'OUA West'  or team.conference == 'OUA Central' %}
-          <tr class=" team {{ team.conference }} text-sm md:text-base  border-gray-800 text-center even:bg-slate-900">
-            <td class="border-r border-gray-900">{{ loop.index }}</td>
-            <td class="border-r border-gray-900 flex items-center">
-              <img src="{{ url_for('static', filename='img/team_logos/' + team.team_name +'.png') }}" alt="Team Logo"
-                class="max-w-10 max-h-10 md:max-w-20 md-max-h-20 mx-6 px-1" />
-              <span class="font-bold">
-                {% if team.team_name == 'Toronto Metropolitan' %}
-                <a href="{{ url_for('team_page', league_path=league_path, team_path='Toronto Metropolitan') }}"
-                  class="no-underline hover:underline">TMU</a>
-                {% else %}
-                <a href="{{ url_for('team_page', league_path=league_path, team_path=team.team_name) }}"
-                  class="no-underline hover:underline">{{ team.team_name }}</a>
-                {% endif %}
-              </span>
-            </td>
-            <td class="p-1 border-r border-gray-900">{{ team.total_wins }}</td>
-            <td class="p-1 border-r border-gray-900">
-              {{ team.total_losses }}
-            </td>
-            <td class="p-1 font-bold border-r border-gray-900">
-              {{ team.win_percentage }}
-            </td>
-            <td class="p-1 border-r border-gray-900 hidden md:table-cell">
-              {{ team.games_played }}
-            </td>
-            <td class="border-r border-gray-900">{{ team.last_ten_games }}</td>
-            <td class="border-r border-gray-900">{{ team.streak }}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
+  
 
   </div>
 
@@ -325,7 +328,7 @@
   <div id="playerleaderboard-section" style="display: none" class="flex flex-col min-h-screen">
     {% set numval = 10 %}
 
-    <h2 class="text-base md:text-xl font-bold mt-8 text-center text-gray-500">
+    <h2 class="nav-title">
       LEADERBOARD
     </h2>
 
@@ -349,7 +352,7 @@
           </td>
           <td>{{ player.school }}</td>
           <td class="font-bold text-center">
-            {{ player.points_per_game }} &nbsp;&nbsp;
+            {{ player.points_per_game | round(1) }} &nbsp;&nbsp;
           </td>
         </tr>
         {% set count.value = count.value - 1 %} {% endif %} {% endif %} {%
@@ -377,7 +380,7 @@
           </td>
           <td>{{ player.school }}</td>
           <td class="font-bold text-center">
-            {{ player.rebounds_per_game }}&nbsp;&nbsp;
+            {{ player.rebounds_per_game | round(1) }}&nbsp;&nbsp;
           </td>
         </tr>
         {% set count.value = count.value - 1 %} {% endif %} {% endif %} {%
@@ -405,7 +408,7 @@
           </td>
           <td>{{ player.school }}</td>
           <td class="font-bold text-center">
-            {{ player.assists_per_game }} &nbsp;&nbsp;
+            {{ player.assists_per_game | round(1) }} &nbsp;&nbsp;
           </td>
         </tr>
         {% set count.value = count.value - 1 %} {% endif %} {% endif %} {%
@@ -463,7 +466,7 @@
           </td>
           <td>{{ player.school }}</td>
           <td class="font-bold text-center">
-            {{ player.three_pointers_made_per_game }} &nbsp;&nbsp;
+            {{ player.three_pointers_made_per_game | round(1) }} &nbsp;&nbsp;
           </td>
         </tr>
         {% set count.value = count.value - 1 %} {% endif %} {% endif %} {%
@@ -550,7 +553,7 @@
           </td>
           <td>{{ player.school }}</td>
           <td class="font-bold text-center">
-            {{ player.steals_per_game }} &nbsp;&nbsp;
+            {{ player.steals_per_game | round(1) }} &nbsp;&nbsp;
           </td>
         </tr>
         {% set count.value = count.value - 1 %} {% endif %} {% endif %} {%
@@ -579,7 +582,7 @@
           </td>
           <td>{{ player.school }}</td>
           <td class="font-bold text-center">
-            {{ player.free_throws_made_per_game }} &nbsp;&nbsp;
+            {{ player.free_throws_made_per_game | round(1) }} &nbsp;&nbsp;
           </td>
         </tr>
         {% set count.value = count.value - 1 %} {% endif %} {% endif %} {%
@@ -619,7 +622,7 @@
 
   <!-- Team Analytics Section -->
   <div id="teamanalytics-section" style="display: none" class="min-h-screen">
-    <h2 class="text-base md:text-xl font-bold mt-8 text-center text-gray-500">
+    <h2 class="nav-title">
       TEAM ANALYTICS
     </h2>
     <div class="max-w-xl mx-auto mt-5">
@@ -651,13 +654,14 @@
       <canvas id="radarChart" height="500" width="500"></canvas>
     </div>
 
-    <hr>
-    <p class="glossary-text px-2 md:px-4" style="font-size: x-small;"><strong>Note: &nbsp;</strong>All metrics in the radar chart are
+    <p class="glossary-text px-2 md:px-4" style="font-size: x-small;"><strong>Note: &nbsp;</strong>All metrics in the
+      radar chart are
       normalized between 50 and 99. For instance, the team with
       the highest assist-turnover ratio, will be rated a 99 Playmaking, while the lowest-ranking team will be rated a
       50. Every
       team's rating falls somewhere in between these extremes, reflecting their performance relative to each other
       (normalized).</p>
+    <hr>
     <div class="container mx-auto px-4 py-2">
       <h2 class="text-2xl md:text-3xl font-bold my-2">Glossary</h2>
 
@@ -746,7 +750,7 @@
 
   <!-- Playoffs Section -->
   <div id="playoffs-section" style="display: none" class="min-h-screen">
-    <h2 class="text-base md:text-xl font-bold mt-8 text-center text-gray-500">
+    <h2 class="nav-title">
       PLAYOFFS
     </h2>
     <div class="min-h-screen flex flex-col justify-center items-center">
