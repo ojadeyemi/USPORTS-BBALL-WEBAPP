@@ -23,19 +23,22 @@ from sqlalchemy import Integer, String, Float, ForeignKey, DateTime, Text
 
 db = SQLAlchemy()
 
+
 class Feedback(db.Model):
     """Class for representing feedback table"""
-    __tablename__ = "feedback_test"
+    __tablename__ = "feedback"
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     name: Mapped[str] = mapped_column(String(200))
     email: Mapped[str] = mapped_column(String(200))
     message: Mapped[str] = mapped_column(Text)
-    timestamp: Mapped[datetime] = mapped_column(DateTime, default=datetime.now(tz=timezone.utc))
+    timestamp: Mapped[datetime] = mapped_column(
+        DateTime, default=datetime.now(tz=timezone.utc))
 
-    def __init__(self, name: str, email: str, message: str):
+    def __init__(self, name: str, email:  str, message: str):
         self.name = name
         self.email = email
         self.message = message
+
 
 class __BaseTeam(db.Model):
     """ Base class for representing a basketball team. """
@@ -83,13 +86,14 @@ class __BaseTeam(db.Model):
     free_throws_attempted: Mapped[int] = mapped_column(Integer)
     field_goal_made_against: Mapped[int] = mapped_column(Integer)
     field_goal_attempted_against: Mapped[int] = mapped_column(Integer)
-    #three_pointers_made_against: Mapped[int] = mapped_column(Integer)
+    three_pointers_made_against: Mapped[int] = mapped_column(Integer)
     three_pointers_attempted_against: Mapped[int] = mapped_column(Integer)
     total_points: Mapped[int] = mapped_column(Integer)
     total_points_against: Mapped[int] = mapped_column(Integer)
 
     def __repr__(self):
         return f"<Team(id={self.team_id}, team_name='{self.team_name}', conference='{self.conference})>"
+
 
 class __BasePlayer(db.Model):
     """ Base class for representing a player in a basketball team. """
@@ -127,19 +131,22 @@ class __BasePlayer(db.Model):
         return f"<Player(lastname_initials='{self.lastname_initials},first_name='{self.first_name}'," \
             f"school='{self.school}', player_id={self.player_id}, team_id={self.team_id})>"
 
+
 class MenTeam(__BaseTeam):
     """Represents men's basketball team data."""
-    __tablename__ = "men_team_test"
-    
+    __tablename__ = "men_team"
+
+
 class WomenTeam(__BaseTeam):
     """Represents women's basketball team data."""
-    __tablename__ = "women_team_test"
+    __tablename__ = "women_team"
+
 
 class MenPlayers(__BasePlayer):
     """Represents men's basketball player data."""
-    __tablename__ = "men_players_test"
-    
+    __tablename__ = "men_players"
+
 
 class WomenPlayers(__BasePlayer):
     """Represents women's basketball player data."""
-    __tablename__ = "women_players_test"
+    __tablename__ = "women_players"

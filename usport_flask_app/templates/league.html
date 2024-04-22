@@ -5,11 +5,9 @@
     {{ league }} League
   </h1>
   <!-- Navigation -->
-  <div class="flex justify-center  ">
-    <nav class="flex flex-row " role="group">
-      <button id="standingsBtn" type="button" class="nav-btn">
-        Standings
-      </button>
+  <div class="flex justify-center">
+    <nav class="flex flex-row" role="group">
+      <button id="standingsBtn" type="button" class="nav-btn">Standings</button>
       <button id="leaderboardBtn" type="button" class="nav-btn">
         <span class="hidden md:inline">Stats Leaderboard</span>
         <!-- Hidden on small screens -->
@@ -20,17 +18,16 @@
         <!-- Hidden on small screens -->
         <span class="md:hidden">Analytics</span>
       </button>
-      </button>
-      <button id="playoffsBtn" type="button" class="nav-btn">
-        Playoffs
-      </button>
+      <button id="playoffsBtn" type="button" class="nav-btn">Playoffs</button>
     </nav>
   </div>
 
   <!-- Standings Section -->
   <div id="standings-section" style="display: block" class="min-h-screen">
-    <h2 class="text-base md:text-xl font-bold  mt-8 text-center text-gray-500">STANDINGS</h2>
-    <div id="filters" class="text-center my-4 text-xs ">
+    <h2 class="text-base md:text-xl font-bold mt-8 text-center text-gray-500">
+      STANDINGS
+    </h2>
+    <div id="filters" class="text-center my-4 text-xs">
       <label for="conference-filter" class="text-white font-bold mr-2">Filter by Conference:</label>
       <select id="conference-filter"
         class="py-2 px-4 rounded bg-gray-800 text-white transition duration-200 ease-in-out hover:bg-gray-500 focus:bg-blue-400">
@@ -42,13 +39,12 @@
       </select>
     </div>
 
-    <div style="margin: 0 auto" class="team-container w-full lg:w-4/5 ">
-
+    <div style="margin: 0 auto" class="team-container w-full lg:w-4/5">
       <table class="w-full border-collapse">
-        <thead class=" bg-gray-800 border border-gray-800">
+        <thead class="bg-gray-800 border border-gray-800">
           <tr class="text-xs md:text-base">
             <th class="py-2 border-r border-gray-900">#</th>
-            <th class="border-r border-gray-900 ">TEAM </th>
+            <th class="border-r border-gray-900">TEAM</th>
             <th class="px-2 border-r border-gray-900">
               <span class="hidden md:inline">WIN</span>
               <!-- Hidden on small screens -->
@@ -61,15 +57,17 @@
               <span class="md:hidden">L</span>
               <!-- Shown on small screens -->
             </th>
-            <th class="border-r border-gray-900 ">PCT</th>
-            <th class="border-r px-2 border-gray-900 hidden md:table-cell">GP</th>
+            <th class="border-r border-gray-900">PCT</th>
+            <th class="border-r px-2 border-gray-900 hidden md:table-cell">
+              GP
+            </th>
             <th class="px-2 border-r border-gray-900">
               <span class="hidden md:inline">LAST 10</span>
               <!-- Hidden on small screens -->
               <span class="md:hidden">L 10</span>
               <!-- Shown on small screens -->
             </th>
-            <th class=" px-2 border-b border-r border-gray-800">
+            <th class="px-2 border-b border-r border-gray-800">
               <span class="hidden md:inline">STREAK</span>
               <!-- Hidden on small screens -->
               <span class="md:hidden">STRK</span>
@@ -78,8 +76,7 @@
           </tr>
         </thead>
 
-
-        <tbody class=" bg-slate-950 rounded-lg shadow-md ">
+        <tbody class="bg-slate-950 rounded-lg shadow-md">
           {% for team in teams %}
 
           <tr class=" team {{ team.conference }} text-sm md:text-base  border-gray-800 text-center even:bg-slate-900">
@@ -98,10 +95,16 @@
               </span>
             </td>
 
-            <td class=" p-1 border-r border-gray-900">{{ team.total_wins }}</td>
-            <td class="p-1 border-r border-gray-900">{{ team.total_losses }}</td>
-            <td class="p-1 font-bold  border-r border-gray-900"> {{ team.win_percentage }}</td>
-            <td class="p-1 border-r border-gray-900 hidden md:table-cell">{{ team.games_played }}</td>
+            <td class="p-1 border-r border-gray-900">{{ team.total_wins }}</td>
+            <td class="p-1 border-r border-gray-900">
+              {{ team.total_losses }}
+            </td>
+            <td class="p-1 font-bold border-r border-gray-900">
+              {{ team.win_percentage }}
+            </td>
+            <td class="p-1 border-r border-gray-900 hidden md:table-cell">
+              {{ team.games_played }}
+            </td>
             <td class="border-r border-gray-900">{{ team.last_ten_games }}</td>
             <td class="border-r border-gray-900">{{ team.streak }}</td>
           </tr>
@@ -109,14 +112,15 @@
         </tbody>
       </table>
     </div>
-
   </div>
 
   <!-- Player Leaderboard Section -->
   <div id="playerleaderboard-section" style="display: none" class="flex flex-col min-h-screen">
     {% set numval = 10 %}
 
-    <h2 class="text-base md:text-xl font-bold  mt-8 text-center text-gray-500">LEADERBOARD</h2>
+    <h2 class="text-base md:text-xl font-bold mt-8 text-center text-gray-500">
+      LEADERBOARD
+    </h2>
 
     <!-- Points per game -->
     <div>
@@ -129,10 +133,10 @@
 
         <tr class="leaderboard-stats-rows">
           <td class="w-1/12 pl-3">{{ numval - count.value + 1}}</td>
-          <td class=" font-bold text-left">
+          <td class="font-bold text-left">
             {{ player.lastname_initials }} &nbsp {{ player.first_name }}
           </td>
-          <td class=" w-1/12">
+          <td class="w-1/12">
             <img src="{{ url_for('static', filename='img/team_logos/' + player.school +'.png') }}" alt="Team Logo"
               class="leaderboard-stats-images" />
           </td>
@@ -233,9 +237,7 @@
 
     <!-- 3-pointers made per game -->
     <div>
-      <h2 class="leaderboard-stats-subtitle">
-        Three pointers made per game
-      </h2>
+      <h2 class="leaderboard-stats-subtitle">Three pointers made per game</h2>
 
       <table class="leaderboard-stats-table">
         {% set count = namespace(value=numval) %} {% for player in
@@ -406,20 +408,21 @@
         endfor %}
       </table>
     </div>
-
   </div>
 
   <!-- Team Analytics Section -->
   <div id="teamanalytics-section" style="display: none" class="min-h-screen">
-    <h2 class="text-base md:text-xl font-bold  mt-8 text-center text-gray-500">TEAM ANALYTICS</h2>
-    <div class="max-w-xl mx-auto mt-8">
+    <h2 class="text-base md:text-xl font-bold mt-8 text-center text-gray-500">
+      TEAM ANALYTICS
+    </h2>
+    <div class="max-w-xl mx-auto mt-5">
       <p class="text-center text-xs md:text-sm text-gray-400">
         Select two teams from the dropdown menu to compare their stats plotted
         in the radar chart.
       </p>
     </div>
     <!-- Team Selection Dropdowns -->
-    <div class="my-5 flex justify-center space-x-4 text-xs md:text-lg">
+    <div class="my-3 flex justify-center space-x-4 text-xs md:text-lg">
       <select id="team1-select"
         class="text-center rounded bg-gray-800 text-white hover:bg-gray-700 focus:bg-gray-700 w-1/4">
         <!-- Populate options dynamically using Flask -->
@@ -437,36 +440,94 @@
       </select>
     </div>
 
-    <div class="flex justify-center items-center md:m-5" style="max-height: 38rem;">
+    <div class="flex justify-center items-center md:m-5" style="max-height: 40rem">
       <canvas id="radarChart" height="500" width="500"></canvas>
     </div>
 
-    <div class="container mx-auto m-8">
-      <div class="mb-4">
-        <hr class="border-gray-300">
+    <hr>
+    <p class="glossary-text" style="font-size: x-small;"><strong>Note: &nbsp;</strong>All metrics in the radar chart are normalized between 50 and 99. For instance, the team with
+      the highest assist-turnover ratio, will be rated a 99 Playmaking, while the lowest-ranking team will be rated a 50. Every
+      team's rating falls somewhere in between these extremes, reflecting their performance relative to each other
+      (normalized).</p>
+    <div class="container mx-auto px-4 py-2">
+      <h2 class="text-2xl md:text-3xl font-bold my-2">Glossary</h2>
+      
+      <!-- Glossary Term: Overall -->
+      <div class="mb-8">
+        <h3 class="glossary-titles">Overall</h3>
+        <p class="glossary-text">
+          Overall refers to the combined performance of a team in all aspects of the game.
+          It is derived from the <strong>team's net efficiency</strong>, which measures how effectively the team
+          utilizes its possessions
+          to score points and prevent the opposing team from scoring.
+        </p>
       </div>
-      <div class="flex items-center">
-        <label for="glossary" class="m-2 md:m-4 text-base md:text-lg font-semibold">Glossary:</label>
-        <select id="glossary" onchange="showDescription(this.value)"
-          class="bg-slate-700 text-white font-semibold py-2 px-20 rounded">
-          <option value="Overall">Overall</option>
-          <option value="Offense">Offense</option>
-          <option value="Defense">Defense</option>
-          <option value="Playmaking">Playmaking</option>
-          <option value="Rebounding">Rebounding</option>
-          <option value="3pt Shooting">3pt Shooting</option>
-          <option value="Efficiency">Efficiency</option>
-        </select>
+
+      <!-- Glossary Term: Offense -->
+      <div class="mb-8">
+        <h3 class="glossary-titles">Offense</h3>
+        <p class="glossary-text">
+          Offense represents a team's capability to score points through various methods like shooting, passing, and
+          driving to the basket.
+          Offensive efficiency gauges how efficiently a team scores points per possession.
+        </p>
       </div>
-      <div id="description" class="mt-4 hidden">
-        <p class="text-xl font-semibold py-2" id="term"></p>
-        <p id="termDescription" class="text-gray-400"></p>
+
+      <!-- Glossary Term: Defense -->
+      <div class="mb-8">
+        <h3 class="glossary-titles">Defense</h3>
+        <p class="glossary-text">
+          Defense signifies a team's proficiency in preventing the opposing team from scoring points.
+          Defensive efficiency quantifies how effectively a team prevents the opposition from scoring per possession.
+        </p>
+      </div>
+
+      <!-- Glossary Term: Playmaking -->
+      <div class="mb-8">
+        <h3 class="glossary-titles">Playmaking</h3>
+        <p class="glossary-text">
+          Playmaking denotes a team's skill in creating scoring opportunities for both themselves and their teammates.
+          Playmaking is determined by a team's <strong> assist-turnover ratio</strong>, which compares assists per game
+          to
+          turnovers per game.
+        </p>
+      </div>
+
+      <!-- Glossary Term: Rebounding -->
+      <div class="mb-8">
+        <h3 class="glossary-titles">Rebounding</h3>
+        <p class="glossary-text">
+          Rebounding showcases a team's ability to retrieve missed shots on both offense and defense.
+          Rebound margin quantifies the difference between total rebounds per game by the team and total rebounds per
+          game allowed by their opponents.
+        </p>
+      </div>
+
+      <!-- Glossary Term: 3pt Shooting -->
+      <div class="mb-8">
+        <h3 class="glossary-titles">3pt Shooting</h3>
+        <p class="glossary-text">
+          3pt Shooting assesses a team's effectiveness in scoring points through three-pointers.
+          3-Point Shooting efficiency considers both the team's three-point shooting percentage and the frequency of
+          three-point attempts per game.
+        </p>
+      </div>
+
+      <!-- Glossary Term: Efficiency -->
+      <div class="mb-8">
+        <h3 class="glossary-titles">Efficiency</h3>
+        <p class="glossary-text">
+          Efficiency reflects how efficiently a team utilizes its possessions to score points and prevent the opposing
+          team from scoring.
+          Effective Field Goal Percentage (EFG) adjusts for the value of three-point shots, calculated based on field
+          goals made, three-pointers made, and field goal attempts.
+        </p>
       </div>
     </div>
 
     <script>
       // Radar data from Flask app
-      const radarData = {{ radar_data| tojson | safe }};
+      const radarData = JSON.parse('{{ radar_data | tojson | safe }}');
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -476,7 +537,9 @@
 
   <!-- Playoffs Section -->
   <div id="playoffs-section" style="display: none" class="min-h-screen">
-    <h2 class="text-base md:text-xl font-bold  mt-8 text-center text-gray-500">PLAYOFFS</h2>
+    <h2 class="text-base md:text-xl font-bold mt-8 text-center text-gray-500">
+      PLAYOFFS
+    </h2>
     <div class="min-h-screen flex flex-col justify-center items-center">
       <img src="https://www.svgrepo.com/show/426192/cogs-settings.svg" alt="Logo" class="mb-8 h-40" />
       <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-center text-gray-700 dark:text-white mb-4">

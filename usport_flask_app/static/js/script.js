@@ -23,9 +23,7 @@ function showStandings() {
   var standingsSection = document.getElementById("standings-section");
   var leaderboardSection = document.getElementById("playerleaderboard-section");
   var teamanalyticsSection = document.getElementById("teamanalytics-section");
-  var playeranalyticsSection = document.getElementById(
-    "playoffs-section"
-  );
+  var playeranalyticsSection = document.getElementById("playoffs-section");
 
   // Set the display property to "block" to show the standings section
   standingsSection.style.display = "block";
@@ -60,9 +58,7 @@ function showLeaderboard() {
   var standingsSection = document.getElementById("standings-section");
   var leaderboardSection = document.getElementById("playerleaderboard-section");
   var teamanalyticsSection = document.getElementById("teamanalytics-section");
-  var playeranalyticsSection = document.getElementById(
-    "playoffs-section"
-  );
+  var playeranalyticsSection = document.getElementById("playoffs-section");
   // Set the display property to "block" to show the leaderboard section
   leaderboardSection.style.display = "block";
   // Set the display property to "none" to show the teamanalytics section
@@ -79,9 +75,7 @@ function showTeamAnalytics() {
   var standingsSection = document.getElementById("standings-section");
   var leaderboardSection = document.getElementById("playerleaderboard-section");
   var teamanalyticsSection = document.getElementById("teamanalytics-section");
-  var playeranalyticsSection = document.getElementById(
-    "playoffs-section"
-  );
+  var playeranalyticsSection = document.getElementById("playoffs-section");
   //Set the display to show team analytics
   teamanalyticsSection.style.display = "block";
   // Set the display property to "none" to show the leaderboard section
@@ -98,9 +92,7 @@ function showPlayerAnalytics() {
   var standingsSection = document.getElementById("standings-section");
   var leaderboardSection = document.getElementById("playerleaderboard-section");
   var teamanalyticsSection = document.getElementById("teamanalytics-section");
-  var playeranalyticsSection = document.getElementById(
-    "playoffs-section"
-  );
+  var playeranalyticsSection = document.getElementById("playoffs-section");
 
   // Set the display property to "none" to show the leaderboard section
   leaderboardSection.style.display = "none";

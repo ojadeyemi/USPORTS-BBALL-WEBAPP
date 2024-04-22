@@ -1,21 +1,21 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <meta property="og:type" content="website">
+  <meta property="og:type" content="website" />
   <title>U Sports Basketball</title>
   <link href="{{ url_for('static', filename='css/output.css') }}" rel="stylesheet" />
 </head>
 <!-- Custom background for large screens -->
 
-
-<body class=" text-white bg-[url('https://wallpapers.com/images/high/4k-basketball-court-and-sunset-wz50tvexzvd7m182.webp')]">
-  <div class="max-w-screen-2xl mx-auto border border-cyan-800 bg-cover bg-center bg-slate-900 ">
+<body
+  class="text-white bg-[url('https://wallpapers.com/images/high/4k-basketball-court-and-sunset-wz50tvexzvd7m182.webp')]">
+  <div class="max-w-screen-2xl mx-auto border border-cyan-800 bg-cover bg-center bg-slate-900">
     <!-- Header -->
-    <header class="bg-slate-700  text-white py-3 px-6 flex justify-between items-center text-sm md:text-xl">
+    <header class="bg-slate-700 text-white py-3 px-6 flex justify-between items-center text-sm md:text-xl">
       <h1 class="font-bold">U Sports Basketball</h1>
       <nav>
         <a href="/"
@@ -25,11 +25,8 @@
       </nav>
     </header>
 
-
     <!-- Main content -->
-    <main class="m-4">
-      {% block content %} {% endblock %}
-    </main>
+    <main class="m-4">{% block content %} {% endblock %}</main>
 
     <!--Footer container-->
     <footer class="flex flex-col items-center bg-slate-700 mt-9 bottom-0">

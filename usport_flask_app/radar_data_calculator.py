@@ -7,7 +7,7 @@ Functions:
     - calculate_radar_data: Calculate radar chart data for teams based on their statistics.
 """
 from sqlalchemy.engine.row import Row
-from sqlalchemy import func, ColumnElement
+from sqlalchemy import func
 from models import db, MenTeam, WomenTeam
 from math import floor
 from typing import Union
@@ -33,7 +33,7 @@ def normalize(value: Union[int, float], min_value: Union[int, float], max_value:
     return floor(normalized_value) #return floor
 
 
-def find_min_max_values(team_table: Union[type[MenTeam], type[WomenTeam]]) -> Row:
+def find_min_max_values(team_table: Union[MenTeam, WomenTeam]) -> Row:
     """
     Find the minimum and maximum values for various statistics across teams.
 
@@ -62,7 +62,7 @@ def find_min_max_values(team_table: Union[type[MenTeam], type[WomenTeam]]) -> Ro
     ).one()
     return min_max_values
 
-def calculate_radar_data(specific_team_table: Union[type[MenTeam], type[WomenTeam]], min_max_values:Row):
+def calculate_radar_data(specific_team_table: Union[MenTeam, WomenTeam], min_max_values:Row):
     """
     Calculate radar chart data for teams based on their statistics.
 

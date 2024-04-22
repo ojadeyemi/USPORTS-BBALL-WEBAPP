@@ -195,38 +195,38 @@ def __usports_team_data(stats_url: str, standings_url: str, no_of_teams: int) ->
     team_conference = {
     'Acadia': 'AUS',
     'Alberta': 'CW',
-    'Algoma': 'OUA',
+    'Algoma': 'OUA West',
     'Bishop\'s': 'RSEQ',
     'Brandon': 'CW',
-    'Brock': 'OUA',
+    'Brock': 'OUA Central',
     'Calgary': 'CW',
     'Cape Breton': 'AUS',
-    'Carleton': 'OUA',
+    'Carleton': 'OUA East',
     'Concordia': 'RSEQ',
     'Dalhousie': 'AUS',
-    'Guelph': 'OUA',
-    'Lakehead': 'OUA',
-    'Laurentian': 'OUA',
-    'Laurier': 'OUA',
+    'Guelph': 'OUA West',
+    'Lakehead': 'OUA Central',
+    'Laurentian': 'OUA East',
+    'Laurier': 'OUA West',
     'Laval': 'RSEQ',
     'Lethbridge': 'CW',
     'MacEwan': 'CW',
     'Manitoba': 'CW',
     'McGill': 'RSEQ',
-    'McMaster': 'OUA',
+    'McMaster': 'OUA Central',
     'Memorial': 'AUS',
     'Mount Royal': 'CW',
-    'Nipissing': 'OUA',
-    'Ontario Tech': 'OUA',
-    'Ottawa': 'OUA',
-    'Queen\'s': 'OUA',
+    'Nipissing': 'OUA East',
+    'Ontario Tech': 'OUA East',
+    'Ottawa': 'OUA East',
+    'Queen\'s': 'OUA East',
     'Regina': 'CW',
     'Saint Mary\'s': 'AUS',
     'Saskatchewan': 'CW',
     'StFX': 'AUS',
     'Thompson Rivers': 'CW',
-    'Toronto': 'OUA',
-    'Toronto Metropolitan': 'OUA',
+    'Toronto': 'OUA Central',
+    'Toronto Metropolitan': 'OUA Central',
     'Trinity Western': 'CW',
     'UBC': 'CW',
     'UBC Okanagan': 'CW',
@@ -236,11 +236,11 @@ def __usports_team_data(stats_url: str, standings_url: str, no_of_teams: int) ->
     'UPEI': 'AUS',
     'UQAM': 'RSEQ',
     'Victoria': 'CW',
-    'Waterloo': 'OUA',
-    'Western': 'OUA',
-    'Windsor': 'OUA',
+    'Waterloo': 'OUA West',
+    'Western': 'OUA West',
+    'Windsor': 'OUA West',
     'Winnipeg': 'CW',
-    'York': 'OUA'
+    'York': 'OUA Central'
     }
 
     #Create a DataFrame
@@ -563,7 +563,6 @@ def usports_player_stats(arg:str) -> pd.DataFrame:
     players_stats_df['free_throws_attempted'] = pd.to_numeric(players_stats_df['free_throws_attempted'], errors='coerce').fillna(0).astype(int)
     players_stats_df['free_throws_percentage'] = pd.to_numeric(players_stats_df['free_throws_percentage'], errors='coerce').fillna(0).astype(float)
     players_stats_df['total_points'] = pd.to_numeric(players_stats_df['total_points'], errors='coerce').fillna(0).astype(int)
-
 
     return players_stats_df
 

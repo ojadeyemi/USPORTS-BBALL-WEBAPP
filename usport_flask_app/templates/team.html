@@ -1,16 +1,14 @@
 {% extends "base.html" %} {% block content %}
 <div class="min-h-screen">
-
-
   <section>
     <h1 class="text-center text-gray-500 font-bold text-xl md:text-3xl py-2">
       {{ league }} League
     </h1>
     <a href="#" onclick="history.back()"
       class="inline-block w-8 h-8 md:w-10 md:h-10 group transform transition duration-500 ml-5">
-      <img src="https://www.svgrepo.com/show/101168/go-back-arrow.svg" alt="Back" class=" group-hover:scale-150" />
+      <img src="https://www.svgrepo.com/show/101168/go-back-arrow.svg" alt="Back" class="group-hover:scale-150" />
     </a>
-    <div class=" w-full">
+    <div class="w-full">
       <!-- For mobile screens -->
       <div class="md:hidden grid grid-flow-col items-center justify-stretch text-base">
         <div class="flex flex-col items-center">
@@ -22,17 +20,17 @@
           <img src="{{ url_for('static', filename='img/team_logos/' + team.team_name +'.png') }}" alt="Team Logo"
             class="w-auto h-24 m-1" />
           <div class="font-semibold">{{ team.team_name }}</div>
-          <div> <img src="{{ url_for('static', filename='img/conference_logos/' + team.conference +'.png') }}"
+          <!-- add condition for OUA Logo-->
+          <div>
+            <img src="{{ url_for('static', filename='img/conference_logos/' + team.conference +'.png') }}"
               alt="Team Logo" class="w-auto h-8 m-1" />
           </div>
-
         </div>
         <div class="flex flex-col items-center">
           <div class="font-semibold">{{ team.streak }}</div>
           <div class="text-gray-400">Streak</div>
         </div>
       </div>
-
 
       <!-- For larger screens -->
       <div class="hidden md:grid grid-flow-col items-center justify-stretch text-xl px-16 lg:px-32 xl:px-48">
@@ -41,17 +39,24 @@
 
         <div class="flex flex-col justify-start">
           {% if team.team_name == 'Toronto Metropolitan' %}
-          <div class="font-semibold text-2xl xl:text-3xl">{{ team.team_name }}</div>
+          <div class="font-semibold text-2xl xl:text-3xl">
+            {{ team.team_name }}
+          </div>
           {% else %}
-          <div class="font-semibold text-3xl xl:text-4xl">{{ team.team_name }}</div>
+          <div class="font-semibold text-3xl xl:text-4xl">
+            {{ team.team_name }}
+          </div>
           {% endif %}
-          <div> <img src="{{ url_for('static', filename='img/conference_logos/' + team.conference +'.png') }}"
+          <div>
+            <img src="{{ url_for('static', filename='img/conference_logos/' + team.conference +'.png') }}"
               alt="Team Logo" class="w-auto h-8 lg:h-9 my-1" />
           </div>
         </div>
 
-        <div class="flex flex-col items-center">
-          <div class="font-semibold text-3xl">{{ team.total_wins }}-{{ team.total_losses }}</div>
+        <div class="flex items-center flex-col">
+          <div class="font-semibold text-3xl">
+            {{ team.total_wins }}-{{ team.total_losses }}
+          </div>
           <div class="text-gray-400">Record</div>
         </div>
 
@@ -66,48 +71,52 @@
         </div>
       </div>
 
-
+      <div style="margin: 0 auto"
+        class="team-container w-full md:w-4/5 xl:w-1/2 team-header rounded-lg shadow-md my-5 text-center">
+        <h2 class="text-center font-bold mt-5 py-5">Active Players</h2>
+        <table class="w-full border border-gray-800 border-collapse">
+          <thead>
+            <tr class="text-xs my-4">
+              <th class="border-b border-r border-gray-800">Player</th>
+              <th class="border-b border-r border-gray-800">PPG</th>
+              <th class="border-b border-r border-gray-800">RPG</th>
+              <th class="border-b border-r border-gray-800">APG</th>
+              <th class="border-b border-r border-gray-800">SPG</th>
+              <th class="border-b border-r border-gray-800">BPG</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for player in players %}
+            <tr class="even:bg-slate-800 text-xs md:text-base">
+              <td class="flex items-center border-r border-gray-800">
+                <img
+                  src="{{ url_for('static', filename='img/player_photos/' + league_path + '/' + player.school + '/' + player.lastname_initials + ' ' + player.first_name +'.jpg') }}"
+                  alt="PlayerPortrait" onerror="this.onerror=null; this.src='{{ fallback_player_portrait_url }}';"
+                  class="max-w-6 h-auto md:max-w-8 mr-2 rounded-s-lg" />
+                <span class="font-bold">&nbsp; {{ player.lastname_initials }}. {{ player.first_name
+                  }}</span>
+              </td>
+              <td class="border-r border-gray-800">
+                {{ (player.total_points / player.games_played) | round(1) }}
+              </td>
+              <td class="items-center border-r border-gray-800">
+                {{ (player.total_rebounds / player.games_played) | round(1) }}
+              </td>
+              <td class="border-r border-gray-800">
+                {{ (player.assists / player.games_played) | round(1)}}
+              </td>
+              <td class="border-r border-gray-800">
+                {{ (player.steals / player.games_played) | round(1) }}
+              </td>
+              <td class="border-r border-gray-800">
+                {{ (player.blocks / player.games_played) | round(1)}}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    {% endblock %}
   </section>
-
-
-
-  <div style="margin: 0 auto"
-    class="team-container w-full md:w-4/5  xl:w-1/2 team-header rounded-lg shadow-md my-5 text-center">
-    <h2 class="text-center font-bold mt-5 py-5">Active Players</h2>
-    <table class="w-full border border-gray-800 border-collapse">
-      <thead>
-        <tr class="text-xs my-4">
-          <th class="border-b border-r border-gray-800">Player</th>
-          <th class="border-b border-r border-gray-800">PPG</th>
-          <th class="border-b border-r border-gray-800">RPG</th>
-          <th class="border-b border-r border-gray-800">APG</th>
-          <th class="border-b border-r border-gray-800">SPG</th>
-          <th class="border-b border-r border-gray-800">BPG</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for player in players %}
-        <tr class="even:bg-slate-800 text-xs md:text-base">
-          <td class="flex items-center border-r border-gray-800">
-            <img
-              src="{{ url_for('static', filename='img/player_photos/' + league_path + '/' + player.school + '/' + player.lastname_initials + ' ' + player.first_name +'.jpg') }}"
-              alt="PlayerPortrait" onerror="this.onerror=null; this.src='{{ fallback_player_portrait_url }}';"
-              class="max-w-6 h-auto md:max-w-8 mr-2 rounded-s-lg" />
-            <span class="font-bold">&nbsp; {{ player.lastname_initials }}. {{ player.first_name
-              }}</span>
-          </td>
-          <td class="border-r border-gray-800">{{ (player.total_points / player.games_played) | round(1)
-            }}</td>
-          <td class="items-center border-r border-gray-800">
-            {{ (player.total_rebounds / player.games_played) | round(1) }}
-          </td>
-          <td class="border-r border-gray-800">{{ (player.assists / player.games_played) | round(1)}}</td>
-          <td class="border-r border-gray-800">{{ (player.steals / player.games_played) | round(1) }}</td>
-          <td class="border-r border-gray-800">{{ (player.blocks / player.games_played) | round(1)}}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
 </div>
-{% endblock %}

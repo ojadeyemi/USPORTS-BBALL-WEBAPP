@@ -94,7 +94,7 @@ def league(league_path):
     Team, Player.team_id == Team.team_id
 ).all()
     
-    radar_data = calculate_radar_data(Team,find_min_max_values(Team))
+    radar_data = calculate_radar_data(Team,find_min_max_values(Team)) # type: ignore
     
     # Render the league.html template with the retrieved data
     return render_template("league.html", teams=teams, players=players, league=league_name, league_path=league_path, fallback_player_portrait_url=fallback_player_portrait_url, radar_data=radar_data)

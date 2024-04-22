@@ -4,22 +4,30 @@
 
 @layer components {
   .nav-btn {
-    @apply bg-gray-800 border border-gray-700 px-5 md:px-10 py-2 font-medium uppercase flex-auto shrink text-xs md:text-base rounded-sm transition duration-300 hover:bg-gray-600 hover:text-violet-300 active:bg-violet-700 focus:outline-none focus:ring focus:ring-slate-900 motion-reduce:transition-none;
+    @apply flex-auto shrink rounded-sm border border-gray-700 bg-gray-800 px-5 py-2 text-xs font-medium uppercase transition duration-300 hover:bg-gray-600 hover:text-violet-300 focus:outline-none focus:ring focus:ring-slate-900 active:bg-violet-700 motion-reduce:transition-none md:px-10 md:text-base;
   }
 
-  .leaderboard-stats-subtitle{
-    @apply text-center text-xl font-bold mb-4 mt-8
+  .leaderboard-stats-subtitle {
+    @apply mb-4 mt-8 text-center text-xl font-bold;
   }
 
-  .leaderboard-stats-table{
-    @apply bg-slate-950 rounded-lg shadow-md mb-5 mx-auto w-full md:w-4/5 lg:w-3/5 text-sm md:text-base
+  .leaderboard-stats-table {
+    @apply mx-auto mb-5 w-full rounded-lg bg-slate-950 text-sm shadow-md md:w-4/5 md:text-base lg:w-3/5;
   }
 
-  .leaderboard-stats-rows{
-    @apply  even:bg-slate-900
+  .leaderboard-stats-rows {
+    @apply even:bg-slate-900;
   }
 
-  .leaderboard-stats-images{
-    @apply max-w-10 max-h-10 md:max-w-14 md:max-h-14 px-2
+  .leaderboard-stats-images {
+    @apply max-h-10 max-w-10 px-2 md:max-h-14 md:max-w-14;
+  }
+
+  .glossary-titles{
+    @apply text-lg font-semibold mb-1
+  }
+
+  .glossary-text{
+    @apply text-gray-300 text-sm mb-2
   }
 }
