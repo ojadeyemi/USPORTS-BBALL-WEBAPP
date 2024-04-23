@@ -103,7 +103,7 @@ def calculate_radar_data(specific_team_table: Union[MenTeam, WomenTeam], min_max
         playmaking = normalize(query_playmaking(team), min_playmaking, max_playmaking)
         rebound_margin = normalize(query_rebound_margin(team),min_rebound_margin, max_rebound_margin)
         EFG_percentage = normalize(query_effective_fg_percentage(team), min_effective_fg_percentage, max_effective_fg_percentage)
-        three_point_rating = normalize(query_3pt_shooting_efficiency(team), min_3pt_rating, max_3pt_rating, 96)
+        three_point_rating = normalize(query_3pt_shooting_efficiency(team), min_3pt_rating, max_3pt_rating, 98)
         
         
         #order of array should match labels in javascript charjs label
