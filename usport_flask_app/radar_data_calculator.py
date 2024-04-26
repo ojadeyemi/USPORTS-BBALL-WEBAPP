@@ -8,7 +8,7 @@ Functions:
 """
 from sqlalchemy.engine.row import Row
 from sqlalchemy import func
-from models import db, MenTeam, WomenTeam
+from .models import db, MenTeam, WomenTeam
 from math import floor
 from typing import Union
 
