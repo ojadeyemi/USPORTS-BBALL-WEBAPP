@@ -1,7 +1,7 @@
 {% extends "base.html" %} {% block content %}
 
 <div>
-  <h1 class="text-center text-gray-400 font-bold text-xl md:text-3xl py-2">
+  <h1 class="py-2 text-xl font-bold text-center text-gray-400 md:text-3xl">
     {{ league }} League
   </h1>
   <!-- Navigation -->
@@ -48,7 +48,7 @@
               <!-- Shown on small screens -->
             </th>
             <th class="border-r border-gray-900">PCT</th>
-            <th class="border-r px-2 border-gray-900 hidden md:table-cell">
+            <th class="hidden px-2 border-r border-gray-900 md:table-cell">
               GP
             </th>
             <th class="px-2 border-r border-gray-900">
@@ -66,12 +66,12 @@
           </tr>
         </thead>
 
-        <tbody class="bg-slate-950 rounded-lg shadow-md">
+        <tbody class="rounded-lg shadow-md bg-slate-950">
           {% for team in teams if team.conference == 'OUA East' or team.conference == 'OUA West' or team.conference ==
           'OUA Central' %}
           <tr class=" team {{ team.conference }} standings-table-rows">
             <td class="border-r border-gray-900">{{ loop.index }}</td>
-            <td class="border-r border-gray-900 flex items-center">
+            <td class="flex items-center border-r border-gray-900">
               <img src="{{ url_for('static', filename='img/team_logos/' + team.team_name +'.png') }}" alt="Team Logo"
                 class="standings-team-logos" />
               <span class="font-bold">
@@ -91,7 +91,7 @@
             <td class="p-1 font-bold border-r border-gray-900">
               {{ team.win_percentage }}
             </td>
-            <td class="p-1 border-r border-gray-900 hidden md:table-cell">
+            <td class="hidden p-1 border-r border-gray-900 md:table-cell">
               {{ team.games_played }}
             </td>
             <td class="border-r border-gray-900">{{ team.last_ten_games }}</td>
@@ -122,7 +122,7 @@
               <!-- Shown on small screens -->
             </th>
             <th class="border-r border-gray-900">PCT</th>
-            <th class="border-r px-2 border-gray-900 hidden md:table-cell">
+            <th class="hidden px-2 border-r border-gray-900 md:table-cell">
               GP
             </th>
             <th class="px-2 border-r border-gray-900">
@@ -139,11 +139,11 @@
             </th>
           </tr>
         </thead>
-        <tbody class="bg-slate-950 rounded-lg shadow-md">
+        <tbody class="rounded-lg shadow-md bg-slate-950">
           {% for team in teams if team.conference == 'CW' %}
           <tr class="standings-table-rows">
             <td class="border-r border-gray-900">{{ loop.index }}</td>
-            <td class="border-r border-gray-900 flex items-center">
+            <td class="flex items-center border-r border-gray-900">
               <img src="{{ url_for('static', filename='img/team_logos/' + team.team_name +'.png') }}" alt="Team Logo"
                 class="standings-team-logos" />
               <span class="font-bold">
@@ -163,7 +163,7 @@
             <td class="p-1 font-bold border-r border-gray-900">
               {{ team.win_percentage }}
             </td>
-            <td class="p-1 border-r border-gray-900 hidden md:table-cell">
+            <td class="hidden p-1 border-r border-gray-900 md:table-cell">
               {{ team.games_played }}
             </td>
             <td class="border-r border-gray-900">{{ team.last_ten_games }}</td>
@@ -194,7 +194,7 @@
               <!-- Shown on small screens -->
             </th>
             <th class="border-r border-gray-900">PCT</th>
-            <th class="border-r px-2 border-gray-900 hidden md:table-cell">
+            <th class="hidden px-2 border-r border-gray-900 md:table-cell">
               GP
             </th>
             <th class="px-2 border-r border-gray-900">
@@ -211,11 +211,11 @@
             </th>
           </tr>
         </thead>
-        <tbody class="bg-slate-950 rounded-lg shadow-md">
+        <tbody class="rounded-lg shadow-md bg-slate-950">
           {% for team in teams if team.conference == 'AUS' %}
           <tr class=" team {{ team.conference }} standings-table-rows">
             <td class="border-r border-gray-900">{{ loop.index }}</td>
-            <td class="border-r border-gray-900 flex items-center">
+            <td class="flex items-center border-r border-gray-900">
               <img src="{{ url_for('static', filename='img/team_logos/' + team.team_name +'.png') }}" alt="Team Logo"
                 class="standings-team-logos" />
               <span class="font-bold">
@@ -236,7 +236,7 @@
             <td class="p-1 font-bold border-r border-gray-900">
               {{ team.win_percentage }}
             </td>
-            <td class="p-1 border-r border-gray-900 hidden md:table-cell">
+            <td class="hidden p-1 border-r border-gray-900 md:table-cell">
               {{ team.games_played }}
             </td>
             <td class="border-r border-gray-900">{{ team.last_ten_games }}</td>
@@ -267,7 +267,7 @@
               <!-- Shown on small screens -->
             </th>
             <th class="border-r border-gray-900">PCT</th>
-            <th class="border-r px-2 border-gray-900 hidden md:table-cell">
+            <th class="hidden px-2 border-r border-gray-900 md:table-cell">
               GP
             </th>
             <th class="px-2 border-r border-gray-900">
@@ -284,11 +284,11 @@
             </th>
           </tr>
         </thead>
-        <tbody class="bg-slate-950 rounded-lg shadow-md">
+        <tbody class="rounded-lg shadow-md bg-slate-950">
           {% for team in teams if team.conference == 'RSEQ' %}
           <tr class=" team {{ team.conference }} standings-table-rows">
             <td class="border-r border-gray-900">{{ loop.index }}</td>
-            <td class="border-r border-gray-900 flex items-center">
+            <td class="flex items-center border-r border-gray-900">
               <img src="{{ url_for('static', filename='img/team_logos/' + team.team_name +'.png') }}" alt="Team Logo"
                 class="standings-team-logos" />
               <span class="font-bold">
@@ -309,7 +309,7 @@
             <td class="p-1 font-bold border-r border-gray-900">
               {{ team.win_percentage }}
             </td>
-            <td class="p-1 border-r border-gray-900 hidden md:table-cell">
+            <td class="hidden p-1 border-r border-gray-900 md:table-cell">
               {{ team.games_played }}
             </td>
             <td class="border-r border-gray-900">{{ team.last_ten_games }}</td>
@@ -320,7 +320,7 @@
       </table>
     </div>
 
-  
+
 
   </div>
 
@@ -486,7 +486,7 @@
 
         <tr class="leaderboard-stats-rows">
           <td class="w-1/12 pl-3">{{ numval - count.value + 1}}</td>
-          <td class="pont-bold text-left">
+          <td class="text-left pont-bold">
             {{ player.lastname_initials }} &nbsp {{ player.first_name }}
           </td>
           <td class="w-1/12">
@@ -626,15 +626,15 @@
       TEAM ANALYTICS
     </h2>
     <div class="max-w-xl mx-auto mt-5">
-      <p class="text-center text-xs md:text-sm text-gray-400">
+      <p class="text-xs text-center text-gray-400 md:text-sm">
         Select two teams from the dropdown menu to compare their stats plotted
         in the radar chart.
       </p>
     </div>
     <!-- Team Selection Dropdowns -->
-    <div class="my-3 flex justify-center space-x-4 text-xs md:text-lg">
+    <div class="flex justify-center my-3 space-x-4 text-xs md:text-lg">
       <select id="team1-select"
-        class="text-center rounded bg-gray-800 text-white hover:bg-gray-700 focus:bg-gray-700 w-1/4">
+        class="w-1/4 text-center text-white bg-gray-800 rounded hover:bg-gray-700 focus:bg-gray-700">
         <!-- Populate options dynamically using Flask -->
         {% for team in (teams |sort(attribute='team_name' )) %}
         <option value="{{ team.team_name }}">{{ team.team_name }}</option>
@@ -642,7 +642,7 @@
       </select>
 
       <select id="team2-select"
-        class="text-center rounded bg-gray-800 text-white hover:bg-gray-700 focus:bg-gray-700 w-1/4">
+        class="w-1/4 text-center text-white bg-gray-800 rounded hover:bg-gray-700 focus:bg-gray-700">
         <!-- Populate options dynamically using Flask -->
         {% for team in (teams |sort(attribute='team_name' )) %}
         <option value="{{ team.team_name }}">{{ team.team_name }}</option>
@@ -650,11 +650,11 @@
       </select>
     </div>
 
-    <div class="flex justify-center items-center md:m-5" style="max-height: 40rem">
+    <div class="flex items-center justify-center md:m-5" style="max-height: 40rem">
       <canvas id="radarChart" height="500" width="500"></canvas>
     </div>
 
-    <p class="glossary-text px-2 md:px-4" style="font-size: x-small;"><strong>Note: &nbsp;</strong>All metrics in the
+    <p class="px-2 glossary-text md:px-4" style="font-size: x-small;"><strong>Note: &nbsp;</strong>All metrics in the
       radar chart are
       normalized between 50 and 99. For instance, the team with
       the highest assist-turnover ratio, will be rated a 99 Playmaking, while the lowest-ranking team will be rated a
@@ -662,8 +662,8 @@
       team's rating falls somewhere in between these extremes, reflecting their performance relative to each other
       (normalized).</p>
     <hr>
-    <div class="container mx-auto px-4 py-2">
-      <h2 class="text-2xl md:text-3xl font-bold my-2">Glossary</h2>
+    <div class="container px-4 py-2 mx-auto">
+      <h2 class="my-2 text-2xl font-bold md:text-3xl">Glossary</h2>
 
       <!-- Glossary Term: Overall -->
       <div class="mb-8">
@@ -753,16 +753,16 @@
     <h2 class="nav-title">
       PLAYOFFS
     </h2>
-    <div class="min-h-screen flex flex-col justify-center items-center">
-      <img src="https://www.svgrepo.com/show/426192/cogs-settings.svg" alt="Logo" class="mb-8 h-40" />
-      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-center text-gray-700 dark:text-white mb-4">
+    <div class="flex flex-col items-center justify-center min-h-screen">
+      <img src="https://www.svgrepo.com/show/426192/cogs-settings.svg" alt="Logo" class="h-40 mb-8" />
+      <h1 class="mb-4 text-4xl font-bold text-center text-gray-700 md:text-5xl lg:text-6xl dark:text-white">
         This page is under maintenance
       </h1>
-      <div class="flex space-x-14 my-8">
-        <a href="/#bottom" class="bg-gray-800 hover:bg-gray-500 text-white font-bold p-4 md:p-6 rounded-md">Contact
+      <div class="flex my-8 space-x-14">
+        <a href="/#bottom" class="p-4 font-bold text-white bg-gray-800 rounded-md hover:bg-gray-500 md:p-6">Contact
           Me</a>
         <a href="#" onclick="window.location.reload(true);"
-          class="bg-gray-800 hover:bg-gray-500 text-white font-bold p-4 md:p-6 rounded-md">Standings</a>
+          class="p-4 font-bold text-white bg-gray-800 rounded-md hover:bg-gray-500 md:p-6">Standings</a>
       </div>
     </div>
   </div>

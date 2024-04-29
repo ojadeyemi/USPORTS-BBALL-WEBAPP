@@ -2,7 +2,9 @@ from flask import Flask, render_template, request, redirect, url_for
 from sqlalchemy import func, cast, Numeric
 from .models import db, Feedback, MenTeam, WomenTeam, MenPlayers, WomenPlayers
 from .radar_data_calculator import calculate_radar_data, find_min_max_values
+from .team_stats_calulator import calculate_categories
 from config import DevelopmentConfig
+
 
 def create_app(config_name=DevelopmentConfig):
     app = Flask(__name__)
@@ -24,7 +26,6 @@ def create_app(config_name=DevelopmentConfig):
             try:
                 # Commit the changes to the database
                 db.session.commit()
-                print("Feedback entry added successfully.")
             except Exception as e:
                 # Rollback the transaction in case of error
                 db.session.rollback()
@@ -99,30 +100,33 @@ def create_app(config_name=DevelopmentConfig):
         radar_data = calculate_radar_data(Team,find_min_max_values(Team)) # type: ignore
         
         # Render the league.html template with the retrieved data
-        return render_template("league.html", teams=teams, players=players, league=league_name, league_path=league_path, fallback_player_portrait_url=fallback_player_portrait_url, radar_data=radar_data)
+        return render_template("league.html", teams=teams, players=players, league=league_name, league_path=league_path, 
+                               fallback_player_portrait_url=fallback_player_portrait_url, radar_data=radar_data)
 
     # Define the route for the team page
     @app.route("/<league_path>/<team_path>")
     def team_page(league_path: str,team_path: str):
-        fallback_player_portrait_url = url_for('static', filename='img/player_photos/default_portrait.png') 
         if league_path == "mbb":
             league_name = "Men's"
-            team: MenTeam = MenTeam.query.filter_by(team_name=team_path).one() # type: ignore
-            
-            players: list[MenPlayers] = MenPlayers.query.filter_by(team_id=team.team_id).all() # type: ignore
-            return render_template("team.html", team=team, players=players, league=league_name, league_path=league_path, fallback_player_portrait_url=fallback_player_portrait_url)
-        
+            team = MenTeam
+            players = MenPlayers   
         elif league_path == "wbb":
             league_name = "Women's"
-            team: WomenTeam = WomenTeam.query.filter_by(team_name=team_path).one()
-            
-            players: list[WomenPlayers] = WomenPlayers.query.filter_by(team_id=team.team_id).all()
-            return render_template("team.html", team=team, players=players, league=league_name, league_path=league_path, fallback_player_portrait_url=fallback_player_portrait_url)
+            team = WomenTeam
+            players = WomenPlayers  
         else:
             # Handle invalid paths or other cases
             return render_template("error.html", message="Invalid team")
-
-    #define error routes seperately
         
+        team = team.query.filter_by(team_name=team_path).one()
+        players = players.query.filter_by(team_id=team.team_id).all()
+        fallback_player_portrait_url = url_for('static', filename='img/player_photos/default_portrait.png') 
+        categories = ["Points", "FG%", "Threes", "3PT%", "Rebounds", "Off Rebounds",
+                       "Assists", "Steals", "Blocks", "Turnovers", "Fouls", "PointsPerPossession"]
+        team_stats,opponent_stats = calculate_categories(team)
+        return render_template("team.html", team=team, players=players, league=league_name, league_path=league_path, 
+                            fallback_player_portrait_url=fallback_player_portrait_url, teamstats=team_stats, 
+                            opponentstats=opponent_stats, categories=categories)
     return app
-
+#PASS TEAM AND OPPONENT VALUES AS TEAM AND OPPONENT STAS WITH THE CATEGORIES 
+    #define error routes seperately

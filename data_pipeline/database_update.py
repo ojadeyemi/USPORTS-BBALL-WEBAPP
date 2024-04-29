@@ -22,7 +22,7 @@ import os
 import logging
 from sqlalchemy import create_engine, text
 from sqlalchemy.exc import SQLAlchemyError
-from usportsbballstats import usports_team_stats, usports_player_stats
+from .usportsbballstats import usports_team_stats, usports_player_stats
 
 
 def update_usports_bball_db(mysql_password: str):

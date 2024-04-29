@@ -1,139 +1,267 @@
 {% extends "base.html" %} {% block content %}
 <div class="min-h-screen">
-  <section>
-    <h1 class="text-center text-gray-500 font-bold text-xl md:text-3xl py-2">
-      {{ league }} League
-    </h1>
-    <a href="#" onclick="history.back()"
-      class="inline-block w-8 h-8 md:w-10 md:h-10 group transform transition duration-500 ml-5">
-      <img src="https://www.svgrepo.com/show/101168/go-back-arrow.svg" alt="Back" class="group-hover:scale-150" />
-    </a>
-    <div class="w-full">
-      <!-- For mobile screens -->
-      <div class="md:hidden grid grid-flow-col items-center justify-stretch text-base">
-        <div class="flex flex-col items-center">
-          <div class="font-semibold">{{ team.last_ten_games }}</div>
-          <div class="text-gray-400">L10</div>
-        </div>
 
-        <div class="flex flex-col items-center">
-          <img src="{{ url_for('static', filename='img/team_logos/' + team.team_name +'.png') }}" alt="Team Logo"
-            class="w-auto h-24 m-1" />
-          <div class="font-semibold">{{ team.team_name }}</div>
+  <h1 class="md:text-3xl py-2 text-xl font-bold text-center text-gray-500">
+    {{ league }} League
+  </h1>
+  <a href="#" onclick="history.back()"
+    class="md:w-12 md:h-12 group inline-block w-10 h-10 ml-5 transition duration-1000 transform">
+    <img src="https://pic.onlinewebfonts.com/thumbnails/icons_68849.svg" alt="Back" class="group-hover:scale-150" />
+  </a>
 
-          {% if team.conference == 'OUA East' or team.conference == 'OUA West' or team.conference ==
-          'OUA Central' %}
-          <div>
-            <img src="{{ url_for('static', filename='img/conference_logos/OUA.png') }}" alt="Team Logo"
-              class="w-auto h-8 m-1" />
-          </div>
-          {% else %}
-          <div>
-            <img src="{{ url_for('static', filename='img/conference_logos/' + team.conference +'.png') }}"
-              alt="Team Logo" class="w-auto h-8 m-1" />
-          </div>
-          {% endif %}
-        </div>
-        <div class="flex flex-col items-center">
-          <div class="font-semibold">{{ team.streak }}</div>
-          <div class="text-gray-400">Streak</div>
-        </div>
+  <div class="w-full">
+    <!-- For mobile screens -->
+    <div class="md:hidden justify-stretch grid items-center grid-flow-col text-lg">
+      <div class="flex flex-col items-center">
+        <div class="font-semibold">{{ team.last_ten_games }}</div>
+        <div class="text-gray-400">L10</div>
       </div>
 
-      <!-- For larger screens -->
-      <div class="hidden md:grid grid-flow-col items-center justify-stretch text-xl px-16 lg:px-32 xl:px-48">
+      <div class="flex flex-col items-center">
         <img src="{{ url_for('static', filename='img/team_logos/' + team.team_name +'.png') }}" alt="Team Logo"
-          class="w-auto h-28 lg:h-32 mx-4" />
+          class="w-auto h-24 m-1" />
+        <div class="font-semibold">{{ team.team_name }}</div>
 
-        <div class="flex flex-col justify-start">
-          {% if team.team_name == 'Toronto Metropolitan' %}
-          <div class="font-semibold text-2xl xl:text-3xl">
-            {{ team.team_name }}
-          </div>
-          {% else %}
-          <div class="font-semibold text-3xl xl:text-4xl">
-            {{ team.team_name }}
-          </div>
-          {% endif %}
-          {% if team.conference == 'OUA East' or team.conference == 'OUA West' or team.conference ==
-          'OUA Central' %}
-          <div>
-            <img src="{{ url_for('static', filename='img/conference_logos/OUA.png') }}" alt="Team Logo"
-              class="w-auto h-8 lg:h-9 my-1" />
-          </div>
-          {% else %}
-          <div>
-            <img src="{{ url_for('static', filename='img/conference_logos/' + team.conference +'.png') }}"
-              alt="Team Logo" class="w-auto h-8 lg:h-9 my-1" />
-          </div>
-          {% endif %}
+        {% if team.conference == 'OUA East' or team.conference == 'OUA West' or team.conference ==
+        'OUA Central' %}
+        <div>
+          <img src="{{ url_for('static', filename='img/conference_logos/OUA.png') }}" alt="Team Logo"
+            class="w-auto h-8 m-1" />
         </div>
-
-        <div class="flex items-center flex-col">
-          <div class="font-semibold text-3xl">
-            {{ team.total_wins }}-{{ team.total_losses }}
-          </div>
-          <div class="text-gray-400">Record</div>
+        {% else %}
+        <div>
+          <img src="{{ url_for('static', filename='img/conference_logos/' + team.conference +'.png') }}" alt="Team Logo"
+            class="w-auto h-8 m-1" />
         </div>
-
-        <div class="flex flex-col items-center">
-          <div class="font-semibold text-3xl">{{ team.last_ten_games }}</div>
-          <div class="text-gray-400">L10</div>
-        </div>
-
-        <div class="flex flex-col items-center">
-          <div class="font-semibold text-3xl">{{ team.streak }}</div>
-          <div class="text-gray-400">Streak</div>
-        </div>
+        {% endif %}
       </div>
-
-      <!-- Team roster-->
-      <div style="margin: 0 auto"
-        class="team-container w-full md:w-4/5 xl:w-1/2 team-header rounded-lg shadow-md my-5 text-center">
-        <h2 class="text-center font-bold mt-5 py-5">Roster</h2>
-        <table class="w-full border border-gray-800 border-collapse">
-          <thead>
-            <tr class="text-xs my-4">
-              <th class="border-b border-r border-gray-800">Player</th>
-              <th class="border-b border-r border-gray-800">PPG</th>
-              <th class="border-b border-r border-gray-800">RPG</th>
-              <th class="border-b border-r border-gray-800">APG</th>
-              <th class="border-b border-r border-gray-800">SPG</th>
-              <th class="border-b border-r border-gray-800">BPG</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for player in players %}
-            <tr class="even:bg-slate-800 text-xs md:text-base">
-              <td class="flex items-center border-r border-gray-800">
-                <img
-                  src="{{ url_for('static', filename='img/player_photos/' + league_path + '/' + player.school + '/' + player.lastname_initials + ' ' + player.first_name +'.jpg') }}"
-                  alt="PlayerPortrait" onerror="this.onerror=null; this.src='{{ fallback_player_portrait_url }}';"
-                  class="max-w-6 h-auto md:max-w-8 mr-2 rounded-s-lg" />
-                <span class="font-bold">&nbsp; {{ player.lastname_initials }}. {{ player.first_name
-                  }}</span>
-              </td>
-              <td class="border-r border-gray-800">
-                {{ (player.total_points / player.games_played) | round(1) }}
-              </td>
-              <td class="items-center border-r border-gray-800">
-                {{ (player.total_rebounds / player.games_played) | round(1) }}
-              </td>
-              <td class="border-r border-gray-800">
-                {{ (player.assists / player.games_played) | round(1)}}
-              </td>
-              <td class="border-r border-gray-800">
-                {{ (player.steals / player.games_played) | round(1) }}
-              </td>
-              <td class="border-r border-gray-800">
-                {{ (player.blocks / player.games_played) | round(1)}}
-              </td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
+      <div class="flex flex-col items-center">
+        <div class="font-semibold">{{ team.streak }}</div>
+        <div class="text-gray-400">Streak</div>
       </div>
     </div>
-    {% endblock %}
-  </section>
+
+    <!-- For larger screens -->
+    <div class="md:grid justify-stretch lg:px-32 xl:px-48 items-center hidden grid-flow-col px-16 text-xl">
+      <img src="{{ url_for('static', filename='img/team_logos/' + team.team_name +'.png') }}" alt="Team Logo"
+        class="h-28 lg:h-32 w-auto mx-4" />
+
+      <div class="flex flex-col justify-start">
+        {% if team.team_name == 'Toronto Metropolitan' %}
+        <div class="xl:text-3xl text-2xl font-semibold">
+          {{ team.team_name }}
+        </div>
+        {% else %}
+        <div class="xl:text-4xl text-3xl font-semibold">
+          {{ team.team_name }}
+        </div>
+        {% endif %}
+        {% if team.conference == 'OUA East' or team.conference == 'OUA West' or team.conference ==
+        'OUA Central' %}
+        <div>
+          <img src="{{ url_for('static', filename='img/conference_logos/OUA.png') }}" alt="Team Logo"
+            class="lg:h-9 w-auto h-8 my-1" />
+        </div>
+        {% else %}
+        <div>
+          <img src="{{ url_for('static', filename='img/conference_logos/' + team.conference +'.png') }}" alt="Team Logo"
+            class="lg:h-9 w-auto h-8 my-1" />
+        </div>
+        {% endif %}
+      </div>
+
+      <div class="flex flex-col items-center">
+        <div class="text-3xl font-semibold">
+          {{ team.total_wins }}-{{ team.total_losses }}
+        </div>
+        <div class="text-gray-400">Record</div>
+      </div>
+
+      <div class="flex flex-col items-center">
+        <div class="text-3xl font-semibold">{{ team.last_ten_games }}</div>
+        <div class="text-gray-400">L10</div>
+      </div>
+
+      <div class="flex flex-col items-center">
+        <div class="text-3xl font-semibold">{{ team.streak }}</div>
+        <div class="text-gray-400">Streak</div>
+      </div>
+    </div>
+
+    <div><!--add team stats-->
+      <p class="bg-gradient-to-r from-slate-800 to-blue-800 opacity-30 m-6 font-serif text-sm text-center">PER GAME
+        STATS VS OPPONENTS</p>
+      <script>
+        // Function to draw a two-colored line
+        function drawTwoColoredLine(canvasId, color1, color2, value1, value2) {
+          const canvas = document.getElementById(canvasId);
+          const context = canvas.getContext('2d');
+
+          // Calculate percentages
+          const total = value1 + value2;
+          const percent1 = (value1 / total) * canvas.width;
+          const percent2 = (value2 / total) * canvas.width;
+          const leadingspace = 2
+          // Draw first colored segment
+          context.fillStyle = color1;
+          context.fillRect(0, 0, percent1 - leadingspace, canvas.height);
+
+          // Draw second colored segment
+          context.fillStyle = color2;
+          context.fillRect(percent1 + leadingspace, 0, percent2, canvas.height);
+        }</script>
+      {% for val in teamstats %}
+      <div class="w-3/4 mx-auto mb-5"> <!-- Set the width and center the container -->
+        <div class=" md:text-base flex items-center justify-between px-3 text-sm">
+          <div class=" font-bold">{{ val }}</div>
+          <div class="md:text-lg text-base font-bold">{{ categories[loop.index - 1] }}</div>
+          <div class=" font-bold">{{ opponentstats[loop.index - 1] }}</div>
+        </div>
+        <canvas id="canvas{{ categories[loop.index - 1] }}" class="w-full h-1 mb-4"></canvas>
+      </div>
+      <script>
+        var canvasId = "canvas{{ categories[loop.index - 1] }}";
+        var team1Value = JSON.parse("{{ val | tojson | safe }}");
+        var team2Value = JSON.parse("{{ opponentstats[loop.index - 1] | tojson | safe }}");
+        console.log(team1Value)
+        // Draw the two-colored line for this canvas
+        drawTwoColoredLine(canvasId, '#63E5E5', '#ff5656', team1Value, team2Value);
+      </script>
+      {% endfor %}
+
+    </div>
+    <!-- Include jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Include DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+
+    <!-- Include DataTables JS -->
+    <script type="text/javascript" charset="utf8"
+      src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+
+    <!-- Include Sortable JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
+
+    <!-- Team roster-->
+    <div style="margin: 0 auto"
+      class="team-container md:w-11/12 xl:w-4/5 team-header w-full my-5 text-center rounded-lg shadow-md">
+      <h2 class="py-5 mt-5 font-bold text-center">Roster</h2>
+      <table id="sortableTable" class="sortable w-full border border-collapse border-gray-800">
+        <thead>
+          <tr class="my-4 text-xs">
+            <th>Player</th>
+            <th class="md:table-cell hidden">GP</th>
+            <th>PPG</th>
+            <th>FG%</th>
+            <th class="md:table-cell hidden">3PT/G</th>
+            <th class="md:table-cell hidden">3PT%</th>
+            <th>RPG</th>
+            <th>APG</th>
+            <th>SPG</th>
+            <th>BPG</th>
+            <th class="md:table-cell hidden">FT</th>
+            <th class="md:table-cell hidden">FT%</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          {% for player in players %}
+          <tr class="even:bg-slate-800 odd:bg-slate-900 md:text-base text-xs">
+            <td class="team-table-body-column flex items-center">
+              <img
+                src="{{ url_for('static', filename='img/player_photos/' + league_path + '/' + player.school + '/' + player.lastname_initials + ' ' + player.first_name +'.jpg') }}"
+                alt="PlayerPortrait" onerror="this.onerror=null; this.src='{{ fallback_player_portrait_url }}';"
+                class="max-w-5 md:max-w-7 h-auto mr-2 rounded-sm" />
+              <span class="font-bold">&nbsp; {{ player.lastname_initials }}. {{ player.first_name
+                }}</span>
+            </td>
+            <td class="md:table-cell hidden">
+              {{ (player.games_played) }}
+            </td>
+            <td>
+              {{ (player.total_points / player.games_played) | round(1) }}
+            </td>
+            <td>
+              {{ (player.field_goal_percentage) | round(1)}}
+            </td>
+            <td class="md:table-cell hidden">
+              {{ (player.three_pointers_made / player.games_played) | round(1)}}
+            </td>
+            <td class="md:table-cell hidden">
+              {{ (player.three_pointers_percentage) | round(1)}}
+            </td>
+            <td>
+              {{ (player.total_rebounds / player.games_played) | round(1) }}
+            </td>
+            <td>
+              {{ (player.assists / player.games_played) | round(1)}}
+            </td>
+            <td>
+              {{ (player.steals / player.games_played) | round(1) }}
+            </td>
+            <td>
+              {{ (player.blocks / player.games_played) | round(1)}}
+            </td>
+            <td class="md:table-cell hidden">
+              {{ (player.free_throws_made / player.games_played) | round(1)}}
+            </td>
+            <td class="md:table-cell hidden">
+              {{ (player.free_throws_percentage) | round(1)}}
+            </td>
+          </tr>
+          {% endfor %}
+
+        </tbody>
+      </table>
+    </div>
+
+    <style>
+      #sortableTable {
+        max-width: 100%;
+        overflow-x: auto;
+      }
+
+      /* Override default background color */
+      #sortableTable_wrapper {
+        background-color: #1d2534;
+      }
+
+      #sortableTable td,
+      #sortableTable th {
+        padding: 0.1rem;
+      }
+
+      #sortableTable th {
+        padding: 0.5rem;
+      }
+
+      /* Hide search box */
+      div.dataTables_wrapper div.dataTables_filter {
+        display: none;
+      }
+
+      /* Make sorting arrows smaller */
+      .dataTables_wrapper .dataTables_scrollHead table thead .sorting:before,
+      .dataTables_wrapper .dataTables_scrollHead table thead .sorting_asc:before,
+      .dataTables_wrapper .dataTables_scrollHead table thead .sorting_desc:before {
+        font-size: large;
+        /* Adjust the size as needed */
+      }
+    </style>
+
+    <script>
+      $(document).ready(function () {
+        $('#sortableTable').DataTable({
+          "responsive": true, // Enable responsive feature
+          "lengthMenu": [[-1], ["All"]], // Show all entries and remove "Show [number] entries" option
+          "lengthChange": false, // Disable the length change dropdown
+          "paging": false, // Disable pagination
+          "info": false // Hide the table information summary
+        });
+      });
+    </script>
+  </div>
+
 </div>
+{% endblock %}

@@ -14,8 +14,6 @@ document
   .getElementById("teamAnalyticsBtn")
   .addEventListener("click", showTeamAnalytics);
 
-
-
 // Function to show standings section
 function showStandings() {
   var standingsSection = document.getElementById("standings-section");
