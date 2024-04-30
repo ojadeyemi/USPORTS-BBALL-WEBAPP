@@ -2,6 +2,8 @@
 
 This is a personal project for me. This website is my platform for sharing analytics and insights into the Canadian university basketball league, or U Sports. I am passionate about basketball and data analysis, and this project allows me to combine the two.
 
+<a name="readme-top"></a>
+
 ## Goal
 
 I aim to provide basketball enthusiasts, coaches, players, and fans with valuable data-driven insights and analytics to help them better understand and enjoy U Sports basketball. Through this project, I aim to promote the sport and contribute to its growth in Canadian universities.
@@ -14,36 +16,20 @@ The U SPORTS BASKETBALL WEB APP project is organized into two main folders:
 
 2. **usport_flask_app**: This folder contains the Flask application code. It includes the routes, models, and other web application files.
 
-##
+## Screenshots
 
-<div class="image-container">
-    <div><img src="./screenshots/image3.png" width="500"/></div>
-    <div><img src="./screenshots/image4.png" width="500"/></div>
-    <div><img src="./screenshots/image1.png" width="500"/></div>
-    <div><img src="./screenshots/image2.png" width="500"/></div>
-    <div><img src="./screenshots/image5.png" width="500"/></div>
-    <div><img src="./screenshots/image6.png" width="500"/></div>
+<div align="center">
+    <img width="45%" src="./screenshots/image3.png" alt="screenshot"/>
+    <img width="45%" src="./screenshots/image4.png" alt="screenshot"/>
 </div>
-    <style>
-    .image-container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-    .image-container div {
-        flex: 0 1 calc(100% / 3); /* Initially, display three images in a row */
-        max-width: calc(100% / 3);
-        margin: 5px; /* Adjust margin as needed */
-    }
-    /* For small screens, display one image in a row */
-    @media screen and (max-width: 576px) {
-        .image-container div {
-            flex: 0 1 100%;
-            max-width: 100%;
-        }
-    }
-    </style>
-
+<div align="center">
+    <img  width="45%" src="./screenshots/image1.png" alt="screenshot"/>
+    <img  width="45%" src="./screenshots/image2.png" alt="screenshot"/>
+</div>
+<div align="center">
+    <img src="./screenshots/image5.png" alt="screenshot"/> 
+    <img src="./screenshots/image6.png" alt="screenshot"/>
+</div>
 
 ## Contributing
 
@@ -57,3 +43,10 @@ For any questions, feedback, or inquiries, feel free to contact me:
 
 - LinkedIn: [OJ Adeyemi](https://www.linkedin.com/in/oj-adeyemi/)
 - Email: ojieadeyemi@gmail.com
+  
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- LICENSE -->
+## License
+
+Distributed under the MIT License. See `LICENSE` for more information.
