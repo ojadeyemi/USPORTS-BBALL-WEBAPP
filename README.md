@@ -16,6 +16,9 @@ The USPORTS BASKETBALL WEB APP project is organized into three main folders:
 
 3. **usport_flask_app**: This folder contains the Flask application code. It includes the routes, models, and other files necessary for running the web application.
 
+![Screenshot 1](./screenshots/image1.png)
+
+![Screenshot 2](./screenshots/image2.png)
 
 ## Contributing
 
