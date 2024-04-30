@@ -1,6 +1,6 @@
 # USPORTS BASKETBALL WEB APP (IN PROGRESS)
 
-This is a personal project for me, a computer science student. This website is my platform for sharing analytics and insights into the Canadian university basketball league, or U Sports. I am passionate about basketball and data analysis, and this project allows me to combine the two.
+This is a personal project for me. This website is my platform for sharing analytics and insights into the Canadian university basketball league, or U Sports. I am passionate about basketball and data analysis, and this project allows me to combine the two.
 
 ## Goal
 
@@ -14,9 +14,36 @@ The U SPORTS BASKETBALL WEB APP project is organized into two main folders:
 
 2. **usport_flask_app**: This folder contains the Flask application code. It includes the routes, models, and other web application files.
 
-![Screenshot 1](./screenshots/image1.png)
+##
 
-![Screenshot 2](./screenshots/image2.png)
+<div class="image-container">
+    <div><img src="./screenshots/image3.png" width="500"/></div>
+    <div><img src="./screenshots/image4.png" width="500"/></div>
+    <div><img src="./screenshots/image1.png" width="500"/></div>
+    <div><img src="./screenshots/image2.png" width="500"/></div>
+    <div><img src="./screenshots/image5.png" width="500"/></div>
+    <div><img src="./screenshots/image6.png" width="500"/></div>
+</div>
+    <style>
+    .image-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .image-container div {
+        flex: 0 1 calc(100% / 3); /* Initially, display three images in a row */
+        max-width: calc(100% / 3);
+        margin: 5px; /* Adjust margin as needed */
+    }
+    /* For small screens, display one image in a row */
+    @media screen and (max-width: 576px) {
+        .image-container div {
+            flex: 0 1 100%;
+            max-width: 100%;
+        }
+    }
+    </style>
+
 
 ## Contributing
 

@@ -50,7 +50,8 @@ cd usport_flask_app/static/
 4. Test your changes locally to ensure they work as expected.
 
 ```bash
- python usport_flask_app/app.py #run app on local server to see changes
+ python app.py #run app on local server to see changes
+ flask run --debug #or run with flask command
 ```
 
 5. Commit your changes with a descriptive commit message:
