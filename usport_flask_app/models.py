@@ -45,7 +45,7 @@ class __BaseTeam(db.Model):
     __abstract__ = True
     team_id: Mapped[int] = mapped_column(Integer, primary_key=True)
     team_name: Mapped[str] = mapped_column(String(255), unique=True)
-    conference: Mapped[str] = mapped_column(String(10))
+    conference: Mapped[str] = mapped_column(String(50))
     last_ten_games: Mapped[str] = mapped_column(String(50))
     games_played: Mapped[int] = mapped_column(Integer)
     total_wins: Mapped[int] = mapped_column(Integer)

@@ -20,14 +20,18 @@ March 10, 2024
 """
 import os
 import logging
-from sqlalchemy import create_engine, text
+from sqlalchemy import create_engine, text, types
 from sqlalchemy.exc import SQLAlchemyError
-from .usportsbballstats import usports_team_stats, usports_player_stats
+from usports_basketball import usports_team_stats, usports_player_stats
 
 
 def update_usports_bball_db(mysql_password: str):
     # Configure logging
     logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+    team_dtypes = {'team_name':types.NVARCHAR(length=255), 'conference':types.NVARCHAR(length=50),
+                   'last_ten_games':types.NVARCHAR(length=50), 'streak':types.NVARCHAR(length=50)}
+    player_dtypes={'lastname_initials':types.NVARCHAR(length=5), 'first_name':types.NVARCHAR(length=255),
+                    'school':types.NVARCHAR(length=50)}
 
     mysqldatabase = f"mysql+pymysql://root:{mysql_password}@localhost/usports_bball"
 
@@ -63,32 +67,32 @@ def update_usports_bball_db(mysql_password: str):
 
             try:
                 # Attempt to write men_df DataFrame to SQLite database
-                men_df.to_sql(name='men_team', con=conn,
-                            if_exists='replace', index=False)
+                men_df.to_sql(name='men_team', con=conn, if_exists='replace', 
+                              index=False,dtype=team_dtypes)
                 logging.info("Men's team data written to 'men_team' table successfully!")
             except Exception as e:
                 logging.error("Error writing men's team data to database: %s", e)
 
             try:
                 # Attempt to write women_df DataFrame to SQLite database
-                women_df.to_sql(name='women_team', con=conn,
-                                if_exists='replace', index=False)
+                women_df.to_sql(name='women_team', con=conn, if_exists='replace', 
+                                index=False,dtype=team_dtypes)
                 logging.info("Women's team data written to 'women_team' table successfully!")
             except Exception as e:
                 logging.error("Error writing women's team data to database: %s", e)
 
             try:
                 # Attempt to write men_players_df DataFrame to SQLite database
-                men_players_df.to_sql(name='men_players', con=conn,
-                                    if_exists='replace', index=False)
+                men_players_df.to_sql(name='men_players', con=conn,if_exists='replace', 
+                                      index=False,dtype=player_dtypes)
                 logging.info("Men's players data written to 'men_players' table successfully!")
             except Exception as e:
                 logging.error("Error writing men's players data to database: %s", e)
 
             try:
                 # Attempt to write women_players_df DataFrame to SQLite database
-                women_players_df.to_sql(name='women_players',
-                                        con=conn, if_exists='replace', index=False)
+                women_players_df.to_sql(name='women_players', con=conn, if_exists='replace', 
+                                        index=False, dtype=player_dtypes)
                 logging.info("Women's players data written to 'women_players' table successfully!")
             except Exception as e:
                 logging.error("Error writing women's players data to database: %s", e)
