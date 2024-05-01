@@ -1,0 +1,229 @@
+<div>
+    <div class="max-w-xl mx-auto mt-5">
+        <p class="md:text-sm text-xs text-center text-gray-400">
+            Select two teams from the dropdown menu to compare their stats plotted
+            in the radar chart.
+        </p>
+    </div>
+    <!-- Team Selection Dropdowns -->
+    <div class="md:text-lg flex justify-center my-3 space-x-4 text-xs">
+        <select id="team1-select"
+            class="hover:bg-gray-700 focus:bg-gray-700 w-1/4 text-center text-white bg-gray-800 rounded">
+            <!-- Populate options dynamically using Flask -->
+            {% for team in (teams |sort(attribute='team_name' )) %}
+            <option value="{{ team.team_name }}">{{ team.team_name }}</option>
+            {% endfor %}
+        </select>
+
+        <select id="team2-select"
+            class="hover:bg-gray-700 focus:bg-gray-700 w-1/4 text-center text-white bg-gray-800 rounded">
+            <!-- Populate options dynamically using Flask -->
+            {% for team in (teams |sort(attribute='team_name' )) %}
+            <option value="{{ team.team_name }}">{{ team.team_name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="md:m-5 flex items-center justify-center" style="max-height: 40rem">
+        <canvas id="radarChart" height="500" width="500"></canvas>
+    </div>
+
+    <hr>
+    <p class="glossary-text md:px-4 px-2" style="font-size: x-small;"><strong>Note: &nbsp;</strong>All metrics in the
+        radar chart are normalized between 50 and 99. For instance, the team with the highest assist-turnover ratio,
+        will be rated a 99 Playmaking, while the lowest-ranking team will be rated a 50. Every team's rating falls
+        somewhere in between these extremes, reflecting their performance relative to each other (normalized).</p>
+
+    <div class="container px-4 py-2 mx-auto">
+        <h2 class="md:text-3xl my-2 text-2xl font-bold">Glossary</h2>
+
+        <ul class="shadow-purple-600 rounded-xl max-w-5xl mx-auto border divide-y shadow">
+            <li>
+                <details class="group">
+                    <summary
+                        class="marker:content-none hover:cursor-pointer flex items-center gap-3 px-4 py-3 font-medium">
+                        <svg class="group-open:rotate-90 w-5 h-5 text-gray-500 transition"
+                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z">
+                            </path>
+                        </svg>
+                        <span>Overall</span>
+                    </summary>
+
+                    <article class="px-4 pb-4">
+                        <p>
+                            Overall refers to the combined performance of a team in all aspects of the game.
+                            It is derived from the <strong>team's net efficiency</strong>, which measures how
+                            effectively
+                            the team
+                            utilizes its possessions
+                            to score points and prevent the opposing team from scoring.
+                        </p>
+                    </article>
+                </details>
+            </li>
+            <li>
+                <details class="group">
+                    <summary
+                        class="marker:content-none hover:cursor-pointer flex items-center gap-3 px-4 py-3 font-medium">
+                        <svg class="group-open:rotate-90 w-5 h-5 text-gray-500 transition"
+                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z">
+                            </path>
+                        </svg>
+                        <span>Offense</span>
+                    </summary>
+
+                    <article class="px-4 pb-4">
+                        <p>
+                            Offense represents a team's capability to score points through various methods like
+                            shooting,
+                            passing,
+                            and
+                            driving to the basket.
+                            Offensive efficiency gauges how efficiently a team scores points per possession.
+                        </p>
+                    </article>
+                </details>
+            </li>
+            <li>
+                <details class="group">
+                    <summary
+                        class="marker:content-none hover:cursor-pointer flex items-center gap-3 px-4 py-3 font-medium">
+                        <svg class="group-open:rotate-90 w-5 h-5 text-gray-500 transition"
+                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z">
+                            </path>
+                        </svg>
+                        <span>Defense</span>
+                    </summary>
+
+                    <article class="px-4 pb-4">
+                        <p>
+                            Defense signifies a team's proficiency in preventing the opposing team from scoring points.
+                            Defensive efficiency quantifies how effectively a team prevents the opposition from scoring
+                            per
+                            possession.
+                        </p>
+                    </article>
+                </details>
+            </li>
+            <li>
+                <details class="group">
+                    <summary
+                        class="marker:content-none hover:cursor-pointer flex items-center gap-3 px-4 py-3 font-medium">
+                        <svg class="group-open:rotate-90 w-5 h-5 text-gray-500 transition"
+                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z">
+                            </path>
+                        </svg>
+                        <span>Playmaking</span>
+                    </summary>
+
+                    <article class="px-4 pb-4">
+                        <p>
+                            Playmaking denotes a team's skill in creating scoring opportunities for both themselves and
+                            their
+                            teammates.
+                            Playmaking is determined by a team's <strong> assist-turnover ratio</strong>, which compares
+                            assists per
+                            game
+                            to
+                            turnovers per game.
+                        </p>
+                    </article>
+                </details>
+            </li>
+            <li>
+                <details class="group">
+                    <summary
+                        class="marker:content-none hover:cursor-pointer flex items-center gap-3 px-4 py-3 font-medium">
+                        <svg class="group-open:rotate-90 w-5 h-5 text-gray-500 transition"
+                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z">
+                            </path>
+                        </svg>
+                        <span>Rebounding</span>
+                    </summary>
+
+                    <article class="px-4 pb-4">
+                        <p>
+                            Rebounding showcases a team's ability to retrieve missed shots on both offense and defense.
+                            Rebound margin quantifies the difference between total rebounds per game by the team and
+                            total
+                            rebounds
+                            per
+                            game allowed by their opponents.
+                        </p>
+                    </article>
+                </details>
+            </li>
+            <li>
+                <details class="group">
+                    <summary
+                        class="marker:content-none hover:cursor-pointer flex items-center gap-3 px-4 py-3 font-medium">
+                        <svg class="group-open:rotate-90 w-5 h-5 text-gray-500 transition"
+                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z">
+                            </path>
+                        </svg>
+                        <span>3pt Shooting</span>
+                    </summary>
+
+                    <article class="px-4 pb-4">
+                        <p>
+                            3pt Shooting assesses a team's effectiveness in scoring points through three-pointers.
+                            3-Point Shooting efficiency considers both the team's three-point shooting percentage and
+                            the
+                            frequency
+                            of
+                            three-point attempts per game.
+                        </p>
+                    </article>
+                </details>
+            </li>
+            <li>
+                <details class="group">
+                    <summary
+                        class="marker:content-none hover:cursor-pointer flex items-center gap-3 px-4 py-3 font-medium">
+                        <svg class="group-open:rotate-90 w-5 h-5 text-gray-500 transition"
+                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z">
+                            </path>
+                        </svg>
+                        <span>Efficiency</span>
+                    </summary>
+
+                    <article class="px-4 pb-4">
+                        <p>
+                            Efficiency reflects how efficiently a team utilizes its possessions to score points and
+                            prevent
+                            the
+                            opposing
+                            team from scoring.
+                            Effective Field Goal Percentage (EFG) adjusts for the value of three-point shots, calculated
+                            based on
+                            field
+                            goals made, three-pointers made, and field goal attempts.
+                        </p>
+                    </article>
+                </details>
+            </li>
+
+        </ul>
+    </div>
+</div>

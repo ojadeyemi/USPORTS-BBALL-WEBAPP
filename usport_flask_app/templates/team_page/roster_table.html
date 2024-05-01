@@ -1,0 +1,120 @@
+<div>
+    <!-- Team roster-->
+    <div style="margin: 0 auto"
+        class="team-container md:w-11/12 xl:w-4/5 team-header w-full my-5 text-center rounded-lg shadow-md">
+        <h2 class="py-5 mt-5 font-bold text-center">Roster</h2>
+        <table id="sortableTable" class="sortable w-full border border-collapse border-gray-800">
+            <thead>
+                <tr class="my-4 text-xs">
+                    <th>Player</th>
+                    <th class="md:table-cell hidden">GP</th>
+                    <th>PPG</th>
+                    <th>FG%</th>
+                    <th>3PT/G</th>
+                    <th>3PT%</th>
+                    <th>RPG</th>
+                    <th>APG</th>
+                    <th>SPG</th>
+                    <th>BPG</th>
+                    <th class="md:table-cell hidden">FT</th>
+                    <th class="md:table-cell hidden">FT%</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for player in players %}
+                <tr class="even:bg-slate-800 odd:bg-slate-900 md:text-base text-xs">
+                    <td class="team-table-body-column flex items-center">
+                        <img src="{{ url_for('static', filename='img/player_photos/' + league_path + '/' + player.school + '/' + player.lastname_initials + ' ' + player.first_name +'.jpg') }}"
+                            alt="PlayerPortrait"
+                            onerror="this.onerror=null; this.src='{{ fallback_player_portrait_url }}';"
+                            class="max-w-5 md:max-w-7 h-auto mr-2 rounded-sm" />
+                        <span class="font-bold">&nbsp; {{ player.lastname_initials }}. {{ player.first_name
+                            }}</span>
+                    </td>
+                    <td class="md:table-cell hidden">
+                        {{ (player.games_played) }}
+                    </td>
+                    <td>
+                        {{ (player.total_points / player.games_played) | round(1) }}
+                    </td>
+                    <td>
+                        {{ (player.field_goal_percentage) | round(1)}}
+                    </td>
+                    <td>
+                        {{ (player.three_pointers_made / player.games_played) | round(1)}}
+                    </td>
+                    <td>
+                        {{ (player.three_pointers_percentage) | round(1)}}
+                    </td>
+                    <td>
+                        {{ (player.total_rebounds / player.games_played) | round(1) }}
+                    </td>
+                    <td>
+                        {{ (player.assists / player.games_played) | round(1)}}
+                    </td>
+                    <td>
+                        {{ (player.steals / player.games_played) | round(1) }}
+                    </td>
+                    <td>
+                        {{ (player.blocks / player.games_played) | round(1)}}
+                    </td>
+                    <td class="md:table-cell hidden">
+                        {{ (player.free_throws_made / player.games_played) | round(1)}}
+                    </td>
+                    <td class="md:table-cell hidden">
+                        {{ (player.free_throws_percentage) | round(1)}}
+                    </td>
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+
+    <style>
+        #sortableTable {
+            max-width: 100%;
+            overflow-x: auto;
+        }
+
+        #sortableTable td,
+        #sortableTable th {
+            padding: 0.1rem;
+        }
+
+        #sortableTable th {
+            padding: 0.5rem;
+        }
+
+        /* Hide search box */
+        div.dataTables_wrapper div.dataTables_filter {
+            display: none;
+        }
+
+    </style>
+    <!-- Include jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Include DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+
+    <!-- Include DataTables JS -->
+    <script type="text/javascript" charset="utf8"
+        src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+
+    <!-- Include Sortable JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#sortableTable').DataTable({
+                "responsive": true, // Enable responsive feature
+                "lengthMenu": [[-1], ["All"]], // Show all entries and remove "Show [number] entries" option
+                "lengthChange": false, // Disable the length change dropdown
+                "paging": false, // Disable pagination
+                "info": false // Hide the table information summary
+            });
+        });
+    </script>
+
+</div>

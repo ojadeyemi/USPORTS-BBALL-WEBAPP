@@ -1,0 +1,27 @@
+{% set num = 5 %}
+{% macro render_leaderboard_table(title,category,players) %}
+<h2 class="leaderboard-stats-subtitle">{{ title }}</h2>
+<table class="leaderboard-stats-table">
+  {% set count = namespace(value=num) %} {% for player in
+  (players|sort(attribute=category, reverse=true)) %} {% if
+  player.games_played > (0.6 * player.team_games_played) %}{%if
+  count.value >= 1%}
+
+  <tr class="leaderboard-stats-rows">
+    <td class="w-1/12 pl-3">{{ num - count.value + 1}}</td>
+    <td class="font-bold text-left">
+      {{ player.lastname_initials }} &nbsp {{ player.first_name }}
+    </td>
+    <td class="w-1/12">
+      <img src="{{ url_for('static', filename='img/team_logos/' + player.school +'.png') }}" alt="Team Logo"
+        class="leaderboard-stats-images" />
+    </td>
+    <td>{{ player.school }}</td>
+    <td class="font-bold text-center">
+      {{ player[category] | round(1) }}
+    </td>
+  </tr>
+  {% set count.value = count.value - 1 %} {% endif %} {% endif %} {%
+  endfor %}
+</table>
+{% endmacro %}

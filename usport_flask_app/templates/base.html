@@ -12,12 +12,11 @@
 </head>
 <!-- Custom background for large screens -->
 
-<body
-  class="bg-gradient-to-tr from-slate-900 to-amber-800 text-white">
+<body class="bg-gradient-to-tr from-slate-900 to-amber-800 text-white">
   <div class="max-w-screen-2xl border-cyan-800 bg-slate-900 mx-auto bg-center bg-cover border">
     <!-- Header -->
     <header class="bg-slate-700 md:text-xl flex items-center justify-between px-6 py-3 text-sm text-white">
-      <a  href="/" class="font-bold">U Sports Basketball</a>
+      <a href="/" class="font-bold">U Sports Basketball</a>
       <nav>
         <a href="/"
           class="hover:text-gray-300 hover:bg-blue-600 px-3 py-1 mr-5 transition duration-300 rounded">Home</a>
@@ -25,6 +24,7 @@
           class="hover:text-gray-300 hover:bg-blue-600 px-3 py-1 transition duration-300 rounded">About</a>
       </nav>
     </header>
+    <div>{% block subheader %} {% endblock %}</div>
 
     <!-- Main content -->
     <main class="m-4">{% block content %} {% endblock %}</main>

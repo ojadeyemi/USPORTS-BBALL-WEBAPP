@@ -1,420 +1,74 @@
-{% extends "base.html" %} {% block content %}
+{% import './macros/standings_table.html' as standings_table %}
+{% import './macros/stats_leaderboard_table.html' as leaderboard_table %}
+{% extends "base.html" %}
 
+{% block subheader %}
+<h1 class="md:text-3xl py-2 text-xl font-bold text-center text-gray-400">
+  {{ league }} League
+</h1>
+<!-- Navigation -->
+<div class="flex justify-center">
+  <nav class="flex flex-row" role="group">
+    <button id="standingsBtn" type="button" class="nav-btn">Standings</button>
+    <button id="leaderboardBtn" type="button" class="nav-btn">
+      <span class="md:inline hidden">Stats Leaderboard</span>
+      <!-- Hidden on small screens -->
+      <span class="md:hidden">Stats</span>
+    </button>
+    <button id="teamAnalyticsBtn" type="button" class="nav-btn">
+      <span class="md:inline hidden">Team Analytics</span>
+      <!-- Hidden on small screens -->
+      <span class="md:hidden">Analytics</span>
+    </button>
+    <button id="playoffsBtn" type="button" class="nav-btn">Playoffs</button>
+  </nav>
+</div>
+{% endblock %}
+
+
+{% block content %}
 <div>
-  <h1 class="py-2 text-xl font-bold text-center text-gray-400 md:text-3xl">
-    {{ league }} League
-  </h1>
-  <!-- Navigation -->
-  <div class="flex justify-center">
-    <nav class="flex flex-row" role="group">
-      <button id="standingsBtn" type="button" class="nav-btn">Standings</button>
-      <button id="leaderboardBtn" type="button" class="nav-btn">
-        <span class="hidden md:inline">Stats Leaderboard</span>
-        <!-- Hidden on small screens -->
-        <span class="md:hidden">Stats</span>
-      </button>
-      <button id="teamAnalyticsBtn" type="button" class="nav-btn">
-        <span class="hidden md:inline">Team Analytics</span>
-        <!-- Hidden on small screens -->
-        <span class="md:hidden">Analytics</span>
-      </button>
-      <button id="playoffsBtn" type="button" class="nav-btn">Playoffs</button>
-    </nav>
-  </div>
-
-  <!-- Standings Section -->
+  <!-- STANDINGS SECTION -->
   <div id="standings-section" style="display: block" class="min-h-screen">
+
     <h2 class="nav-title">
       STANDINGS
     </h2>
 
-    <div style="margin: 0 auto" class="w-full lg:w-3/4">
+    <div>
       <h3 class="standings-conference-title">OUA Conference</h3>
-      <table class="standings-conference-table">
-        <thead class="bg-gray-800 border border-gray-800">
-          <tr class="text-xs md:text-base">
-            <th class="py-2 border-r border-gray-900">#</th>
-            <th class="border-r border-gray-900">TEAM</th>
-            <th class="px-2 border-r border-gray-900">
-              <span class="hidden md:inline">WIN</span>
-              <!-- Hidden on small screens -->
-              <span class="md:hidden">W</span>
-              <!-- Shown on small screens -->
-            </th>
-            <th class="px-2 border-r border-gray-900">
-              <span class="hidden md:inline">LOSS</span>
-              <!-- Hidden on small screens -->
-              <span class="md:hidden">L</span>
-              <!-- Shown on small screens -->
-            </th>
-            <th class="border-r border-gray-900">PCT</th>
-            <th class="hidden px-2 border-r border-gray-900 md:table-cell">
-              GP
-            </th>
-            <th class="px-2 border-r border-gray-900">
-              <span class="hidden md:inline">LAST 10</span>
-              <!-- Hidden on small screens -->
-              <span class="md:hidden">L 10</span>
-              <!-- Shown on small screens -->
-            </th>
-            <th class="px-2 border-b border-r border-gray-800">
-              <span class="hidden md:inline">STREAK</span>
-              <!-- Hidden on small screens -->
-              <span class="md:hidden">STRK</span>
-              <!-- Shown on small screens -->
-            </th>
-          </tr>
-        </thead>
-
-        <tbody class="rounded-lg shadow-md bg-slate-950">
-          {% for team in teams if team.conference == 'OUA East' or team.conference == 'OUA West' or team.conference ==
-          'OUA Central' %}
-          <tr class=" team {{ team.conference }} standings-table-rows">
-            <td class="border-r border-gray-900">{{ loop.index }}</td>
-            <td class="flex items-center border-r border-gray-900">
-              <img src="{{ url_for('static', filename='img/team_logos/' + team.team_name +'.png') }}" alt="Team Logo"
-                class="standings-team-logos" />
-              <span class="font-bold">
-                {% if team.team_name == 'Toronto Metropolitan' %}
-                <a href="{{ url_for('team_page', league_path=league_path, team_path='Toronto Metropolitan') }}"
-                  class="no-underline hover:underline">TMU</a>
-                {% else %}
-                <a href="{{ url_for('team_page', league_path=league_path, team_path=team.team_name) }}"
-                  class="no-underline hover:underline">{{ team.team_name }}</a>
-                {% endif %}
-              </span>
-            </td>
-            <td class="p-1 border-r border-gray-900">{{ team.total_wins }}</td>
-            <td class="p-1 border-r border-gray-900">
-              {{ team.total_losses }}
-            </td>
-            <td class="p-1 font-bold border-r border-gray-900">
-              {{ team.win_percentage }}
-            </td>
-            <td class="hidden p-1 border-r border-gray-900 md:table-cell">
-              {{ team.games_played }}
-            </td>
-            <td class="border-r border-gray-900">{{ team.last_ten_games }}</td>
-            <td class="border-r border-gray-900">{{ team.streak }}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+      <div>{{ standings_table.render_standings_table(league_path,["OUA East","OUA West","OUA Central"],teams)}}</div>
     </div>
-
-    <div style="margin: 0 auto" class="w-full lg:w-3/4">
+    <div>
       <h3 class="standings-conference-title">CW Conference</h3>
-      <table class="standings-conference-table">
-        <thead class="bg-gray-800 border border-gray-800">
-          <tr class="text-xs md:text-base">
-            <th class="py-2 border-r border-gray-900">#</th>
-            <th class="border-r border-gray-900">TEAM</th>
-            <th class="px-2 border-r border-gray-900">
-              <span class="hidden md:inline">WIN</span>
-              <!-- Hidden on small screens -->
-              <span class="md:hidden">W</span>
-              <!-- Shown on small screens -->
-            </th>
-            <th class="px-2 border-r border-gray-900">
-              <span class="hidden md:inline">LOSS</span>
-              <!-- Hidden on small screens -->
-              <span class="md:hidden">L</span>
-              <!-- Shown on small screens -->
-            </th>
-            <th class="border-r border-gray-900">PCT</th>
-            <th class="hidden px-2 border-r border-gray-900 md:table-cell">
-              GP
-            </th>
-            <th class="px-2 border-r border-gray-900">
-              <span class="hidden md:inline">LAST 10</span>
-              <!-- Hidden on small screens -->
-              <span class="md:hidden">L 10</span>
-              <!-- Shown on small screens -->
-            </th>
-            <th class="px-2 border-b border-r border-gray-800">
-              <span class="hidden md:inline">STREAK</span>
-              <!-- Hidden on small screens -->
-              <span class="md:hidden">STRK</span>
-              <!-- Shown on small screens -->
-            </th>
-          </tr>
-        </thead>
-        <tbody class="rounded-lg shadow-md bg-slate-950">
-          {% for team in teams if team.conference == 'CW' %}
-          <tr class="standings-table-rows">
-            <td class="border-r border-gray-900">{{ loop.index }}</td>
-            <td class="flex items-center border-r border-gray-900">
-              <img src="{{ url_for('static', filename='img/team_logos/' + team.team_name +'.png') }}" alt="Team Logo"
-                class="standings-team-logos" />
-              <span class="font-bold">
-                {% if team.team_name == 'Toronto Metropolitan' %}
-                <a href="{{ url_for('team_page', league_path=league_path, team_path='Toronto Metropolitan') }}"
-                  class="no-underline hover:underline">TMU</a>
-                {% else %}
-                <a href="{{ url_for('team_page', league_path=league_path, team_path=team.team_name) }}"
-                  class="no-underline hover:underline">{{ team.team_name }}</a>
-                {% endif %}
-              </span>
-            </td>
-            <td class="p-1 border-r border-gray-900">{{ team.total_wins }}</td>
-            <td class="p-1 border-r border-gray-900">
-              {{ team.total_losses }}
-            </td>
-            <td class="p-1 font-bold border-r border-gray-900">
-              {{ team.win_percentage }}
-            </td>
-            <td class="hidden p-1 border-r border-gray-900 md:table-cell">
-              {{ team.games_played }}
-            </td>
-            <td class="border-r border-gray-900">{{ team.last_ten_games }}</td>
-            <td class="border-r border-gray-900">{{ team.streak }}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+      <div>{{ standings_table.render_standings_table(league_path,"CW",teams) }}</div>
     </div>
-
-    <div style="margin: 0 auto" class="w-full lg:w-3/4">
+    <div>
       <h3 class="standings-conference-title">AUS Conference</h3>
-      <table class="standings-conference-table">
-        <thead class="bg-gray-800 border border-gray-800">
-          <tr class="text-xs md:text-base">
-            <th class="py-2 border-r border-gray-900">#</th>
-            <th class="border-r border-gray-900">TEAM</th>
-            <th class="px-2 border-r border-gray-900">
-              <span class="hidden md:inline">WIN</span>
-              <!-- Hidden on small screens -->
-              <span class="md:hidden">W</span>
-              <!-- Shown on small screens -->
-            </th>
-            <th class="px-2 border-r border-gray-900">
-              <span class="hidden md:inline">LOSS</span>
-              <!-- Hidden on small screens -->
-              <span class="md:hidden">L</span>
-              <!-- Shown on small screens -->
-            </th>
-            <th class="border-r border-gray-900">PCT</th>
-            <th class="hidden px-2 border-r border-gray-900 md:table-cell">
-              GP
-            </th>
-            <th class="px-2 border-r border-gray-900">
-              <span class="hidden md:inline">LAST 10</span>
-              <!-- Hidden on small screens -->
-              <span class="md:hidden">L 10</span>
-              <!-- Shown on small screens -->
-            </th>
-            <th class="px-2 border-b border-r border-gray-800">
-              <span class="hidden md:inline">STREAK</span>
-              <!-- Hidden on small screens -->
-              <span class="md:hidden">STRK</span>
-              <!-- Shown on small screens -->
-            </th>
-          </tr>
-        </thead>
-        <tbody class="rounded-lg shadow-md bg-slate-950">
-          {% for team in teams if team.conference == 'AUS' %}
-          <tr class=" team {{ team.conference }} standings-table-rows">
-            <td class="border-r border-gray-900">{{ loop.index }}</td>
-            <td class="flex items-center border-r border-gray-900">
-              <img src="{{ url_for('static', filename='img/team_logos/' + team.team_name +'.png') }}" alt="Team Logo"
-                class="standings-team-logos" />
-              <span class="font-bold">
-                {% if team.team_name == 'Toronto Metropolitan' %}
-                <a href="{{ url_for('team_page', league_path=league_path, team_path='Toronto Metropolitan') }}"
-                  class="no-underline hover:underline">TMU</a>
-                {% else %}
-                <a href="{{ url_for('team_page', league_path=league_path, team_path=team.team_name) }}"
-                  class="no-underline hover:underline">{{ team.team_name }}</a>
-                {% endif %}
-              </span>
-            </td>
-
-            <td class="p-1 border-r border-gray-900">{{ team.total_wins }}</td>
-            <td class="p-1 border-r border-gray-900">
-              {{ team.total_losses }}
-            </td>
-            <td class="p-1 font-bold border-r border-gray-900">
-              {{ team.win_percentage }}
-            </td>
-            <td class="hidden p-1 border-r border-gray-900 md:table-cell">
-              {{ team.games_played }}
-            </td>
-            <td class="border-r border-gray-900">{{ team.last_ten_games }}</td>
-            <td class="border-r border-gray-900">{{ team.streak }}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+      <div>{{ standings_table.render_standings_table(league_path,"AUS",teams) }}</div>
     </div>
-
-    <div style="margin: 0 auto" class="w-full lg:w-3/4">
+    <div>
       <h3 class="standings-conference-title">RSEQ Conference</h3>
-      <table class="standings-conference-table">
-        <thead class="bg-gray-800 border border-gray-800">
-          <tr class="text-xs md:text-base">
-            <th class="py-2 border-r border-gray-900">#</th>
-            <th class="border-r border-gray-900">TEAM</th>
-            <th class="px-2 border-r border-gray-900">
-              <span class="hidden md:inline">WIN</span>
-              <!-- Hidden on small screens -->
-              <span class="md:hidden">W</span>
-              <!-- Shown on small screens -->
-            </th>
-            <th class="px-2 border-r border-gray-900">
-              <span class="hidden md:inline">LOSS</span>
-              <!-- Hidden on small screens -->
-              <span class="md:hidden">L</span>
-              <!-- Shown on small screens -->
-            </th>
-            <th class="border-r border-gray-900">PCT</th>
-            <th class="hidden px-2 border-r border-gray-900 md:table-cell">
-              GP
-            </th>
-            <th class="px-2 border-r border-gray-900">
-              <span class="hidden md:inline">LAST 10</span>
-              <!-- Hidden on small screens -->
-              <span class="md:hidden">L 10</span>
-              <!-- Shown on small screens -->
-            </th>
-            <th class="px-2 border-b border-r border-gray-800">
-              <span class="hidden md:inline">STREAK</span>
-              <!-- Hidden on small screens -->
-              <span class="md:hidden">STRK</span>
-              <!-- Shown on small screens -->
-            </th>
-          </tr>
-        </thead>
-        <tbody class="rounded-lg shadow-md bg-slate-950">
-          {% for team in teams if team.conference == 'RSEQ' %}
-          <tr class=" team {{ team.conference }} standings-table-rows">
-            <td class="border-r border-gray-900">{{ loop.index }}</td>
-            <td class="flex items-center border-r border-gray-900">
-              <img src="{{ url_for('static', filename='img/team_logos/' + team.team_name +'.png') }}" alt="Team Logo"
-                class="standings-team-logos" />
-              <span class="font-bold">
-                {% if team.team_name == 'Toronto Metropolitan' %}
-                <a href="{{ url_for('team_page', league_path=league_path, team_path='Toronto Metropolitan') }}"
-                  class="no-underline hover:underline">TMU</a>
-                {% else %}
-                <a href="{{ url_for('team_page', league_path=league_path, team_path=team.team_name) }}"
-                  class="no-underline hover:underline">{{ team.team_name }}</a>
-                {% endif %}
-              </span>
-            </td>
-
-            <td class="p-1 border-r border-gray-900">{{ team.total_wins }}</td>
-            <td class="p-1 border-r border-gray-900">
-              {{ team.total_losses }}
-            </td>
-            <td class="p-1 font-bold border-r border-gray-900">
-              {{ team.win_percentage }}
-            </td>
-            <td class="hidden p-1 border-r border-gray-900 md:table-cell">
-              {{ team.games_played }}
-            </td>
-            <td class="border-r border-gray-900">{{ team.last_ten_games }}</td>
-            <td class="border-r border-gray-900">{{ team.streak }}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+      <div>{{ standings_table.render_standings_table(league_path,"RSEQ",teams) }}</div>
     </div>
-
-
 
   </div>
 
-  <!-- Player Leaderboard Section -->
+  <!-- PLAYER LEADERBOARD SECTION -->
   <div id="playerleaderboard-section" style="display: none" class="flex flex-col min-h-screen">
-    {% set numval = 10 %}
 
     <h2 class="nav-title">
-      LEADERBOARD
+      LEADERBOARD (Handle percentages)
     </h2>
-
+    {% set numval = 5 %}
     <!-- Points per game -->
-    <div>
-      <h2 class="leaderboard-stats-subtitle">Points per game</h2>
-      <table class="leaderboard-stats-table">
-        {% set count = namespace(value=numval) %} {% for player in
-        (players|sort(attribute='points_per_game', reverse=true)) %} {% if
-        player.games_played > (0.6 * player.team_games_played) %}{%if
-        count.value >= 1%}
-
-        <tr class="leaderboard-stats-rows">
-          <td class="w-1/12 pl-3">{{ numval - count.value + 1}}</td>
-          <td class="font-bold text-left">
-            {{ player.lastname_initials }} &nbsp {{ player.first_name }}
-          </td>
-          <td class="w-1/12">
-            <img src="{{ url_for('static', filename='img/team_logos/' + player.school +'.png') }}" alt="Team Logo"
-              class="leaderboard-stats-images" />
-          </td>
-          <td>{{ player.school }}</td>
-          <td class="font-bold text-center">
-            {{ player.points_per_game | round(1) }} &nbsp;&nbsp;
-          </td>
-        </tr>
-        {% set count.value = count.value - 1 %} {% endif %} {% endif %} {%
-        endfor %}
-      </table>
-    </div>
+    <div>{{ leaderboard_table.render_leaderboard_table("Points per game","points_per_game",players) }}</div>
 
     <!-- Rebounds per game -->
-    <div>
-      <h2 class="leaderboard-stats-subtitle">Rebounds per game</h2>
-      <table class="leaderboard-stats-table">
-        {% set count = namespace(value=numval) %} {% for player in
-        (players|sort(attribute='rebounds_per_game', reverse=true)) %} {% if
-        player.games_played > (0.6 * player.team_games_played) %}{%if
-        count.value >= 1%}
-
-        <tr class="leaderboard-stats-rows">
-          <td class="w-1/12 pl-3">{{ numval - count.value + 1}}</td>
-          <td class="font-bold text-left">
-            {{ player.lastname_initials }} &nbsp {{ player.first_name }}
-          </td>
-          <td class="w-1/12">
-            <img src="{{ url_for('static', filename='img/team_logos/' + player.school +'.png') }}" alt="Team Logo"
-              class="leaderboard-stats-images" />
-          </td>
-          <td>{{ player.school }}</td>
-          <td class="font-bold text-center">
-            {{ player.rebounds_per_game | round(1) }}&nbsp;&nbsp;
-          </td>
-        </tr>
-        {% set count.value = count.value - 1 %} {% endif %} {% endif %} {%
-        endfor %}
-      </table>
-    </div>
+    <div>{{ leaderboard_table.render_leaderboard_table("Rebounds per game","rebounds_per_game",players) }}</div>
 
     <!-- Assists per game -->
-    <div>
-      <h2 class="leaderboard-stats-subtitle">Assists per game</h2>
-      <table class="leaderboard-stats-table">
-        {% set count = namespace(value=numval) %} {% for player in
-        (players|sort(attribute='assists_per_game', reverse=true)) %} {% if
-        player.games_played > (0.6 * player.team_games_played) %}{%if
-        count.value >= 1%}
-
-        <tr class="leaderboard-stats-rows">
-          <td class="w-1/12 pl-3">{{ numval - count.value + 1}}</td>
-          <td class="font-bold text-left">
-            {{ player.lastname_initials }} &nbsp {{ player.first_name }}
-          </td>
-          <td class="w-1/12">
-            <img src="{{ url_for('static', filename='img/team_logos/' + player.school +'.png') }}" alt="Team Logo"
-              class="leaderboard-stats-images" />
-          </td>
-          <td>{{ player.school }}</td>
-          <td class="font-bold text-center">
-            {{ player.assists_per_game | round(1) }} &nbsp;&nbsp;
-          </td>
-        </tr>
-        {% set count.value = count.value - 1 %} {% endif %} {% endif %} {%
-        endfor %}
-      </table>
-    </div>
+    <div>{{ leaderboard_table.render_leaderboard_table("Assists per game","assists_per_game",players) }}</div>
 
     <!-- Field Goal Percentage -->
     <div>
@@ -446,33 +100,7 @@
     </div>
 
     <!-- 3-pointers made per game -->
-    <div>
-      <h2 class="leaderboard-stats-subtitle">Three pointers made per game</h2>
-
-      <table class="leaderboard-stats-table">
-        {% set count = namespace(value=numval) %} {% for player in
-        (players|sort(attribute='three_pointers_made_per_game', reverse=true))
-        %} {% if player.games_played > (0.6 * player.team_games_played) %}{%if
-        count.value >= 1%}
-
-        <tr class="leaderboard-stats-rows">
-          <td class="w-1/12 pl-3">{{ numval - count.value + 1}}</td>
-          <td class="font-bold text-left">
-            {{ player.lastname_initials }} &nbsp {{ player.first_name }}
-          </td>
-          <td class="w-1/12">
-            <img src="{{ url_for('static', filename='img/team_logos/' + player.school +'.png') }}" alt="Team Logo"
-              class="leaderboard-stats-images" />
-          </td>
-          <td>{{ player.school }}</td>
-          <td class="font-bold text-center">
-            {{ player.three_pointers_made_per_game | round(1) }} &nbsp;&nbsp;
-          </td>
-        </tr>
-        {% set count.value = count.value - 1 %} {% endif %} {% endif %} {%
-        endfor %}
-      </table>
-    </div>
+    <div>{{ leaderboard_table.render_leaderboard_table("3PT per game","three_pointers_made_per_game",players) }}</div>
 
     <!-- 3-point percentage -->
     <div>
@@ -486,7 +114,7 @@
 
         <tr class="leaderboard-stats-rows">
           <td class="w-1/12 pl-3">{{ numval - count.value + 1}}</td>
-          <td class="text-left pont-bold">
+          <td class="pont-bold text-left">
             {{ player.lastname_initials }} &nbsp {{ player.first_name }}
           </td>
           <td class="w-1/12">
@@ -504,91 +132,14 @@
     </div>
 
     <!-- Blocks per game -->
-    <div>
-      <h2 class="leaderboard-stats-subtitle">Blocks per Game</h2>
-
-      <table class="leaderboard-stats-table">
-        {% set count = namespace(value=numval) %} {% for player in
-        (players|sort(attribute='blocks_per_game', reverse=true)) %} {% if
-        player.games_played > (0.6 * player.team_games_played) %}{%if
-        count.value >= 1%}
-
-        <tr class="leaderboard-stats-rows">
-          <td class="w-1/12 pl-3">{{ numval - count.value + 1}}</td>
-          <td class="font-bold text-left">
-            {{ player.lastname_initials }} &nbsp {{ player.first_name }}
-          </td>
-          <td class="w-1/12">
-            <img src="{{ url_for('static', filename='img/team_logos/' + player.school +'.png') }}" alt="Team Logo"
-              class="leaderboard-stats-images" />
-          </td>
-          <td>{{ player.school }}</td>
-          <td class="font-bold text-center">
-            {{ player.blocks_per_game | round(1) }} &nbsp;&nbsp;
-          </td>
-        </tr>
-        {% set count.value = count.value - 1 %} {% endif %} {% endif %} {%
-        endfor %}
-      </table>
-    </div>
+    <div>{{ leaderboard_table.render_leaderboard_table("Blocks per game","blocks_per_game",players) }}</div>
 
     <!-- Steals per game -->
-    <div>
-      <h2 class="leaderboard-stats-subtitle">Steals Per Game</h2>
-
-      <table class="leaderboard-stats-table">
-        {% set count = namespace(value=numval) %} {% for player in
-        (players|sort(attribute='steals_per_game', reverse=true)) %} {% if
-        player.games_played > (0.6 * player.team_games_played) %}{%if
-        count.value >= 1%}
-
-        <tr class="leaderboard-stats-rows">
-          <td class="w-1/12 pl-3">{{ numval - count.value + 1}}</td>
-          <td class="font-bold text-left">
-            {{ player.lastname_initials }} &nbsp {{ player.first_name }}
-          </td>
-          <td class="w-1/12">
-            <img src="{{ url_for('static', filename='img/team_logos/' + player.school +'.png') }}" alt="Team Logo"
-              class="leaderboard-stats-images" />
-          </td>
-          <td>{{ player.school }}</td>
-          <td class="font-bold text-center">
-            {{ player.steals_per_game | round(1) }} &nbsp;&nbsp;
-          </td>
-        </tr>
-        {% set count.value = count.value - 1 %} {% endif %} {% endif %} {%
-        endfor %}
-      </table>
-    </div>
+    <div>{{ leaderboard_table.render_leaderboard_table("Steals per game","steals_per_game",players) }}</div>
 
     <!-- Free throws made per game -->
-    <div>
-      <h2 class="leaderboard-stats-subtitle">Free Throws Made Per Game</h2>
-
-      <table class="leaderboard-stats-table">
-        {% set count = namespace(value=numval) %} {% for player in
-        (players|sort(attribute='free_throws_made_per_game', reverse=true)) %}
-        {% if player.games_played > (0.6 * player.team_games_played) %}{%if
-        count.value >= 1%}
-
-        <tr class="leaderboard-stats-rows">
-          <td class="w-1/12 pl-3">{{ numval - count.value + 1}}</td>
-          <td class="font-bold text-left">
-            {{ player.lastname_initials }} &nbsp {{ player.first_name }}
-          </td>
-          <td class="w-1/12">
-            <img src="{{ url_for('static', filename='img/team_logos/' + player.school +'.png') }}" alt="Team Logo"
-              class="leaderboard-stats-images" />
-          </td>
-          <td>{{ player.school }}</td>
-          <td class="font-bold text-center">
-            {{ player.free_throws_made_per_game | round(1) }} &nbsp;&nbsp;
-          </td>
-        </tr>
-        {% set count.value = count.value - 1 %} {% endif %} {% endif %} {%
-        endfor %}
-      </table>
-    </div>
+    <div>{{ leaderboard_table.render_leaderboard_table("Free throws made per game","free_throws_made_per_game",players)
+      }}</div>
 
     <!-- free throws percentage -->
     <div>
@@ -620,153 +171,28 @@
     </div>
   </div>
 
-  <!-- Team Analytics Section -->
+  <!-- TEAM ANALYTICS SECTION -->
   <div id="teamanalytics-section" style="display: none" class="min-h-screen">
-    <h2 class="nav-title">
-      TEAM ANALYTICS
-    </h2>
-    <div class="max-w-xl mx-auto mt-5">
-      <p class="text-xs text-center text-gray-400 md:text-sm">
-        Select two teams from the dropdown menu to compare their stats plotted
-        in the radar chart.
-      </p>
-    </div>
-    <!-- Team Selection Dropdowns -->
-    <div class="flex justify-center my-3 space-x-4 text-xs md:text-lg">
-      <select id="team1-select"
-        class="w-1/4 text-center text-white bg-gray-800 rounded hover:bg-gray-700 focus:bg-gray-700">
-        <!-- Populate options dynamically using Flask -->
-        {% for team in (teams |sort(attribute='team_name' )) %}
-        <option value="{{ team.team_name }}">{{ team.team_name }}</option>
-        {% endfor %}
-      </select>
-
-      <select id="team2-select"
-        class="w-1/4 text-center text-white bg-gray-800 rounded hover:bg-gray-700 focus:bg-gray-700">
-        <!-- Populate options dynamically using Flask -->
-        {% for team in (teams |sort(attribute='team_name' )) %}
-        <option value="{{ team.team_name }}">{{ team.team_name }}</option>
-        {% endfor %}
-      </select>
-    </div>
-
-    <div class="flex items-center justify-center md:m-5" style="max-height: 40rem">
-      <canvas id="radarChart" height="500" width="500"></canvas>
-    </div>
-
-    <p class="px-2 glossary-text md:px-4" style="font-size: x-small;"><strong>Note: &nbsp;</strong>All metrics in the
-      radar chart are
-      normalized between 50 and 99. For instance, the team with
-      the highest assist-turnover ratio, will be rated a 99 Playmaking, while the lowest-ranking team will be rated a
-      50. Every
-      team's rating falls somewhere in between these extremes, reflecting their performance relative to each other
-      (normalized).</p>
-    <hr>
-    <div class="container px-4 py-2 mx-auto">
-      <h2 class="my-2 text-2xl font-bold md:text-3xl">Glossary</h2>
-
-      <!-- Glossary Term: Overall -->
-      <div class="mb-8">
-        <h3 class="glossary-titles">Overall</h3>
-        <p class="glossary-text">
-          Overall refers to the combined performance of a team in all aspects of the game.
-          It is derived from the <strong>team's net efficiency</strong>, which measures how effectively the team
-          utilizes its possessions
-          to score points and prevent the opposing team from scoring.
-        </p>
-      </div>
-
-      <!-- Glossary Term: Offense -->
-      <div class="mb-8">
-        <h3 class="glossary-titles">Offense</h3>
-        <p class="glossary-text">
-          Offense represents a team's capability to score points through various methods like shooting, passing, and
-          driving to the basket.
-          Offensive efficiency gauges how efficiently a team scores points per possession.
-        </p>
-      </div>
-
-      <!-- Glossary Term: Defense -->
-      <div class="mb-8">
-        <h3 class="glossary-titles">Defense</h3>
-        <p class="glossary-text">
-          Defense signifies a team's proficiency in preventing the opposing team from scoring points.
-          Defensive efficiency quantifies how effectively a team prevents the opposition from scoring per possession.
-        </p>
-      </div>
-
-      <!-- Glossary Term: Playmaking -->
-      <div class="mb-8">
-        <h3 class="glossary-titles">Playmaking</h3>
-        <p class="glossary-text">
-          Playmaking denotes a team's skill in creating scoring opportunities for both themselves and their teammates.
-          Playmaking is determined by a team's <strong> assist-turnover ratio</strong>, which compares assists per game
-          to
-          turnovers per game.
-        </p>
-      </div>
-
-      <!-- Glossary Term: Rebounding -->
-      <div class="mb-8">
-        <h3 class="glossary-titles">Rebounding</h3>
-        <p class="glossary-text">
-          Rebounding showcases a team's ability to retrieve missed shots on both offense and defense.
-          Rebound margin quantifies the difference between total rebounds per game by the team and total rebounds per
-          game allowed by their opponents.
-        </p>
-      </div>
-
-      <!-- Glossary Term: 3pt Shooting -->
-      <div class="mb-8">
-        <h3 class="glossary-titles">3pt Shooting</h3>
-        <p class="glossary-text">
-          3pt Shooting assesses a team's effectiveness in scoring points through three-pointers.
-          3-Point Shooting efficiency considers both the team's three-point shooting percentage and the frequency of
-          three-point attempts per game.
-        </p>
-      </div>
-
-      <!-- Glossary Term: Efficiency -->
-      <div class="mb-8">
-        <h3 class="glossary-titles">Efficiency</h3>
-        <p class="glossary-text">
-          Efficiency reflects how efficiently a team utilizes its possessions to score points and prevent the opposing
-          team from scoring.
-          Effective Field Goal Percentage (EFG) adjusts for the value of three-point shots, calculated based on field
-          goals made, three-pointers made, and field goal attempts.
-        </p>
-      </div>
-    </div>
-
-    <script>
-      // Radar data from Flask app
-      const radarData = JSON.parse('{{ radar_data | tojson | safe }}');
-    </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    <script src="{{ url_for('static', filename='js/charts.js') }}"></script>
+    <h2 class="nav-title">TEAM ANALYTICS</h2>
+    {% include "league_page/radarchart.html" %}
   </div>
 
-  <!-- Playoffs Section -->
+  <!-- PLAYOFFS SECTION -->
   <div id="playoffs-section" style="display: none" class="min-h-screen">
     <h2 class="nav-title">
       PLAYOFFS
     </h2>
-    <div class="flex flex-col items-center justify-center min-h-screen">
-      <img src="https://www.svgrepo.com/show/426192/cogs-settings.svg" alt="Logo" class="h-40 mb-8" />
-      <h1 class="mb-4 text-4xl font-bold text-center text-gray-700 md:text-5xl lg:text-6xl dark:text-white">
-        This page is under maintenance
-      </h1>
-      <div class="flex my-8 space-x-14">
-        <a href="/#bottom" class="p-4 font-bold text-white bg-gray-800 rounded-md hover:bg-gray-500 md:p-6">Contact
-          Me</a>
-        <a href="#" onclick="window.location.reload(true);"
-          class="p-4 font-bold text-white bg-gray-800 rounded-md hover:bg-gray-500 md:p-6">Standings</a>
-      </div>
-    </div>
+
+    {% include "league_page/comingsoon.html" %}
   </div>
 
+
+  <script>
+    const radarData = JSON.parse('{{ radar_data | tojson | safe }}');// Radar data from Flask app
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="{{ url_for('static', filename='js/radarchart.js') }}"></script>
   <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
 </div>
 {% endblock %}
