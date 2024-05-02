@@ -1,5 +1,5 @@
 
-## How to Contribute
+# How to Contribute
 
 To contribute to the USPORTS BASKETBALL WEB APP, follow these steps:
 
@@ -12,6 +12,11 @@ git clone https://github.com/ojadeyemi/USPORTS-BBALL-WEBAPP.git
 
 git checkout -b new-feature-or-fix #create new branch to add feature
 ```
+## Prerequisites
+- MYSQL instance
+- Python (version 3)
+- Nodejs
+
 
 ### Create a virtual environment in the terminal
 
@@ -32,7 +37,7 @@ Make sure that you have both [Node.js](https://nodejs.org/en) and [Python](https
 Double check that your python Interpreter path is in your virtual environment directory and node_modules is in the static/ directory.
 
 
-Install flask and all other dependacies from the requirements.txt file with pip:
+Install flask and all other dependacies from the [requirements.txt](requirements.txt) file with pip:
 
 ```bash
  pip install -r requirements.txt
@@ -81,9 +86,9 @@ Once your PR is approved, your changes will be merged into the main repository.
 Please follow the existing code style and conventions used in the project. Consistent coding style makes the codebase easier to maintain and understand for everyone.
 
 ## Reporting Issues
-If you encounter any bugs, issues, or have suggestions for improvements, please open an issue on the GitHub repository. Provide as much detail as possible, including steps to reproduce the issue if applicable.
+If you find any bugs or issues or have suggestions for improvements, please open an issue in the GitHub repository. Provide as much information as possible, including steps for reproducing the problem if applicable.
 
 ## License
-By contributing to the USPORTS BASKETBALL WEB APP, you agree that your contributions will be licensed under the MIT License. See the LICENSE file for details.
+By contributing to the USPORTS BASKETBALL WEB APP, you agree that your contributions will be licensed under the MIT License. See the [`LICENSE`](LICENSE) file for details.
 
 Thank you for contributing and helping make it even better!
