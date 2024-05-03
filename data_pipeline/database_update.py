@@ -26,6 +26,9 @@ from usports_basketball import usports_team_stats, usports_player_stats
 
 
 def update_usports_bball_db(mysql_password: str):
+    """
+    Updates the usports_bball database with team and player statistics.
+    """
     # Configure logging
     logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
     team_dtypes = {'team_name':types.NVARCHAR(length=255), 'conference':types.NVARCHAR(length=50),

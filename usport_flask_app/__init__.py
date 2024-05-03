@@ -10,6 +10,7 @@ from .team_stats_calulator import calculate_categories
 
 
 def create_app(config_name=DevelopmentConfig):
+    """Create flask app instance"""
     app = Flask(__name__)
 
     app.config.from_object(config_name)
