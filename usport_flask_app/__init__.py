@@ -1,9 +1,12 @@
+"""U Sport web app with routes"""
 from flask import Flask, render_template, request, redirect, url_for
 from sqlalchemy import func, cast, Numeric
+from sqlalchemy.exc import SQLAlchemyError
+from config import DevelopmentConfig
 from .models import db, Feedback, MenTeam, WomenTeam, MenPlayers, WomenPlayers
 from .radar_data_calculator import calculate_radar_data, find_min_max_values
 from .team_stats_calulator import calculate_categories
-from config import DevelopmentConfig
+
 
 
 def create_app(config_name=DevelopmentConfig):
@@ -26,15 +29,14 @@ def create_app(config_name=DevelopmentConfig):
             try:
                 # Commit the changes to the database
                 db.session.commit()
-            except Exception as e:
+            except SQLAlchemyError as e:
                 # Rollback the transaction in case of error
                 db.session.rollback()
                 print("Error adding feedback entry:", str(e))
             # Redirect to the index page after form submission
             return redirect("/")
-        else:
-            # Render the home.html template for GET requests
-            return render_template("index.html")
+        # Render the home.html template for GET requests
+        return render_template("index.html")
 
 
     # Define the route for the about page

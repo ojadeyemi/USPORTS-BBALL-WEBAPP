@@ -15,7 +15,6 @@ Classes:
     - MenPlayers: Represents men's basketball player data.
     - WomenPlayers: Represents women's basketball player data.
 """
-
 from datetime import datetime, timezone
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import Mapped, mapped_column

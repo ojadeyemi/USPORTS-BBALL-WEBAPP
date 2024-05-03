@@ -1,0 +1,13 @@
+[MESSAGES CONTROL]
+
+# Disable the message, report, category or checker with the given id(s).
+disable=invalid-name,
+        line-too-long,
+        missing-class-docstring,
+        missing-module-docstring,
+        redefined-outer-name,
+        too-few-public-methods,
+        too-many-locals,
+        too-many-statements,
+        trailing-whitespace,
+        

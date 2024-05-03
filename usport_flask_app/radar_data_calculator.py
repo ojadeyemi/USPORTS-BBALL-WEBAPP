@@ -1,16 +1,16 @@
 """
-This module contains functions for calculating and normalizing basketball statistics used in the USPORTS BASKETBALL WEB APP.
+This module contains functions for calculating and normalizing basketball statistics.
 
 Functions:
     - normalize: Normalize a value within a specified range.
     - find_min_max_values: Find the minimum and maximum values for various statistics across teams.
     - calculate_radar_data: Calculate radar chart data for teams based on their statistics.
 """
+from math import floor
+from typing import Union
 from sqlalchemy.engine.row import Row
 from sqlalchemy import func
 from .models import db, MenTeam, WomenTeam
-from math import floor
-from typing import Union
 
 def normalize(value: Union[int, float], min_value: Union[int, float], max_value: Union[int, float], upper_bound: int = 99) -> int:
     """
@@ -102,12 +102,12 @@ def calculate_radar_data(specific_team_table: Union[MenTeam, WomenTeam], min_max
         defensive_efficiency = normalize(1/query_def_efficiency(team), 1/max_defensive_efficiency, 1/min_defensive_efficiency)
         playmaking = normalize(query_playmaking(team), min_playmaking, max_playmaking)
         rebound_margin = normalize(query_rebound_margin(team),min_rebound_margin, max_rebound_margin)
-        EFG_percentage = normalize(query_effective_fg_percentage(team), min_effective_fg_percentage, max_effective_fg_percentage)
+        efg_percentage = normalize(query_effective_fg_percentage(team), min_effective_fg_percentage, max_effective_fg_percentage)
         three_point_rating = normalize(query_3pt_shooting_efficiency(team), min_3pt_rating, max_3pt_rating, 98)
         
         
         #order of array should match labels in javascript charjs label
-        radar_data[team.team_name] = [overall_efficiency, defensive_efficiency, playmaking, rebound_margin, three_point_rating, EFG_percentage, offensive_efficiency]
+        radar_data[team.team_name] = [overall_efficiency, defensive_efficiency, playmaking, rebound_margin, three_point_rating, efg_percentage, offensive_efficiency]
           
     return radar_data
 

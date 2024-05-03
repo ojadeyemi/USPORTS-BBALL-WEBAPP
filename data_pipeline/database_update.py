@@ -70,7 +70,7 @@ def update_usports_bball_db(mysql_password: str):
                 men_df.to_sql(name='men_team', con=conn, if_exists='replace', 
                               index=False,dtype=team_dtypes)
                 logging.info("Men's team data written to 'men_team' table successfully!")
-            except Exception as e:
+            except ValueError as e:
                 logging.error("Error writing men's team data to database: %s", e)
 
             try:
@@ -78,7 +78,7 @@ def update_usports_bball_db(mysql_password: str):
                 women_df.to_sql(name='women_team', con=conn, if_exists='replace', 
                                 index=False,dtype=team_dtypes)
                 logging.info("Women's team data written to 'women_team' table successfully!")
-            except Exception as e:
+            except ValueError as e:
                 logging.error("Error writing women's team data to database: %s", e)
 
             try:
@@ -86,7 +86,7 @@ def update_usports_bball_db(mysql_password: str):
                 men_players_df.to_sql(name='men_players', con=conn,if_exists='replace', 
                                       index=False,dtype=player_dtypes)
                 logging.info("Men's players data written to 'men_players' table successfully!")
-            except Exception as e:
+            except ValueError as e:
                 logging.error("Error writing men's players data to database: %s", e)
 
             try:
@@ -94,7 +94,7 @@ def update_usports_bball_db(mysql_password: str):
                 women_players_df.to_sql(name='women_players', con=conn, if_exists='replace', 
                                         index=False, dtype=player_dtypes)
                 logging.info("Women's players data written to 'women_players' table successfully!")
-            except Exception as e:
+            except ValueError as e:
                 logging.error("Error writing women's players data to database: %s", e)
 
             sql_queries = [
@@ -111,7 +111,7 @@ def update_usports_bball_db(mysql_password: str):
             try:
                 # Execute SQL queries
                 for idx, query in enumerate(sql_queries, start=1):
-                    logging.info(f"Executing SQL Query {idx}:")
+                    logging.info("Executing SQL Query %s",idx)
                     conn.execute(text(query))
                     logging.info("Executed query: %s\n", query.strip())
                 logging.info("All SQL queries executed successfully. \n")

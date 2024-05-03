@@ -1,5 +1,23 @@
-from .models import MenTeam, WomenTeam
+"""Calculate team and opponent per game statistics.
+
+Given a MenTeam or WomenTeam object, this function calculates various per game statistics: 
+- Points
+- Field Goal Percentage
+- Three-Pointers Made
+- Three-Point Percentage
+- Total Rebounds
+- Offensive Rebounds
+- Assists
+- Steals
+- Blocks
+- Turnovers
+- Fouls. 
+
+Returns:
+    Tuple containing team per game statistics and opponent per game statistics.
+"""
 from typing import Union
+from .models import MenTeam, WomenTeam
 
 def calculate_categories(team: Union[MenTeam, WomenTeam]):
     """
