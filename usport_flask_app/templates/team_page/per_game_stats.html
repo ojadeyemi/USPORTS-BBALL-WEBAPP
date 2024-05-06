@@ -1,44 +1,43 @@
 <div><!--add team stats-->
-    <p
-      class="bg-gradient-to-r from-slate-800 to-blue-800 opacity-40 w-3/4 m-6 mx-auto font-serif text-sm text-center">
-      PER GAME
-      STATS VS OPPONENTS</p>
-    <script>
-      // Function to draw a two-colored line
-      function drawTwoColoredLine(canvasId, color1, color2, value1, value2) {
-        const canvas = document.getElementById(canvasId);
-        const context = canvas.getContext('2d');
+  <p class="bg-gradient-to-r from-slate-800 to-blue-800 opacity-40 w-3/4 m-6 mx-auto font-serif text-sm text-center">
+    PER GAME
+    STATS VS OPPONENTS</p>
+  <script>
+    // Function to draw a two-colored line
+    function drawTwoColoredLine(canvasId, color1, color2, value1, value2) {
+      const canvas = document.getElementById(canvasId);
+      const context = canvas.getContext('2d');
 
-        // Calculate percentages
-        const total = value1 + value2;
-        const percent1 = (value1 / total) * canvas.width;
-        const percent2 = (value2 / total) * canvas.width;
-        const leadingspace = 2
-        // Draw first colored segment
-        context.fillStyle = color1;
-        context.fillRect(0, 0, percent1 - leadingspace, canvas.height);
+      // Calculate percentages
+      const total = value1 + value2;
+      const percent1 = (value1 / total) * canvas.width;
+      const percent2 = (value2 / total) * canvas.width;
+      const leadingspace = 2
+      // Draw first colored segment
+      context.fillStyle = color1;
+      context.fillRect(0, 0, percent1 - leadingspace, canvas.height);
 
-        // Draw second colored segment
-        context.fillStyle = color2;
-        context.fillRect(percent1 + leadingspace, 0, percent2, canvas.height);
-      }</script>
-    {% for val in teamstats %}
-    <div class="w-3/4 mx-auto mb-5"> <!-- Set the width and center the container -->
-      <div class=" md:text-base flex items-center justify-between px-3 text-sm">
-        <div class=" font-bold">{{ val }}</div>
-        <div class="md:text-lg text-base font-bold">{{ categories[loop.index - 1] }}</div>
-        <div class=" font-bold">{{ opponentstats[loop.index - 1] }}</div>
-      </div>
-      <canvas id="canvas{{ categories[loop.index - 1] }}" class="w-full h-1 mb-4"></canvas>
+      // Draw second colored segment
+      context.fillStyle = color2;
+      context.fillRect(percent1 + leadingspace, 0, percent2, canvas.height);
+    }</script>
+  {% for val in teamstats %}
+  <div class="w-3/4 mx-auto mb-5"> <!-- Set the width and center the container -->
+    <div class=" md:text-base flex items-center justify-between px-3 text-sm">
+      <div class=" font-bold">{{ val }}</div>
+      <div class="md:text-lg text-base font-bold">{{ categories[loop.index - 1] }}</div>
+      <div class=" font-bold">{{ opponentstats[loop.index - 1] }}</div>
     </div>
-    <script>
-      var canvasId = "canvas{{ categories[loop.index - 1] }}";
-      var team1Value = JSON.parse("{{ val | tojson | safe }}");
-      var team2Value = JSON.parse("{{ opponentstats[loop.index - 1] | tojson | safe }}");
-      console.log(team1Value)
-      // Draw the two-colored line for this canvas
-      drawTwoColoredLine(canvasId, '#63E5E5', '#ff5656', team1Value, team2Value);
-    </script>
-    {% endfor %}
-
+    <canvas id="canvas{{ categories[loop.index - 1] }}" class="w-full h-1 mb-4"></canvas>
   </div>
+  <script>
+    var canvasId = "canvas{{ categories[loop.index - 1] }}";
+    var team1Value = JSON.parse("{{ val | tojson | safe }}");
+    var team2Value = JSON.parse("{{ opponentstats[loop.index - 1] | tojson | safe }}");
+    console.log(team1Value)
+    // Draw the two-colored line for this canvas
+    drawTwoColoredLine(canvasId, '#63E5E5', '#ff5656', team1Value, team2Value);
+  </script>
+  {% endfor %}
+
+</div>

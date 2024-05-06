@@ -1,0 +1,100 @@
+<!-- standings_table_block.html -->
+{% macro render_standings_table(title,league_path,conference_name,teams) %}
+<h3 class="standings-conference-title">{{ title }}</h3>
+<div style="margin: 0 auto" class="lg:w-2/3 w-full">
+    <table class="standings-conference-table">
+        <thead class="standings-conference-table-head">
+            <tr class="md:text-base text-x">
+                <th>#</th>
+                <th class="py-1">TEAM</th>
+                <th class="md:table-cell hidden">GP</th>
+                <th>
+                    <span class="md:inline hidden">WIN</span>
+                    <!-- Hidden on small screens -->
+                    <span class="md:hidden px-2">W</span>
+                    <!-- Shown on small screens -->
+                </th>
+                <th>
+                    <span class="md:inline hidden">LOSS</span>
+                    <!-- Hidden on small screens -->
+                    <span class="md:hidden px-2">L</span>
+                    <!-- Shown on small screens -->
+                </th>
+                <th class="md:table-cell hidden">PCT</th>
+                <th>
+                    <span class="md:inline hidden">LAST 10</span>
+                    <!-- Hidden on small screens -->
+                    <span class="md:hidden px-3">L 10</span>
+                    <!-- Shown on small screens -->
+                </th>
+                <th>
+                    <span class="md:inline hidden">STREAK</span>
+                    <!-- Hidden on small screens -->
+                    <span class="md:hidden px-2">STRK</span>
+                    <!-- Shown on small screens -->
+                </th>
+            </tr>
+        </thead>
+        <tbody class="standings-conference-table-body">
+            {% for team in teams if team.conference in conference_name %}
+            {% if conference_name == 'CW' and loop.index == 13 %}
+            <tr>
+                <td colspan="8" class="py-2">
+                    <hr>
+                </td>
+            </tr> <!-- Add line break before the next row -->
+            {% endif %}
+            {% if conference_name == 'AUS' and loop.index == 7 %}
+            <tr>
+                <td colspan="8" class="py-2">
+                    <hr>
+                </td>
+            </tr> <!-- Add line break before the next row -->
+            {% endif %}
+            {% if conference_name == 'RSEQ' and loop.index == 5 %}
+            <tr>
+                <td colspan="8" class="py-2">
+                    <hr>
+                </td>
+            </tr> <!-- Add line break before the next row -->
+            {% endif %}
+            <tr class="standings-table-rows">
+                <td>{{ loop.index }}</td>
+                <td class=" flex items-center">
+                    <img src="{{ url_for('static', filename='img/team_logos/' + team.team_name +'.png') }}"
+                        alt="Team Logo" class="standings-team-logos" />
+                    <span class="font-bold">
+                        {% if team.team_name == 'Toronto Metropolitan' %}
+                        <a href="{{ url_for('team_page', league_path=league_path, team_path='Toronto Metropolitan') }}"
+                            class="hover:underline no-underline">TMU</a>
+                        {% else %}
+                        <a href="{{ url_for('team_page', league_path=league_path, team_path=team.team_name) }}"
+                            class="hover:underline no-underline">{{ team.team_name }}</a>
+                        {% endif %}
+                    </span>
+                </td>
+                <td class="md:table-cell hidden">{{ team.games_played }}</td>
+                <td>{{ team.total_wins }}</td>
+                <td>{{ team.total_losses }}</td>
+                <td  class="md:table-cell hidden">{{ team.win_percentage }}</td>
+                <td>{{ team.last_ten_games }}</td>
+                <td>{{ team.streak }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endmacro %}
+
+
+<div>
+
+    <div>{{ render_standings_table("OUA Conference",league_path,["OUA East","OUA West","OUA Central"],teams)}}</div>
+
+    <div>{{ render_standings_table("CW Conference",league_path,"CW",teams) }}</div>
+
+    <div>{{ render_standings_table("AUS Conference",league_path,"AUS",teams) }}</div>
+
+    <div>{{ render_standings_table("RSEQ Conference",league_path,"RSEQ",teams) }}</div>
+
+</div>

@@ -1,0 +1,107 @@
+{% set num = 10 %}
+
+{% macro render_player_row(player, category) %}
+<td class="font-bold text-left">
+  {{ player.lastname_initials }} &nbsp {{ player.first_name }}
+</td>
+<td class="flex items-center">
+  <img src="{{ url_for('static', filename='img/team_logos/' + player.school +'.png') }}" alt="Team Logo"
+    class="standings-team-logos" />
+  <span>
+    {% if player.school == 'Toronto Metropolitan' %}
+    <a href="{{ url_for('team_page', league_path=league_path, team_path='Toronto Metropolitan') }}"
+      class="hover:underline no-underline">TMU</a>
+    {% else %}
+    <a href="{{ url_for('team_page', league_path=league_path, team_path=player.school) }}"
+      class="hover:underline no-underline">{{ player.school }}</a>
+    {% endif %}
+  </span>
+</td>
+<td class="font-bold text-center">
+  {{ player[category] | round(1) }}
+</td>
+{% endmacro %}
+
+
+{% macro render_leaderboard_table(title,category,players) %}
+<h2 class="mt-8 mb-4 text-xl font-bold text-center">{{ title }}</h2>
+<table class="bg-slate-950 md:w-3/4 md:text-base lg:w-1/2 w-full mx-auto text-sm rounded-sm">
+  {% set count = namespace(value=num) %}
+  {% for player in players|sort(attribute=category, reverse=true) %}
+  {% if player.games_played > (0.6 * player.team_games_played) %}
+  {% if count.value >= 1 %}
+  {% if category == 'field_goal_percentage' %}
+
+  {% if player.field_goal_made_per_game > 3 %}
+  <tr class="leaderboard-stats-rows">
+    <td class="w-1/12 pl-3">{{ num - count.value + 1 }}</td>
+    {{ render_player_row(player, category)}}
+  </tr>
+  {% set count.value = count.value - 1 %}
+  {% endif %}
+
+  {% elif category == 'three_pointers_percentage' %}
+
+  {% if player.three_pointers_made_per_game > 1 %}
+  <tr class="leaderboard-stats-rows">
+    <td class="w-1/12 pl-3">{{ num - count.value + 1 }}</td>
+    {{ render_player_row(player, category)}}
+  </tr>
+  {% set count.value = count.value - 1 %}
+  {% endif %}
+
+  {% elif category == 'free_throws_percentage' %}
+
+  {% if player.free_throws_made_per_game > 2 %}
+  <tr class="leaderboard-stats-rows">
+    <td class="w-1/12 pl-3">{{ num - count.value + 1 }}</td>
+    {{ render_player_row(player, category)}}
+  </tr>
+  {% set count.value = count.value - 1 %}
+  {% endif %}
+
+  {% else %}
+
+  <tr class="leaderboard-stats-rows">
+    <td class="w-1/12 pl-3">{{ num - count.value + 1 }}</td>
+    {{ render_player_row(player, category)}}
+  </tr>
+  {% set count.value = count.value - 1 %}
+
+  {% endif %}
+  {% endif %}
+  {% endif %}
+  {% endfor %}
+</table>
+{% endmacro %}
+
+
+<!-- Points per game -->
+<div>{{ render_leaderboard_table("Points per game","points_per_game",players) }}</div>
+
+<!-- Rebounds per game -->
+<div>{{ render_leaderboard_table("Rebounds per game","rebounds_per_game",players) }}</div>
+
+<!-- Assists per game -->
+<div>{{ render_leaderboard_table("Assists per game","assists_per_game",players) }}</div>
+
+<!-- Field Goal Percentage -->
+<div>{{ render_leaderboard_table("Field Goal Percentage","field_goal_percentage",players) }}</div>
+
+<!-- 3-pointers made per game -->
+<div>{{ render_leaderboard_table("3PT per game","three_pointers_made_per_game",players) }}</div>
+
+<!-- 3-point percentage -->
+<div>{{ render_leaderboard_table("3PT Percentage","three_pointers_percentage",players)}}</div>
+
+<!-- Blocks per game -->
+<div>{{ render_leaderboard_table("Blocks per game","blocks_per_game",players) }}</div>
+
+<!-- Steals per game -->
+<div>{{ render_leaderboard_table("Steals per game","steals_per_game",players) }}</div>
+
+<!-- Free throws made per game -->
+<div>{{ render_leaderboard_table("Free throws made per game","free_throws_made_per_game",players)}}</div>
+
+<!-- free throws percentage -->
+<div>{{ render_leaderboard_table("Free throws Percentage","free_throws_percentage",players)}}</div>

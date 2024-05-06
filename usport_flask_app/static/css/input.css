@@ -27,26 +27,14 @@
   }
 
   .standings-team-logos {
-    @apply max-w-10 max-h-10 md:max-w-12 md:max-h-10 mx-6 px-1;
+    @apply max-w-10 max-h-10 md:max-w-12 md:max-h-10 px-1 mx-6 ;
   }
   .standings-table-rows {
     @apply text-sm md:text-base text-center even:bg-slate-900;
   }
 
-  .leaderboard-stats-subtitle {
-    @apply mb-4 mt-8 text-center text-xl font-bold;
-  }
-
-  .leaderboard-stats-table {
-    @apply mx-auto mb-5 w-full rounded-lg bg-slate-950 text-sm shadow-md md:w-3/4 md:text-base lg:w-3/5;
-  }
-
   .leaderboard-stats-rows {
     @apply even:bg-slate-900;
-  }
-
-  .leaderboard-stats-images {
-    @apply max-w-10 max-h-10 md:max-w-12 md:max-h-10 mx-6 px-1;
   }
 
   .glossary-titles {

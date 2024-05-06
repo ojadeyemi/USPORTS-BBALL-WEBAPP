@@ -1,5 +1,3 @@
-{% import './macros/standings_table.html' as standings_table %}
-{% import './macros/stats_leaderboard_table.html' as leaderboard_table %}
 {% extends "base.html" %}
 
 {% block subheader %}
@@ -29,145 +27,15 @@
 <div>
   <!-- STANDINGS SECTION -->
   <div id="standings-section" style="display: block" class="min-h-screen">
-
-    <h2 class="nav-title">
-      STANDINGS
-    </h2>
-
-    <div>
-      <h3 class="standings-conference-title">OUA Conference</h3>
-      <div>{{ standings_table.render_standings_table(league_path,["OUA East","OUA West","OUA Central"],teams)}}</div>
-    </div>
-    <div>
-      <h3 class="standings-conference-title">CW Conference</h3>
-      <div>{{ standings_table.render_standings_table(league_path,"CW",teams) }}</div>
-    </div>
-    <div>
-      <h3 class="standings-conference-title">AUS Conference</h3>
-      <div>{{ standings_table.render_standings_table(league_path,"AUS",teams) }}</div>
-    </div>
-    <div>
-      <h3 class="standings-conference-title">RSEQ Conference</h3>
-      <div>{{ standings_table.render_standings_table(league_path,"RSEQ",teams) }}</div>
-    </div>
-
+    <h2 class="nav-title">STANDINGS</h2>
+    {% include "league_page/playoffs.html" %}
+    {% include "league_page/standings.html" %}
   </div>
 
   <!-- PLAYER LEADERBOARD SECTION -->
   <div id="playerleaderboard-section" style="display: none" class="flex flex-col min-h-screen">
-
-    <h2 class="nav-title">
-      LEADERBOARD (Handle percentages)
-    </h2>
-    {% set numval = 5 %}
-    <!-- Points per game -->
-    <div>{{ leaderboard_table.render_leaderboard_table("Points per game","points_per_game",players) }}</div>
-
-    <!-- Rebounds per game -->
-    <div>{{ leaderboard_table.render_leaderboard_table("Rebounds per game","rebounds_per_game",players) }}</div>
-
-    <!-- Assists per game -->
-    <div>{{ leaderboard_table.render_leaderboard_table("Assists per game","assists_per_game",players) }}</div>
-
-    <!-- Field Goal Percentage -->
-    <div>
-      <h2 class="leaderboard-stats-subtitle">Field Goal Percentage</h2>
-
-      <table class="leaderboard-stats-table">
-        {% set count = namespace(value=numval) %} {% for player in
-        (players|sort(attribute='field_goal_percentage', reverse=true)) %} {% if
-        (player.games_played > (0.6 * player.team_games_played)) and
-        (player.field_goal_made_per_game > 3) %}{%if count.value >= 1%}
-
-        <tr class="leaderboard-stats-rows">
-          <td class="w-1/12 pl-3">{{ numval - count.value + 1}}</td>
-          <td class="font-bold text-left">
-            {{ player.lastname_initials }} &nbsp {{ player.first_name }}
-          </td>
-          <td class="w-1/12">
-            <img src="{{ url_for('static', filename='img/team_logos/' + player.school +'.png') }}" alt="Team Logo"
-              class="leaderboard-stats-images" />
-          </td>
-          <td>{{ player.school }}</td>
-          <td class="font-bold text-center">
-            {{ player.field_goal_percentage}}%
-          </td>
-        </tr>
-        {% set count.value = count.value - 1 %} {% endif %} {% endif %} {%
-        endfor %}
-      </table>
-    </div>
-
-    <!-- 3-pointers made per game -->
-    <div>{{ leaderboard_table.render_leaderboard_table("3PT per game","three_pointers_made_per_game",players) }}</div>
-
-    <!-- 3-point percentage -->
-    <div>
-      <h2 class="leaderboard-stats-subtitle">Three Point Percentage</h2>
-
-      <table class="leaderboard-stats-table">
-        {% set count = namespace(value=numval) %} {% for player in
-        (players|sort(attribute='three_pointers_percentage', reverse=true)) %}
-        {% if (player.games_played > (0.6 * player.team_games_played)) and
-        (player.three_pointers_made_per_game > 1) %}{%if count.value >= 1%}
-
-        <tr class="leaderboard-stats-rows">
-          <td class="w-1/12 pl-3">{{ numval - count.value + 1}}</td>
-          <td class="pont-bold text-left">
-            {{ player.lastname_initials }} &nbsp {{ player.first_name }}
-          </td>
-          <td class="w-1/12">
-            <img src="{{ url_for('static', filename='img/team_logos/' + player.school +'.png') }}" alt="Team Logo"
-              class="leaderboard-stats-images" />
-          </td>
-          <td>{{ player.school }}</td>
-          <td class="font-bold text-center">
-            {{ player.three_pointers_percentage }}%
-          </td>
-        </tr>
-        {% set count.value = count.value - 1 %} {% endif %} {% endif %} {%
-        endfor %}
-      </table>
-    </div>
-
-    <!-- Blocks per game -->
-    <div>{{ leaderboard_table.render_leaderboard_table("Blocks per game","blocks_per_game",players) }}</div>
-
-    <!-- Steals per game -->
-    <div>{{ leaderboard_table.render_leaderboard_table("Steals per game","steals_per_game",players) }}</div>
-
-    <!-- Free throws made per game -->
-    <div>{{ leaderboard_table.render_leaderboard_table("Free throws made per game","free_throws_made_per_game",players)
-      }}</div>
-
-    <!-- free throws percentage -->
-    <div>
-      <h2 class="leaderboard-stats-subtitle">Free Throws Percentage</h2>
-
-      <table class="leaderboard-stats-table">
-        {% set count = namespace(value=numval) %} {% for player in
-        (players|sort(attribute='free_throws_percentage', reverse=true)) %} {%
-        if (player.games_played > (0.6 * player.team_games_played)) and
-        (player.free_throws_made_per_game > 2) %}{%if count.value >= 1%}
-
-        <tr class="leaderboard-stats-rows">
-          <td class="w-1/12 pl-3">{{ numval - count.value + 1}}</td>
-          <td class="font-bold text-left">
-            {{ player.lastname_initials }} &nbsp {{ player.first_name }}
-          </td>
-          <td class="w-1/12">
-            <img src="{{ url_for('static', filename='img/team_logos/' + player.school +'.png') }}" alt="Team Logo"
-              class="leaderboard-stats-images" />
-          </td>
-          <td>{{ player.school }}</td>
-          <td class="font-bold text-center">
-            {{ player.free_throws_percentage }}%
-          </td>
-        </tr>
-        {% set count.value = count.value - 1 %} {% endif %} {% endif %} {%
-        endfor %}
-      </table>
-    </div>
+    <h2 class="nav-title">LEADERBOARD</h2> 
+    {% include "league_page/leaderboard.html" %}
   </div>
 
   <!-- TEAM ANALYTICS SECTION -->
@@ -178,10 +46,7 @@
 
   <!-- PLAYOFFS SECTION -->
   <div id="playoffs-section" style="display: none" class="min-h-screen">
-    <h2 class="nav-title">
-      PLAYOFFS
-    </h2>
-
+    <h2 class="nav-title">PLAYOFFS</h2>
     {% include "league_page/playoffs.html" %}
   </div>
 

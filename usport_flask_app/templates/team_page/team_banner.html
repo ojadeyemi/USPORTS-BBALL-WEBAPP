@@ -1,79 +1,77 @@
-
-    <!-- For mobile screens -->
-    <div class="md:hidden justify-stretch grid items-center grid-flow-col text-lg">
-        <div class="flex flex-col items-center">
-            <div class="font-semibold">{{ team.last_ten_games }}</div>
-            <div class="text-gray-400">L10</div>
-        </div>
-
-        <div class="flex flex-col items-center">
-            <img src="{{ url_for('static', filename='img/team_logos/' + team.team_name +'.png') }}" alt="Team Logo"
-                class="w-auto h-24 m-1" />
-            <div class="font-semibold">{{ team.team_name }}</div>
-
-            {% if team.conference == 'OUA East' or team.conference == 'OUA West' or team.conference ==
-            'OUA Central' %}
-            <div>
-                <img src="{{ url_for('static', filename='img/conference_logos/OUA.png') }}" alt="Team Logo"
-                    class="w-auto h-8 m-1" />
-            </div>
-            {% else %}
-            <div>
-                <img src="{{ url_for('static', filename='img/conference_logos/' + team.conference +'.png') }}"
-                    alt="Team Logo" class="w-auto h-8 m-1" />
-            </div>
-            {% endif %}
-        </div>
-        <div class="flex flex-col items-center">
-            <div class="font-semibold">{{ team.streak }}</div>
-            <div class="text-gray-400">Streak</div>
-        </div>
+<!-- For mobile screens -->
+<div class="md:hidden justify-stretch grid items-center grid-flow-col text-lg">
+    <div class="flex flex-col items-center">
+        <div class="font-semibold">{{ team.last_ten_games }}</div>
+        <div class="text-gray-400">L10</div>
     </div>
 
-    <!-- For larger screens -->
-    <div class="md:grid justify-stretch lg:px-32 xl:px-48 items-center hidden grid-flow-col px-16 text-xl">
+    <div class="flex flex-col items-center">
         <img src="{{ url_for('static', filename='img/team_logos/' + team.team_name +'.png') }}" alt="Team Logo"
-            class="h-28 lg:h-32 w-auto mx-4" />
+            class="w-auto h-24 m-1" />
+        <div class="font-semibold">{{ team.team_name }}</div>
 
-        <div class="flex flex-col justify-start">
-            {% if team.team_name == 'Toronto Metropolitan' %}
-            <div class="xl:text-3xl text-2xl font-semibold">
-                {{ team.team_name }}
-            </div>
-            {% else %}
-            <div class="xl:text-4xl text-3xl font-semibold">
-                {{ team.team_name }}
-            </div>
-            {% endif %}
-            {% if team.conference == 'OUA East' or team.conference == 'OUA West' or team.conference ==
-            'OUA Central' %}
-            <div>
-                <img src="{{ url_for('static', filename='img/conference_logos/OUA.png') }}" alt="Team Logo"
-                    class="lg:h-9 w-auto h-8 my-1" />
-            </div>
-            {% else %}
-            <div>
-                <img src="{{ url_for('static', filename='img/conference_logos/' + team.conference +'.png') }}"
-                    alt="Team Logo" class="lg:h-9 w-auto h-8 my-1" />
-            </div>
-            {% endif %}
+        {% if team.conference == 'OUA East' or team.conference == 'OUA West' or team.conference ==
+        'OUA Central' %}
+        <div>
+            <img src="{{ url_for('static', filename='img/conference_logos/OUA.png') }}" alt="Team Logo"
+                class="w-auto h-8 m-1" />
         </div>
+        {% else %}
+        <div>
+            <img src="{{ url_for('static', filename='img/conference_logos/' + team.conference +'.png') }}"
+                alt="Team Logo" class="w-auto h-8 m-1" />
+        </div>
+        {% endif %}
+    </div>
+    <div class="flex flex-col items-center">
+        <div class="font-semibold">{{ team.streak }}</div>
+        <div class="text-gray-400">Streak</div>
+    </div>
+</div>
 
-        <div class="flex flex-col items-center">
-            <div class="text-3xl font-semibold">
-                {{ team.total_wins }}-{{ team.total_losses }}
-            </div>
-            <div class="text-gray-400">Record</div>
-        </div>
+<!-- For larger screens -->
+<div class="md:grid justify-stretch lg:px-32 xl:px-48 items-center hidden grid-flow-col px-16 text-xl">
+    <img src="{{ url_for('static', filename='img/team_logos/' + team.team_name +'.png') }}" alt="Team Logo"
+        class="h-28 lg:h-32 w-auto mx-4" />
 
-        <div class="flex flex-col items-center">
-            <div class="text-3xl font-semibold">{{ team.last_ten_games }}</div>
-            <div class="text-gray-400">L10</div>
+    <div class="flex flex-col justify-start">
+        {% if team.team_name == 'Toronto Metropolitan' %}
+        <div class="xl:text-3xl text-2xl font-semibold">
+            {{ team.team_name }}
         </div>
-
-        <div class="flex flex-col items-center">
-            <div class="text-3xl font-semibold">{{ team.streak }}</div>
-            <div class="text-gray-400">Streak</div>
+        {% else %}
+        <div class="xl:text-4xl text-3xl font-semibold">
+            {{ team.team_name }}
         </div>
+        {% endif %}
+        {% if team.conference == 'OUA East' or team.conference == 'OUA West' or team.conference ==
+        'OUA Central' %}
+        <div>
+            <img src="{{ url_for('static', filename='img/conference_logos/OUA.png') }}" alt="Team Logo"
+                class="lg:h-9 w-auto h-8 my-1" />
+        </div>
+        {% else %}
+        <div>
+            <img src="{{ url_for('static', filename='img/conference_logos/' + team.conference +'.png') }}"
+                alt="Team Logo" class="lg:h-9 w-auto h-8 my-1" />
+        </div>
+        {% endif %}
     </div>
 
+    <div class="flex flex-col items-center">
+        <div class="text-3xl font-semibold">
+            {{ team.total_wins }}-{{ team.total_losses }}
+        </div>
+        <div class="text-gray-400">Record</div>
+    </div>
+
+    <div class="flex flex-col items-center">
+        <div class="text-3xl font-semibold">{{ team.last_ten_games }}</div>
+        <div class="text-gray-400">L10</div>
+    </div>
+
+    <div class="flex flex-col items-center">
+        <div class="text-3xl font-semibold">{{ team.streak }}</div>
+        <div class="text-gray-400">Streak</div>
+    </div>
+</div>
