@@ -1,7 +1,14 @@
 """Configurations file"""
 import os
 
-mysqldatabase = f"mysql+pymysql://usportsballwebapp:{os.environ.get('USPORT_BBALL_PASSWORD')}.@localhost/usports_bball"
+# Load environment variables from .env file
+from dotenv import load_dotenv
+load_dotenv()
+
+# Retrieve the environment variable
+password = os.getenv("USPORT_BBALL_PASSWORD")
+
+mysqldatabase = f"mysql+pymysql://usportsballwebapp:{password}.@localhost/usports_bball"
 class Config:
     """Default Configuration"""
     DEBUG = False
