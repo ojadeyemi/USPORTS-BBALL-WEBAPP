@@ -784,10 +784,6 @@ video {
   bottom: 0px;
 }
 
-.col-auto {
-  grid-column: auto;
-}
-
 .m-1 {
   margin: 0.25rem;
 }
@@ -816,11 +812,6 @@ video {
 .mx-4 {
   margin-left: 1rem;
   margin-right: 1rem;
-}
-
-.mx-6 {
-  margin-left: 1.5rem;
-  margin-right: 1.5rem;
 }
 
 .mx-auto {
@@ -991,10 +982,6 @@ video {
   height: 100vh;
 }
 
-.max-h-10 {
-  max-height: 2.5rem;
-}
-
 .min-h-screen {
   min-height: 100vh;
 }
@@ -1029,10 +1016,6 @@ video {
 
 .w-full {
   width: 100%;
-}
-
-.max-w-10 {
-  max-width: 2.5rem;
 }
 
 .max-w-5 {
@@ -1159,12 +1142,6 @@ video {
   --tw-space-y-reverse: 0;
   margin-top: calc(1.25rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(1.25rem * var(--tw-space-y-reverse));
-}
-
-.space-x-7 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-x-reverse: 0;
-  margin-right: calc(1.75rem * var(--tw-space-x-reverse));
-  margin-left: calc(1.75rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
 .divide-y > :not([hidden]) ~ :not([hidden]) {
@@ -1381,11 +1358,6 @@ video {
 
 .p-8 {
   padding: 2rem;
-}
-
-.px-1 {
-  padding-left: 0.25rem;
-  padding-right: 0.25rem;
 }
 
 .px-16 {
@@ -1762,6 +1734,11 @@ video {
   background-color: rgb(55 65 81 / var(--tw-bg-opacity));
 }
 
+.hover\:bg-green-900:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(20 83 45 / var(--tw-bg-opacity));
+}
+
 .hover\:bg-neutral-500:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(115 115 115 / var(--tw-bg-opacity));
@@ -1886,10 +1863,6 @@ video {
     display: inline;
   }
 
-  .md\:flex {
-    display: flex;
-  }
-
   .md\:table-cell {
     display: table-cell;
   }
@@ -1906,10 +1879,6 @@ video {
     height: 3rem;
   }
 
-  .md\:max-h-10 {
-    max-height: 2.5rem;
-  }
-
   .md\:w-11\/12 {
     width: 91.666667%;
   }
@@ -1922,16 +1891,8 @@ video {
     width: 75%;
   }
 
-  .md\:max-w-12 {
-    max-width: 3rem;
-  }
-
   .md\:max-w-7 {
     max-width: 1.75rem;
-  }
-
-  .md\:items-center {
-    align-items: center;
   }
 
   .md\:p-4 {
@@ -1989,10 +1950,6 @@ video {
 }
 
 @media (min-width: 1024px) {
-  .lg\:flex {
-    display: flex;
-  }
-
   .lg\:h-32 {
     height: 8rem;
   }
@@ -2007,10 +1964,6 @@ video {
 
   .lg\:w-2\/3 {
     width: 66.666667%;
-  }
-
-  .lg\:items-center {
-    align-items: center;
   }
 
   .lg\:px-32 {

@@ -9,6 +9,10 @@ load_dotenv()
 password = os.getenv("USPORT_BBALL_PASSWORD")
 
 mysqldatabase = f"mysql+pymysql://usportsballwebapp:{password}.@localhost/usports_bball"
+
+# SQLite database URL for development
+sqlite_database = "sqlite:///usports_bball_dev.db"
+
 class Config:
     """Default Configuration"""
     DEBUG = False
@@ -17,7 +21,7 @@ class Config:
 class DevelopmentConfig(Config):
     """Development Configuration"""
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = mysqldatabase
+    SQLALCHEMY_DATABASE_URI = sqlite_database
 
 class ProductionConfig(Config):
     """Production Configuration"""

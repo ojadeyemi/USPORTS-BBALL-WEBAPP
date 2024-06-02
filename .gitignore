@@ -16,7 +16,7 @@ build
 *.egg-info
 
 #tailwind and prettier stuff
-node_modules
+tailwindcss
 *prettier*
 
 #vscode stuff

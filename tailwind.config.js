@@ -1,8 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["../templates/**/*.html"],
+  content: ["./usport_flask_app/templates/**/*.html"],
   theme: {
     extend: {},
   },
   plugins: [],
-};
+}
+

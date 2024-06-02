@@ -1,11 +1,13 @@
 
 # How to Contribute
 
-To contribute to the USPORTS BASKETBALL WEB APP, follow these steps:
+ > NOTE: USPORTS has changed the structure of their website therefore  [usports-basketball](https://github.com/ojadeyemi/usports-basketball "Python package for current usports basketball stats") package will not be able to webscape data. Hopefully I find out how to update it. 
 
-1. Fork the repository to your GitHub account.
+### To contribute to the USPORTS BASKETBALL WEB APP, follow these steps:
 
-2. Clone the forked repository to your local machine:
+### 1. Fork the repository to your GitHub account.
+
+### 2. Clone the forked repository to your local machine:
 
 ```bash
 git clone https://github.com/ojadeyemi/USPORTS-BBALL-WEBAPP.git
@@ -13,9 +15,9 @@ git clone https://github.com/ojadeyemi/USPORTS-BBALL-WEBAPP.git
 git checkout -b new-feature-or-fix #create new branch to add feature
 ```
 ## Prerequisites
-- MYSQL instance
-- Python (version 3)
-- Nodejs
+- MYSQL instance (SQLITE for development)
+- Python (version 3.10 or greater)
+- TailwindCSS executable file (Standalone CLI)
 
 
 ### Create a virtual environment in the terminal
@@ -36,30 +38,49 @@ Make sure that you have both [Node.js](https://nodejs.org/en) and [Python](https
 
 Double check that your python Interpreter path is in your virtual environment directory and node_modules is in the static/ directory.
 
-
-Install flask and all other dependacies from the [requirements.txt](requirements.txt) file with pip:
+---
+### Install flask and all other dependacies from the [requirements.txt](requirements.txt) file with pip:
 
 ```bash
  pip install -r requirements.txt
 ```
-
-Navigate to the static/ directory and install tailwindcss package with NPM:
+---
+### Install Tailwind CSS standalone CLI
+To install the Tailwind CSS standalone CLI, follow these steps::
 ```bash
-cd usport_flask_app/static/
- npm install -D tailwindcss
+# Download the executable for your platform from the latest release on GitHub
+# Example for macOS arm64
+curl -sLO https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-macos-arm64
+
+# Give executable permissions to the downloaded file
+chmod +x tailwindcss-macos-arm64
+
+# Rename the executable to `tailwindcss`
+mv tailwindcss-macos-arm64 tailwindcss
 ```
+Now, you can use the standalone Tailwind CSS CLI just like the npm-distributed CLI tool:
+```bash
+# Create a tailwind.config.js file
+./tailwindcss init
 
+# Start a watcher
+./tailwindcss -i ./usport_flask_app/static/css/input.css -o ./usport_flask_app/static/css/output.css --watch
 
-3. Make your changes and improvements to the codebase.
+# Compile and minify your CSS for production
+./tailwindcss -i ./usport_flask_app/static/css/input.css -o ./usport_flask_app/static/css/output.css --minify
+```
+---
 
-4. Test your changes locally to ensure they work as expected.
+### 3. Make your changes and improvements to the codebase.
+
+### 4. Test your changes locally to ensure they work as expected.
 
 ```bash
  python app.py #run app on local server to see changes
  flask run --debug #or run with flask command
 ```
 
-5. Commit your changes with a descriptive commit message:
+### 5.  Commit your changes with a descriptive commit message:
 
 
 ```bash

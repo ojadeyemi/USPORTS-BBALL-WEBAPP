@@ -25,7 +25,7 @@ from sqlalchemy.exc import SQLAlchemyError
 from usports_basketball import usports_team_stats, usports_player_stats
 
 
-def update_usports_bball_db(mysql_password: str):
+def update_usports_bball_db(datbase_url: str):
     """
     Updates the usports_bball database with team and player statistics.
     """
@@ -36,11 +36,9 @@ def update_usports_bball_db(mysql_password: str):
     player_dtypes={'lastname_initials':types.NVARCHAR(length=5), 'first_name':types.NVARCHAR(length=255),
                     'school':types.NVARCHAR(length=50)}
 
-    mysqldatabase = f"mysql+pymysql://root:{mysql_password}@localhost/usports_bball"
-
     try:
         # Create a SQLAlchemy engine
-        engine = create_engine(mysqldatabase)
+        engine = create_engine(datbase_url)
         with engine.begin() as conn:
             logging.info("Connection successful!")
 
