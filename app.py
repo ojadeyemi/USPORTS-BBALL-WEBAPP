@@ -1,6 +1,6 @@
 """main app.py"""
 from dotenv import load_dotenv
-from config import DevelopmentConfig, ProductionConfig
+from config import DevelopmentConfig
 from usport_flask_app import create_app
 from usport_flask_app.models import db
 from data_pipeline import update_db
