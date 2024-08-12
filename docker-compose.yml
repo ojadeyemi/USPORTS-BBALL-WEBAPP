@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  flask-app:
+    build: .
+    ports:
+      - "5000:5000"
+    environment: #change as needed
+      - FLASK_APP=app.py
+      - FLASK_ENV=development
+      - FLASK_DEBUG=1
+      - USPORT_BBALL_USERNAME=${USPORT_BBALL_USERNAME}
+      - USPORT_BBALL_PASSWORD=${USPORT_BBALL_PASSWORD}
+    depends_on:
+      - mysql-db
+
+  mysql-db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: ${USPORT_BBALL_PASSWORD}
+      MYSQL_DATABASE: usports_bball
+      MYSQL_USER: ${USPORT_BBALL_USERNAME}
+      MYSQL_PASSWORD: ${USPORT_BBALL_PASSWORD}.
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
