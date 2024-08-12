@@ -6,9 +6,10 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Retrieve the environment variable
+username = os.getenv("USPORT_BBALL_USERNAME")
 password = os.getenv("USPORT_BBALL_PASSWORD")
 
-mysqldatabase = f"mysql+pymysql://usportsballwebapp:{password}.@localhost/usports_bball"
+mysqldatabase = f"mysql+pymysql://{username}:{password}.@localhost/usports_bball"
 
 # SQLite database URL for development
 sqlite_database = "sqlite:///usports_bball_dev.db"

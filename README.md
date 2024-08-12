@@ -15,8 +15,6 @@ The U SPORTS BASKETBALL WEB APP project is organized into two main folders:
 
     > Note: [usports-basketball](https://github.com/ojadeyemi/usports-basketball "Python package for current usports basketball stats") has been integrated as a dependency in web application development. This allows for independent script maintenance and updates while ensuring seamless integration with the application's data processing pipelines. 
 
-    > NOTE: USPORTS has changed the structure of their website therefore  [usports-basketball](https://github.com/ojadeyemi/usports-basketball "Python package for current usports basketball stats") package will not be able to webscape data. Hopefully I find out how to update it. 
-
 2. **usport_flask_app**: This folder contains the Flask application code. It includes the routes, models, and other web application files.
 
 ---

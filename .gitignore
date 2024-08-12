@@ -1,5 +1,5 @@
 virtualenv/
-venv/
+*venv/
 .env
 # Flask stuff:
 __pycache__

@@ -2,14 +2,14 @@
 from flask import Flask, render_template, request, redirect, url_for
 from sqlalchemy import func, cast, Numeric
 from sqlalchemy.exc import SQLAlchemyError
-from config import DevelopmentConfig
+from config import DevelopmentConfig, ProductionConfig
 from .models import db, Feedback, MenTeam, WomenTeam, MenPlayers, WomenPlayers
 from .radar_data_calculator import calculate_radar_data, find_min_max_values
 from .team_stats_calulator import calculate_categories
 
 
 
-def create_app(config_name=DevelopmentConfig):
+def create_app(config_name=ProductionConfig):
     """Create flask app instance"""
     app = Flask(__name__)
 

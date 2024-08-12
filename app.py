@@ -1,6 +1,6 @@
-"""main app.py"""
+"""main runapp.py"""
 from dotenv import load_dotenv
-from config import DevelopmentConfig
+from config import DevelopmentConfig, ProductionConfig
 from usport_flask_app import create_app
 from usport_flask_app.models import db
 from data_pipeline import update_db
@@ -8,7 +8,7 @@ from data_pipeline import update_db
 # Load environment variables from .env file
 load_dotenv()
 
-app = create_app(config_name=DevelopmentConfig)
+app = create_app(config_name=ProductionConfig)
 db.init_app(app)
 
 @app.cli.command()
