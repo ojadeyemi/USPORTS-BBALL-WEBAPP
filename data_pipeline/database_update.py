@@ -22,7 +22,7 @@ import os
 import logging
 from sqlalchemy import create_engine, text, types
 from sqlalchemy.exc import SQLAlchemyError
-from usports_basketball import usports_team_stats, usports_player_stats
+from usports_basketball import usport_teams_stats, usport_players_stats
 
 
 def update_usports_bball_db(datbase_url: str):
@@ -44,12 +44,12 @@ def update_usports_bball_db(datbase_url: str):
 
             try:
                 # dataframe for teams
-                men_df = usports_team_stats('men')
-                women_df = usports_team_stats('women')
+                men_df = usport_teams_stats('men')
+                women_df = usport_teams_stats('women')
 
-                # datafram for players
-                men_players_df = usports_player_stats('men')
-                women_players_df = usports_player_stats('women')
+                # dataframe for players
+                men_players_df = usport_players_stats('men')
+                women_players_df = usport_players_stats('women')
             except (ImportError, ValueError, TypeError) as e:
                 # Handle specific types of errors
                 logging.error("Error creating DataFrame: %s", e)
@@ -157,7 +157,3 @@ def update_usports_bball_db(datbase_url: str):
     except SQLAlchemyError as e:
         logging.error("An error occurred with the database transaction: %s", e)
 
-# Example usage:
-if __name__ == "__main__":
-    mysql_password = os.environ.get('USPORT_BBALL_PASSWORD')
-    update_usports_bball_db(mysql_password)
