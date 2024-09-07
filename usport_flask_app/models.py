@@ -15,37 +15,39 @@ Classes:
     - MenPlayers: Represents men's basketball player data.
     - WomenPlayers: Represents women's basketball player data.
 """
+
 from datetime import datetime, timezone
+
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import DateTime, Float, ForeignKey, Integer, String, Text
 from sqlalchemy.orm import Mapped, mapped_column
-from sqlalchemy import Integer, String, Float, ForeignKey, DateTime, Text
 
 db = SQLAlchemy()
 
 
 class Feedback(db.Model):
     """Class for representing feedback table"""
+
     __tablename__ = "feedback"
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     name: Mapped[str] = mapped_column(String(200))
     email: Mapped[str] = mapped_column(String(200))
     message: Mapped[str] = mapped_column(Text)
-    timestamp: Mapped[datetime] = mapped_column(
-        DateTime, default=datetime.now(tz=timezone.utc))
+    timestamp: Mapped[datetime] = mapped_column(DateTime, default=datetime.now(tz=timezone.utc))
 
-    def __init__(self, name: str, email:  str, message: str):
+    def __init__(self, name: str, email: str, message: str):
         self.name = name
         self.email = email
         self.message = message
 
 
 class __BaseTeam(db.Model):
-    """ Base class for representing a basketball team. """
+    """Base class for representing a basketball team."""
+
     __abstract__ = True
     team_id: Mapped[int] = mapped_column(Integer, primary_key=True)
     team_name: Mapped[str] = mapped_column(String(255), unique=True)
     conference: Mapped[str] = mapped_column(String(50))
-    last_ten_games: Mapped[str] = mapped_column(String(50))
     games_played: Mapped[int] = mapped_column(Integer)
     total_wins: Mapped[int] = mapped_column(Integer)
     total_losses: Mapped[int] = mapped_column(Integer)
@@ -66,8 +68,8 @@ class __BaseTeam(db.Model):
     steals_per_game: Mapped[float] = mapped_column(Float)
     blocks_per_game: Mapped[float] = mapped_column(Float)
     team_fouls_per_game: Mapped[float] = mapped_column(Float)
-    field_goals_percentage_against: Mapped[float] = mapped_column(Float)
-    three_points_percentage_against: Mapped[float] = mapped_column(Float)
+    field_goal_percentage_against: Mapped[float] = mapped_column(Float)
+    three_point_percentage_against: Mapped[float] = mapped_column(Float)
     offensive_rebounds_per_game_against: Mapped[float] = mapped_column(Float)
     defensive_rebounds_per_game_against: Mapped[float] = mapped_column(Float)
     total_rebounds_per_game_against: Mapped[float] = mapped_column(Float)
@@ -95,10 +97,11 @@ class __BaseTeam(db.Model):
 
 
 class __BasePlayer(db.Model):
-    """ Base class for representing a player in a basketball team. """
+    """Base class for representing a player in a basketball team."""
+
     __abstract__ = True
     player_id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    team_id: Mapped[int] = mapped_column(Integer, ForeignKey('__BaseTeam.team_id'))
+    team_id: Mapped[int] = mapped_column(Integer, ForeignKey("__BaseTeam.team_id"))
     first_name: Mapped[str] = mapped_column(String(255))
     lastname_initials: Mapped[str] = mapped_column(String(2))
     school: Mapped[str] = mapped_column(String(255))
@@ -113,7 +116,7 @@ class __BasePlayer(db.Model):
     disqualifications: Mapped[int] = mapped_column(Integer)
     assists: Mapped[int] = mapped_column(Integer)
     turnovers: Mapped[int] = mapped_column(Integer)
-    assist_per_turnover: Mapped[float] = mapped_column(Float)
+    assist_to_turnover_ratio: Mapped[float] = mapped_column(Float)
     steals: Mapped[int] = mapped_column(Integer)
     blocks: Mapped[int] = mapped_column(Integer)
     field_goal_made: Mapped[int] = mapped_column(Integer)
@@ -127,25 +130,31 @@ class __BasePlayer(db.Model):
     free_throws_percentage: Mapped[float] = mapped_column(Float)
 
     def __repr__(self):
-        return f"<Player(lastname_initials='{self.lastname_initials},first_name='{self.first_name}'," \
+        return (
+            f"<Player(lastname_initials='{self.lastname_initials},first_name='{self.first_name}',"
             f"school='{self.school}', player_id={self.player_id}, team_id={self.team_id})>"
+        )
 
 
 class MenTeam(__BaseTeam):
     """Represents men's basketball team data."""
+
     __tablename__ = "men_team"
 
 
 class WomenTeam(__BaseTeam):
     """Represents women's basketball team data."""
+
     __tablename__ = "women_team"
 
 
 class MenPlayers(__BasePlayer):
     """Represents men's basketball player data."""
+
     __tablename__ = "men_players"
 
 
 class WomenPlayers(__BasePlayer):
     """Represents women's basketball player data."""
+
     __tablename__ = "women_players"

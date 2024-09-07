@@ -1,7 +1,9 @@
 import os
+
 from dotenv import load_dotenv
-from data_pipeline.database_update import update_usports_bball_db
+
 from config import DevelopmentConfig, ProductionConfig
+from data_pipeline.database_update import update_usports_bball_db
 
 # Load environment variables from .env file
 load_dotenv()
@@ -14,6 +16,7 @@ if environment == "production":
 else:
     database_url = DevelopmentConfig.SQLALCHEMY_DATABASE_URI
 
+
 def update_db():
-    """ Update Database """
+    """Update Database"""
     update_usports_bball_db(database_url)

@@ -5,6 +5,7 @@ This website is a platform for sharing analytics and insights into the Canadian 
 <a name="readme-top"></a>
 
 ## Goal
+
 I want to provide valuable data-driven insights and analytics to basketball enthusiasts, coaches, players, fans, and prospective professional league stakeholders such as the CEBL so that they can better understand and enjoy U Sports basketball. Through this project, I aim to promote the sport and help it grow in Canadian universities.
 
 ## Project Structure
@@ -13,7 +14,7 @@ The U SPORTS BASKETBALL WEB APP project is organized into two main folders:
 
 1. **data_pipeline**: This folder contains scripts and functions for updating the database with the latest data from the USports website.
 
-    > Note: [usports-basketball](https://github.com/ojadeyemi/usports-basketball "Python package for current usports basketball stats") has been integrated as a dependency in web application development. This allows for independent script maintenance and updates while ensuring seamless integration with the application's data processing pipelines. 
+   > Note: [usports-basketball](https://github.com/ojadeyemi/usports-basketball "Python package for current usports basketball stats") has been integrated as a dependency in web application development. This allows for independent script maintenance and updates while ensuring seamless integration with the application's data processing pipelines.
 
 2. **usport_flask_app**: This folder contains the Flask application code. It includes the routes, models, and other web application files.
 
