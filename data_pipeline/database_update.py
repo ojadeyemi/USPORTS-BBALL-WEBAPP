@@ -24,7 +24,7 @@ import time
 
 from sqlalchemy import create_engine, text, types
 from sqlalchemy.exc import SQLAlchemyError
-from usports_basketball import usport_players_stats, usport_teams_stats
+from usports_basketball import usport_players_stats, usport_team_stats
 
 
 def update_usports_bball_db(datbase_url: str):
@@ -40,9 +40,6 @@ def update_usports_bball_db(datbase_url: str):
         team_dtypes = {
             "team_name": types.NVARCHAR(length=255),
             "conference": types.NVARCHAR(length=50),
-            "streak": types.NVARCHAR(length=50),
-            "home": types.NVARCHAR(length=50),  # update to home and away record
-            "away": types.NVARCHAR(length=50),
         }
         player_dtypes = {
             "lastname_initials": types.NVARCHAR(length=5),
@@ -72,13 +69,13 @@ def update_usports_bball_db(datbase_url: str):
 
             try:
                 # DataFrame for teams and players
-                men_df = usport_teams_stats("men")
+                men_df = usport_team_stats(arg="men",season_option="regular")
                 time.sleep(10)
-                women_df = usport_teams_stats("women")
+                women_df = usport_team_stats(arg="women",season_option="regular")
                 time.sleep(10)
-                men_players_df = usport_players_stats("men")
+                men_players_df = usport_players_stats(arg="men",season_option="regular")
                 time.sleep(10)
-                women_players_df = usport_players_stats("women")
+                women_players_df = usport_players_stats(arg="women",season_option="regular")
             except (ImportError, ValueError, TypeError) as e:
                 logging.error("Error creating DataFrame: %s", e)
                 raise
