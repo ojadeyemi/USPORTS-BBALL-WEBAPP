@@ -15,6 +15,16 @@ def create_app(config_name=ProductionConfig):
 
     app.config.from_object(config_name)
 
+    @app.route('/health')
+    def healthcheck():
+        """
+        Endpoint for health checks.
+
+        Returns:
+            dict: A JSON response indicating the application's health status.
+        """
+        return {'status': 'healthy'}
+
     # Define the route for the index page(home page)
     @app.route("/", methods=["POST", "GET"])
     def index():
