@@ -14,7 +14,7 @@ password = os.getenv("USPORT_BBALL_PASSWORD")
 mysqldatabase = f"mysql+pymysql://{username}:{password}.@localhost/usports_bball"
 
 # SQLite database URL for development
-sqlite_database = "sqlite:///{}".format(os.path.abspath("./instance/usports_bball_dev.db"))
+sqlite_database = f"sqlite:///{os.path.abspath('./instance/usports_bball_dev.db')}"
 
 
 class Config:

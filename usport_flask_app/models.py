@@ -52,7 +52,6 @@ class __BaseTeam(db.Model):
     total_wins: Mapped[int] = mapped_column(Integer)
     total_losses: Mapped[int] = mapped_column(Integer)
     win_percentage: Mapped[float] = mapped_column(Float(precision=2))
-    streak: Mapped[str] = mapped_column(String(50))
     offensive_efficiency: Mapped[float] = mapped_column(Float(precision=2))
     defensive_efficiency: Mapped[float] = mapped_column(Float(precision=2))
     net_efficiency: Mapped[float] = mapped_column(Float(precision=2))

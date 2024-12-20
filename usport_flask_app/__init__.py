@@ -75,7 +75,6 @@ def create_app(config_name=DevelopmentConfig):
                 Team.total_losses,
                 Team.total_wins,
                 cast(Team.win_percentage, Numeric(10, 2)).label("win_percentage"),
-                Team.streak,
                 Team.games_played,
                 cast(Team.offensive_efficiency, Numeric(10, 3)).label("offensive_efficiency"),
                 cast(Team.defensive_efficiency, Numeric(10, 3)).label("defensive_efficiency"),
@@ -141,7 +140,20 @@ def create_app(config_name=DevelopmentConfig):
         team: Union[MenTeam, WomenTeam] = team.query.filter_by(team_name=team_path).one()
         players = players.query.filter_by(team_id=team.team_id).all()
         fallback_player_portrait_url = url_for("static", filename="img/player_photos/default_portrait.png")
-        categories = ["Points", "FG%", "Threes", "3PT%", "Rebounds", "Off Rebounds", "Assists", "Steals", "Blocks", "Turnovers", "Fouls", "PointsPerPossession"]
+        categories = [
+            "Points",
+            "FG%",
+            "Threes",
+            "3PT%",
+            "Rebounds",
+            "Off Rebounds",
+            "Assists",
+            "Steals",
+            "Blocks",
+            "Turnovers",
+            "Fouls",
+            "PointsPerPossession",
+        ]
         team_stats, opponent_stats = calculate_categories(team)
         return render_template(
             "team.html",
