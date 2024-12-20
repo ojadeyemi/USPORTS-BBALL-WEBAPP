@@ -21,18 +21,7 @@
                     <!-- Shown on small screens -->
                 </th>
                 <th class="md:table-cell hidden">PCT</th>
-                <th>
-                    <span class="md:inline hidden">LAST 10</span>
-                    <!-- Hidden on small screens -->
-                    <span class="md:hidden px-3">L 10</span>
-                    <!-- Shown on small screens -->
-                </th>
-                <th>
-                    <span class="md:inline hidden">STREAK</span>
-                    <!-- Hidden on small screens -->
-                    <span class="md:hidden px-2">STRK</span>
-                    <!-- Shown on small screens -->
-                </th>
+
             </tr>
         </thead>
         <tbody class="standings-conference-table-body">
@@ -77,8 +66,6 @@
                 <td>{{ team.total_wins }}</td>
                 <td>{{ team.total_losses }}</td>
                 <td  class="md:table-cell hidden">{{ team.win_percentage }}</td>
-                <td>{{ team.last_ten_games }}</td>
-                <td>{{ team.streak }}</td>
             </tr>
             {% endfor %}
         </tbody>

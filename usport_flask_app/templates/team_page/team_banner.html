@@ -1,8 +1,8 @@
 <!-- For mobile screens -->
 <div class="md:hidden justify-stretch grid items-center grid-flow-col text-lg">
     <div class="flex flex-col items-center">
-        <div class="font-semibold">{{ team.last_ten_games }}</div>
-        <div class="text-gray-400">L10</div>
+        <div class="font-semibold">{{ team.total_wins }}</div>
+        <div class="text-gray-400">Wins</div>
     </div>
 
     <div class="flex flex-col items-center">
@@ -24,8 +24,8 @@
         {% endif %}
     </div>
     <div class="flex flex-col items-center">
-        <div class="font-semibold">{{ team.streak }}</div>
-        <div class="text-gray-400">Streak</div>
+        <div class="font-semibold">{{ team.total_losses }}</div>
+        <div class="text-gray-400">Loss</div>
     </div>
 </div>
 
@@ -66,12 +66,7 @@
     </div>
 
     <div class="flex flex-col items-center">
-        <div class="text-3xl font-semibold">{{ team.last_ten_games }}</div>
-        <div class="text-gray-400">L10</div>
-    </div>
-
-    <div class="flex flex-col items-center">
-        <div class="text-3xl font-semibold">{{ team.streak }}</div>
-        <div class="text-gray-400">Streak</div>
+        <div class="text-3xl font-semibold">{{ team.games_played }}</div>
+        <div class="text-gray-400">Total Games</div>
     </div>
 </div>
